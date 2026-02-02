@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WordResource" format=3 uid="uid://bbdov860jj05g"]
+
+[ext_resource type="Script" uid="uid://cje2vw2wvpby1" path="res://Scripts/Resources/WordResource.gd" id="1_ntoqn"]
+
+[resource]
+script = ExtResource("1_ntoqn")
+metadata/_custom_type_script = "uid://cje2vw2wvpby1"
