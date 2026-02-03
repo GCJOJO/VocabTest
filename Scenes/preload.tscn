@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://daed87bh85mj2"]
-
-[ext_resource type="Script" uid="uid://kcemusypy0rn" path="res://Scripts/preload.gd" id="1_xq0f0"]
-
-[node name="Preload" type="Node" unique_id=1215500669]
-script = ExtResource("1_xq0f0")

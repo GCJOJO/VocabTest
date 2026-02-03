@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 WordManager="*uid://cbj6545unpqg6"
-ConnectionManager="*uid://caw2fw1uanmnj"
 
 [display]
 
@@ -30,6 +29,10 @@ window/size/viewport_height=720
 [dotnet]
 
 project/assembly_name="VocabTest"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/uuid/plugin.cfg")
 
 [file_customization]
 
