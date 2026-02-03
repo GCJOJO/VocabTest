@@ -13,7 +13,7 @@ func _ready() -> void:
 		return
 	
 	RANDOMIZED_WORDS = WordManager.WORDS
-	RANDOMIZED_WORDS.shuffle()	
+	RANDOMIZED_WORDS.shuffle()
 	update_word()
 
 func update_word() -> void:

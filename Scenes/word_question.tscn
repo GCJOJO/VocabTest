@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://b3iqx1hgg3d6t"]
+
+[ext_resource type="Script" uid="uid://dm51qewwvsqhj" path="res://Scripts/WordQuestionScreen.gd" id="1_u0qxv"]
+
+[node name="WordQuestion" type="Control" unique_id=2005529088]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u0qxv")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=890170049]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="FrenchWord" type="RichTextLabel" parent="." unique_id=2014505898]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.089
+anchor_right = 0.5
+anchor_bottom = 0.21100001
+offset_left = -576.0
+offset_top = -0.08000183
+offset_right = 576.0
+offset_bottom = 0.07998657
+bbcode_enabled = true
+text = "[font_size=64][center]"
+scroll_active = false
+
+[node name="Context" type="RichTextLabel" parent="." unique_id=1316125103]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.178
+anchor_right = 0.5
+anchor_bottom = 0.256
+offset_left = -576.0
+offset_top = -0.16000366
+offset_right = 576.0
+offset_bottom = -0.32000732
+bbcode_enabled = true
+text = "[color=dark_gray][font_size=32][center]"
+scroll_active = false
+
+[node name="EnglishBox" type="LineEdit" parent="." unique_id=2062064674]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.356
+anchor_right = 0.5
+anchor_bottom = 0.44400004
+offset_left = -256.0
+offset_top = -0.32000732
+offset_right = 256.0
+offset_bottom = 0.3199768
+grow_horizontal = 2
+grow_vertical = 2
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="SendButton" type="Button" parent="." unique_id=1068437836]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.53300005
+anchor_right = 0.5
+anchor_bottom = 0.62200004
+offset_left = -256.0
+offset_right = 256.00006
+text = "Envoyer"
+
+[node name="Result" type="RichTextLabel" parent="." unique_id=11996207]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.711
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -256.0
+offset_top = 0.07998657
+offset_right = 256.0
+bbcode_enabled = true
+text = "[center][font_size=46][color=green]Correct !"
+
+[node name="Status" type="RichTextLabel" parent="." unique_id=505411195]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.1
+offset_right = 320.0
+offset_bottom = 128.0
+bbcode_enabled = true
+text = "[font_size=24]1/100
+Fautes : 16"
+
+[connection signal="pressed" from="SendButton" to="." method="sendButtonPressed"]

@@ -34,7 +34,7 @@ func http_request_completed(result : int, response_code : int, headers : PackedS
 			for wordJson in new_words:
 				var id : int = wordJson["identifiant"]
 				var fr : String = wordJson["français"]
-				var con : String = wordJson["contexte"]
+				var con : String = wordJson["contexte"] if wordJson["contexte"] != null else ""
 				
 				var unsplittedEn : String = wordJson["anglais"]
 				var en : PackedStringArray = unsplittedEn.split("/")

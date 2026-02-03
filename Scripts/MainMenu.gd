@@ -18,4 +18,4 @@ func loadSoloMode() -> void:
 	
 
 func loadMultiplayer() -> void:
-	get_tree().change_scene_to_file("res://Scenes/mutliplayer_lobby.tscn")
+	get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dm65j718p4jvv"]
 
 [ext_resource type="Script" uid="uid://dxsasutebqvaq" path="res://Scripts/MainMenu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://dqey0lw1tgu36" path="res://Resources/Images/Britain_Flag.jpg" id="2_48xlc"]
 
 [node name="MainMenu" type="Control" unique_id=1559205946]
 layout_mode = 3
@@ -21,14 +22,33 @@ grow_vertical = 2
 color = Color(0.15686275, 0.17254902, 0.20392157, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1110627461]
+clip_children = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
 anchor_top = 0.089
 anchor_right = 0.95000005
 anchor_bottom = 0.26700002
+offset_bottom = -0.24002075
 bbcode_enabled = true
 text = "[font_size=64][rainbow value=1 freq=0.1][wave strength=0.5][center]Vocab Test"
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="RichTextLabel" unique_id=528183285]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.31100002
+anchor_right = 0.5
+anchor_bottom = 0.31100002
+offset_left = -368.0
+offset_top = -68.30312
+offset_right = 424.0
+offset_bottom = 128.06223
+texture = ExtResource("2_48xlc")
+expand_mode = 2
+stretch_mode = 1
 
 [node name="SoloPlayButton" type="Button" parent="." unique_id=1731693430]
 layout_mode = 1

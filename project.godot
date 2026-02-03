@@ -38,8 +38,9 @@ enabled=PackedStringArray("res://addons/uuid/plugin.cfg")
 
 folder_colors={
 "res://": "red",
+"res://Prefabs/": "orange",
 "res://Resources/": "red",
-"res://Scenes/": "orange",
+"res://Scenes/": "yellow",
 "res://Scripts/": "blue"
 }
 

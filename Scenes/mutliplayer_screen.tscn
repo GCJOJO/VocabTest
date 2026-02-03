@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://do24ilobdftng"]
+
+[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/MutliplayerLobby.gd" id="1_7661t"]
+[ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="2_qc2uw"]
+
+[node name="MutliplayerScreen" type="Control" unique_id=1630086052]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7661t")
+
+[node name="LobbyDiscoveryScreen" type="Control" parent="." unique_id=1102496413]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="LobbyDiscoveryScreen" unique_id=494700670]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="CreateLobby" type="Button" parent="LobbyDiscoveryScreen" unique_id=169074693]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18100001
+anchor_top = 0.11100001
+anchor_right = 0.32500002
+anchor_bottom = 0.16700001
+offset_left = -103.68001
+offset_top = 0.0799942
+offset_right = 95.99997
+offset_bottom = -0.2400055
+text = "Créer une partie"
+
+[node name="Refresh" type="Button" parent="LobbyDiscoveryScreen" unique_id=1002970701]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75000006
+anchor_top = 0.11100001
+anchor_right = 0.75000006
+anchor_bottom = 0.16700001
+offset_left = -192.00006
+offset_top = 0.0799942
+offset_right = 191.99994
+offset_bottom = -0.2400055
+text = "Rafraichir"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LobbyDiscoveryScreen" unique_id=1622644996]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.26700002
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -448.0
+offset_top = -0.24002075
+offset_right = 448.0
+
+[node name="Lobbies" type="VBoxContainer" parent="LobbyDiscoveryScreen/ScrollContainer" unique_id=659963937]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LobbyScreen" type="Control" parent="." unique_id=1765891286]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LobbyScreen" unique_id=1858267337]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.26700002
+anchor_right = 0.5
+anchor_bottom = 0.62200004
+offset_left = -256.0
+offset_top = -0.24002075
+offset_right = 256.0
+offset_bottom = 0.15997314
+
+[node name="Players" type="VBoxContainer" parent="LobbyScreen/ScrollContainer" unique_id=632924695]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LobbyScreen" unique_id=1636389915]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="LobbyStatus" type="RichTextLabel" parent="LobbyScreen" unique_id=1027018059]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.089
+anchor_right = 0.5
+anchor_bottom = 0.178
+offset_left = -192.0
+offset_top = -0.08000183
+offset_right = 192.0
+offset_bottom = -0.16000366
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[font_size=32][wave  freq=5 amp=5][center][color=gray]En attente de l'hôte..."
+
+[node name="StartLobby" type="Button" parent="LobbyScreen" unique_id=261933659]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.689
+anchor_right = 0.5
+anchor_bottom = 0.77800006
+offset_left = -256.0
+offset_top = -0.08001709
+offset_right = 256.0
+offset_bottom = -0.16003418
+grow_horizontal = 2
+grow_vertical = 0
+text = "Démarer la partie"
+
+[node name="QuitLobby" type="Button" parent="LobbyScreen" unique_id=1606532046]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.88900006
+offset_left = -256.0
+offset_right = 256.0
+offset_bottom = -0.08001709
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quitter la partie"
+
+[node name="InGameScreen" type="Control" parent="." unique_id=1422569580]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WordQuestion" parent="InGameScreen" unique_id=2005529088 instance=ExtResource("2_qc2uw")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
+[connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]
+[connection signal="pressed" from="LobbyScreen/StartLobby" to="." method="startLobby"]
+[connection signal="pressed" from="LobbyScreen/QuitLobby" to="." method="leaveLobby"]

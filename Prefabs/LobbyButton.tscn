@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bqeh6556vw4qc"]
+
+[ext_resource type="Script" uid="uid://bvynjtsf4jj61" path="res://Scripts/lobby_button.gd" id="1_74j8m"]
+
+[node name="LobbyButton" type="Control" unique_id=2063067488]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 3
+anchor_left = 0.1
+anchor_right = 0.1
+anchor_bottom = 0.089
+offset_left = -128.0
+offset_right = 128.0
+offset_bottom = -0.08000183
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_74j8m")
+
+[node name="JoinButton" type="Button" parent="." unique_id=1152227006]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_right = 128.0
+text = "Rejoindre"
+
+[connection signal="pressed" from="JoinButton" to="." method="join"]
