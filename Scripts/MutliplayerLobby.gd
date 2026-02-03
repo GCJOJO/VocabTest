@@ -14,6 +14,8 @@ var socket : WebSocketPeer = WebSocketPeer.new()
 func _ready() -> void:
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
+	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
+	$InGameScreen/WordQuestion.readyNextQuestion.connect(requestNextWord)
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -78,6 +80,51 @@ func disbandLobby() -> void:
 	var json : String = JSON.stringify({"action" : "disband-lobby", "player_id" : playerId, "lobby_id" : lobbyId})
 	socket.send_text(json)
 
+func submitWord(word: String) -> void:
+	var json : String = JSON.stringify({"action" : "send-word", "player_id": playerId, "lobbyId": lobbyId, "word": word})
+	socket.send_text(json)
+
+func requestNextWord() -> void:
+	var json : String = JSON.stringify({"action" : "request-next-word", "player_id" : playerId, "lobby_id": lobbyId})
+	socket.send_text(json)
+
+func isInLobby() -> bool:
+	return not lobbyId.is_empty()
+	
+func queryIsLobbyOwner(id : String) -> void:
+	httpRequest.request('%s/owner/%s?player_id=%s' % [SERVER_ADRESS, id, playerId])
+
+func _doNewWord(newWordData) -> void:
+	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
+	var englishWords : PackedStringArray = newWordData["anglais"].split("/")
+	var newWord : = WordResource.new(newWordData["identifiant"], newWordData["français"], context, englishWords)
+	%WordQuestion.changeWord(newWord)
+
+func _doShowResult(valid : bool) -> void:
+	$InGameScreen/WordQuestion.showResult(false)
+
+func _doJoinLobby(newLobbyId : String) -> void:
+	lobbyId = newLobbyId
+	$LobbyDiscoveryScreen.visible = false
+	$LobbyScreen.visible = true
+	$LobbyScreen/StartLobby.disabled = true
+	$LobbyScreen/StartLobby.visible = false
+	queryIsLobbyOwner(lobbyId)
+
+func _doStartLobby() -> void:
+	$LobbyScreen.visible = false
+	$InGameScreen.visible = true
+
+func _doQuitLobby() -> void:
+	lobbyId = ""
+	$LobbyScreen.visible = false
+	$LobbyDiscoveryScreen.visible = true
+	enableAllButtons()
+	getLobbyList()
+	#get_tree().reload_current_scene()
+
+
+
 func http_request_completed(_result : int, _response_code : int, _headers : PackedStringArray, body : PackedByteArray):
 	var json = JSON.new()
 	json.parse(body.get_string_from_utf8())
@@ -141,40 +188,8 @@ func handle_packet(packet_str : String) -> void:
 			_doQuitLobby()
 		"lobby-disbanded":
 			_doQuitLobby()
-
-func isInLobby() -> bool:
-	return not lobbyId.is_empty()
-	
-func queryIsLobbyOwner(id : String) -> void:
-	var body = JSON.stringify({"lobby_id": id, "player_id" : playerId})
-	var headers = ["Content-Type: application/json"]
-	httpRequest.request('%s/owner' % SERVER_ADRESS, headers, HTTPClient.METHOD_GET, body)
-
-func _doNewWord(newWordData) -> void:
-	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
-	var englishWords : PackedStringArray = newWordData["anglais"].split("/")
-	var newWord : = WordResource.new(newWordData["identifiant"], newWordData["français"], context, englishWords)
-	%WordQuestion.changeWord(newWord)
-
-func _doJoinLobby(newLobbyId : String) -> void:
-	lobbyId = newLobbyId
-	$LobbyDiscoveryScreen.visible = false
-	$LobbyScreen.visible = true
-	$LobbyScreen/StartLobby.disabled = true
-	$LobbyScreen/StartLobby.visible = false
-	queryIsLobbyOwner(lobbyId)
-
-func _doStartLobby() -> void:
-	$LobbyScreen.visible = false
-	$InGameScreen.visible = true
-
-func _doQuitLobby() -> void:
-	lobbyId = ""
-	$LobbyScreen.visible = false
-	$LobbyDiscoveryScreen.visible = true
-	enableAllButtons()
-	getLobbyList()
-	#get_tree().reload_current_scene()
+		"show-result":
+			_doShowResult(data["valid"])
 
 func _process(_delta):
 	socket.poll()
