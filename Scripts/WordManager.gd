@@ -32,9 +32,11 @@ func http_request_completed(result : int, response_code : int, headers : PackedS
 			for wordJson in new_words:
 				var id : int = wordJson["identifiant"]
 				var fr : String = wordJson["français"]
+				var con : String = wordJson["contexte"]
+				
 				var unsplittedEn : String = wordJson["anglais"]
 				var en : PackedStringArray = unsplittedEn.split("/")
-				WORDS.append(WordResource.new(id, fr, en))
+				WORDS.append(WordResource.new(id, fr, con, en))
 				
 	words_loaded.emit()
 				

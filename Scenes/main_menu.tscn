@@ -54,7 +54,7 @@ offset_left = -160.0
 offset_top = 0.15997314
 offset_right = 160.0
 offset_bottom = 0.07998657
-disabled = true
 text = "Jouer (Multijoueur)"
 
 [connection signal="pressed" from="SoloPlayButton" to="." method="loadSoloMode"]
+[connection signal="pressed" from="MultiplayerPlayButton" to="." method="loadMultiplayer"]

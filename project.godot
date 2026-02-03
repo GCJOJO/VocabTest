@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 WordManager="*uid://cbj6545unpqg6"
+ConnectionManager="*uid://caw2fw1uanmnj"
 
 [display]
 

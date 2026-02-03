@@ -10,12 +10,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func loadSoloMode() -> void:
 	WordManager.load_words()
 	var callback = func():
 		get_tree().change_scene_to_file("res://Scenes/solo_mode.tscn")
 	WordManager.words_loaded.connect(callback)
 	
-	
-	
+
+func loadMultiplayer() -> void:
+	get_tree().change_scene_to_file("res://Scenes/mutliplayer_lobby.tscn")
