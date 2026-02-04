@@ -24,6 +24,8 @@ func update_word() -> void:
 	%SendButton.disabled = true
 	%FrenchWord.text = "[font_size=64][center]%s" % RANDOMIZED_WORDS[CURRENT_WORD_INDEX].FRENCH
 	%Status.text = "[font_size=24]%d/%d\nFautes : %d" % [CURRENT_WORD_INDEX + 1, len(RANDOMIZED_WORDS), mistakes]
+	%Context.text = "[color=dark_gray][font_size=32][center]%s" % RANDOMIZED_WORDS[CURRENT_WORD_INDEX].CONTEXT
+	%EnglishBox.grab_focus()
 
 func textUpdated(new_text : String) -> void:
 	%SendButton.disabled = new_text.is_empty() and not has_answered
@@ -52,6 +54,7 @@ func sendAnswer() -> void:
 		%Result.text = "[center][font_size=46][color=green]Correct !" if sucess else "[center][font_size=46][color=red]Faux !"
 		mistakes += 0 if sucess else 1
 		%Status.text = "[font_size=24]%d/%d\nFautes : %d" % [CURRENT_WORD_INDEX + 1, len(RANDOMIZED_WORDS), mistakes]
+		%SendButton.grab_focus()
 
 func _on_english_box_text_submitted(_new_text: String) -> void:
 	sendAnswer()

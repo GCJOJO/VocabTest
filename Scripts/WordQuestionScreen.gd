@@ -14,6 +14,9 @@ signal readyNextQuestion()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	%EnglishBox.text_changed.connect(onEnglishTextChanged)
+	%EnglishBox.text_submitted.connect(onEnglishTextSubmitted)
+	%SendButton.disabled = true
 	$Status.visible = false
 
 func setup(show_instant_result : bool, max_question_number: int) -> void:
@@ -43,10 +46,10 @@ func changeWord(newWord: WordResource) -> void:
 	%Context.text = "[color=dark_gray][font_size=32][center]%s" % currentWord.CONTEXT
 	
 	%SendButton.text = "Envoyer"
-	%SendButton.disabled = false
 	%EnglishBox.editable = true
 	%EnglishBox.text = ""
 	%Result.visible = false
+	%EnglishBox.grab_focus()
 	
 func sendButtonPressed():
 	if hasAnswered:
@@ -61,6 +64,7 @@ func sendButtonPressed():
 		%SendButton.disabled = true
 		%SendButton.text = "Envoyé"
 		%EnglishBox.editable = false
+		%SendButton.grab_focus()
 		entered_word.emit(playerWord)
 		
 		if showInstantResult:
@@ -68,3 +72,10 @@ func sendButtonPressed():
 			%SendButton.disabled = false
 			%SendButton.text = "Suivant"
 			%EnglishBox.editable = true
+
+func onEnglishTextSubmitted(newText: String) -> void:
+	if not newText.is_empty():
+		sendButtonPressed()
+
+func onEnglishTextChanged(newText: String) -> void:
+	%SendButton.disabled = newText.is_empty()
