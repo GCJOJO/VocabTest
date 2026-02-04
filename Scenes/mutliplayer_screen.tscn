@@ -156,7 +156,6 @@ grow_vertical = 0
 text = "Quitter la partie"
 
 [node name="InGameScreen" type="Control" parent="." unique_id=1422569580]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,18 +176,19 @@ color = Color(0.15686275, 0.17254902, 0.20392157, 1)
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.187
-anchor_right = 0.81900007
-offset_left = -0.63998413
-offset_right = -8.320068
 
 [node name="InGameScoreboard" parent="InGameScreen" unique_id=955663915 instance=ExtResource("2_gp6xo")]
 unique_name_in_owner = true
 layout_mode = 1
-anchor_left = 1.0
-anchor_top = -0.011000001
-offset_left = -576.0
-offset_top = 7.9200006
+anchors_preset = -1
+anchor_left = 0.96900004
+anchor_top = 0.089
+anchor_right = 0.96900004
+anchor_bottom = 0.88900006
+offset_left = -320.32007
+offset_top = -0.080005646
+offset_right = -0.32006836
+offset_bottom = -0.08001709
 
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]

@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/ScoreboardPlayer.gd" id="1_k7vaj"]
 
 [node name="ScoreboardPlayer" type="Control" unique_id=711861562]
-custom_minimum_size = Vector2(576, 64)
+custom_minimum_size = Vector2(320, 64)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -704.0
+offset_right = -960.0
 offset_bottom = -656.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -26,22 +26,23 @@ color = Color(0, 0, 0, 0.39215687)
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.66700006
-anchor_bottom = 1.0
-offset_right = -0.1920166
+anchor_right = 1.0
+anchor_bottom = 0.5
 bbcode_enabled = true
-text = "[font_size=32]Joueur"
+text = "[font_size=24]Joueur"
+scroll_active = false
 vertical_alignment = 1
 
 [node name="PlayerScore" type="RichTextLabel" parent="." unique_id=723244491]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.66700006
+anchor_left = 0.6
+anchor_top = 0.625
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.1920166
 bbcode_enabled = true
-text = "[font_size=32]Score"
+text = "[font_size=18]Score"
+scroll_active = false
 horizontal_alignment = 2
 vertical_alignment = 1
