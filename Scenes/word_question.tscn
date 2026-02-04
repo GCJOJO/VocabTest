@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_u0qxv")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=890170049]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,12 +100,16 @@ text = "[center][font_size=46][color=green]Correct !"
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.1
-anchor_right = 0.1
-offset_right = 320.0
-offset_bottom = 128.0
+anchor_left = 0.5
+anchor_top = 0.86700004
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -0.24005127
+offset_right = 96.0
 bbcode_enabled = true
-text = "[font_size=24]1/100
+text = "[center][font_size=24]1/100
 Fautes : 16"
+vertical_alignment = 1
 
 [connection signal="pressed" from="SendButton" to="." method="sendButtonPressed"]

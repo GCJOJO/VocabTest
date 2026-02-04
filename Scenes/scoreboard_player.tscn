@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://ck1vtllbrroip"]
+
+[ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/ScoreboardPlayer.gd" id="1_k7vaj"]
+
+[node name="ScoreboardPlayer" type="Control" unique_id=711861562]
+custom_minimum_size = Vector2(576, 64)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -704.0
+offset_bottom = -656.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_k7vaj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1338631911]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="PlayerName" type="RichTextLabel" parent="." unique_id=752266566]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.66700006
+anchor_bottom = 1.0
+offset_right = -0.1920166
+bbcode_enabled = true
+text = "[font_size=32]Joueur"
+vertical_alignment = 1
+
+[node name="PlayerScore" type="RichTextLabel" parent="." unique_id=723244491]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66700006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.1920166
+bbcode_enabled = true
+text = "[font_size=32]Score"
+horizontal_alignment = 2
+vertical_alignment = 1

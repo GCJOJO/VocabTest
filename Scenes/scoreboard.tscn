@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dxnxxv0ce1w6w"]
+
+[ext_resource type="Script" uid="uid://b5p01dxhyyst6" path="res://Scripts/Scoreboard.gd" id="1_53buj"]
+
+[node name="Scoreboard" type="Control" unique_id=1732405484]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_53buj")

@@ -81,7 +81,7 @@ func disbandLobby() -> void:
 	socket.send_text(json)
 
 func submitWord(word: String) -> void:
-	var json : String = JSON.stringify({"action" : "send-word", "player_id": playerId, "lobbyId": lobbyId, "word": word})
+	var json : String = JSON.stringify({"action" : "send-word", "player_id": playerId, "lobby_id": lobbyId, "word": word})
 	socket.send_text(json)
 
 func requestNextWord() -> void:
@@ -101,15 +101,26 @@ func _doNewWord(newWordData) -> void:
 	%WordQuestion.changeWord(newWord)
 
 func _doShowResult(valid : bool) -> void:
-	$InGameScreen/WordQuestion.showResult(false)
+	$InGameScreen/WordQuestion.showResult(valid)
 
-func _doJoinLobby(newLobbyId : String) -> void:
+func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 	lobbyId = newLobbyId
 	$LobbyDiscoveryScreen.visible = false
 	$LobbyScreen.visible = true
 	$LobbyScreen/StartLobby.disabled = true
 	$LobbyScreen/StartLobby.visible = false
 	queryIsLobbyOwner(lobbyId)
+	
+	currentLobbyPlayers.push_back({"player_id" : playerId, "score" : 0})
+	for i in range(0, len(currentLobbyPlayers)):
+		var newScore = currentLobbyPlayers[i]
+		var scorePlayerId = newScore["player_id"]
+		var newPlayerScore = newScore["score"]
+		%InGameScoreboard.setScore(scorePlayerId, newPlayerScore)
+		%LobbyScoreboard.setScore(scorePlayerId, newPlayerScore)
+	
+	%InGameScoreboard.refreshScoreboard()
+	%LobbyScoreboard.refreshScoreboard()
 
 func _doStartLobby() -> void:
 	$LobbyScreen.visible = false
@@ -123,7 +134,28 @@ func _doQuitLobby() -> void:
 	getLobbyList()
 	#get_tree().reload_current_scene()
 
+func _doEndGame() -> void:
+	#Maybe show end results screen
+	$InGameScreen.visible = false
+	$LobbyScreen.visible = true
+	queryIsLobbyOwner(lobbyId)
 
+func _doPlayerJoined(joiningPlayerId : String):
+	%InGameScoreboard.setScore(joiningPlayerId, 0)
+	%LobbyScoreboard.setScore(joiningPlayerId, 0)
+	%InGameScoreboard.refreshScoreboard()
+	%LobbyScoreboard.refreshScoreboard()
+
+func _doUpdateScores(updatedScores : Array) -> void:
+	for i in range(0, len(updatedScores)):
+		var newScore = updatedScores[i]
+		var scorePlayerId = newScore["player_id"]
+		var newPlayerScore = newScore["new_score"]
+		%InGameScoreboard.setScore(scorePlayerId, newPlayerScore)
+		%LobbyScoreboard.setScore(scorePlayerId, newPlayerScore)
+		
+	%InGameScoreboard.refreshScoreboard()
+	%LobbyScoreboard.refreshScoreboard()
 
 func http_request_completed(_result : int, _response_code : int, _headers : PackedStringArray, body : PackedByteArray):
 	var json = JSON.new()
@@ -180,16 +212,22 @@ func handle_packet(packet_str : String) -> void:
 		"lobby-started":
 			_doStartLobby()
 		"lobby-created":
-			_doJoinLobby(data["lobby_id"])
+			_doJoinLobby(data["lobby_id"], [])
 		"lobby-joined":
-			_doJoinLobby(data["lobby_id"])
+			_doJoinLobby(data["lobby_id"], data["current_lobby_players"])
 		"lobby-left":
 			print("Lobby Left")
 			_doQuitLobby()
 		"lobby-disbanded":
 			_doQuitLobby()
-		"show-result":
+		"player-joined":
+			_doPlayerJoined(data["player_id"])
+		"update-scores":
+			_doUpdateScores(data["scores"])
+		"show-results":
 			_doShowResult(data["valid"])
+		"end-game":
+			_doEndGame()
 
 func _process(_delta):
 	socket.poll()

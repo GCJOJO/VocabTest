@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://do24ilobdftng"]
 
 [ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/MutliplayerLobby.gd" id="1_7661t"]
+[ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
 [ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="2_qc2uw"]
 
 [node name="MutliplayerScreen" type="Control" unique_id=1630086052]
@@ -82,23 +83,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="LobbyScreen" unique_id=1858267337]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.26700002
-anchor_right = 0.5
-anchor_bottom = 0.62200004
-offset_left = -256.0
-offset_top = -0.24002075
-offset_right = 256.0
-offset_bottom = 0.15997314
-
-[node name="Players" type="VBoxContainer" parent="LobbyScreen/ScrollContainer" unique_id=632924695]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
 [node name="ColorRect" type="ColorRect" parent="LobbyScreen" unique_id=1636389915]
 layout_mode = 1
 anchors_preset = 15
@@ -107,6 +91,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LobbyScreen" unique_id=1858267337]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.26700002
+anchor_right = 0.5
+anchor_bottom = 0.62200004
+offset_left = -288.0
+offset_top = -0.24002075
+offset_right = 288.0
+offset_bottom = 0.15997314
+
+[node name="LobbyScoreboard" parent="LobbyScreen/ScrollContainer" unique_id=1732405484 instance=ExtResource("2_gp6xo")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="LobbyStatus" type="RichTextLabel" parent="LobbyScreen" unique_id=1027018059]
 unique_name_in_owner = true
@@ -154,6 +156,7 @@ grow_vertical = 0
 text = "Quitter la partie"
 
 [node name="InGameScreen" type="Control" parent="." unique_id=1422569580]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,9 +164,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="InGameScreen" unique_id=1001161699]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
 [node name="WordQuestion" parent="InGameScreen" unique_id=2005529088 instance=ExtResource("2_qc2uw")]
 unique_name_in_owner = true
 layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.187
+anchor_right = 0.81900007
+offset_left = -0.63998413
+offset_right = -8.320068
+
+[node name="InGameScoreboard" parent="InGameScreen" unique_id=955663915 instance=ExtResource("2_gp6xo")]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = -0.011000001
+offset_left = -576.0
+offset_top = 7.9200006
 
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]
