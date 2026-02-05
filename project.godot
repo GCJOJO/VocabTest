@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 WordManager="*uid://cbj6545unpqg6"
 GameManager="*uid://dypjhihkldj5u"
+RequestQueue="*uid://bvmyk0spm66yy"
 
 [display]
 
@@ -33,7 +34,7 @@ project/assembly_name="VocabTest"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/uuid/plugin.cfg", "res://addons/wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg", "res://addons/uuid/plugin.cfg", "res://addons/wakatime/plugin.cfg")
 
 [file_customization]
 

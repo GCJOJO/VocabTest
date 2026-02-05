@@ -1,24 +1,15 @@
 extends Control
 
 signal onUserLoggedIn(userId : String)
-var httpRequest : HTTPRequest = HTTPRequest.new()
 
 func _ready() -> void:
-	httpRequest.request_completed.connect(onRequestCompleted)
-	add_child(httpRequest)
 	
 	$Login/Control/Register.pressed.connect($Register.show)
 	$Login/Control/Login.pressed.connect(loginUser)
 	$Register/Control/Register.pressed.connect(registerUser)
 	$Register/Control/Login.pressed.connect($Register.hide)
 	
-func onRequestCompleted(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	var json = JSON.new()
-	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-	
-	print(response)
-	
+func onLoginCallback(response):
 	var action : String = response["action"]
 	if action == null or action.is_empty():
 		print("action is null or empty")
@@ -31,7 +22,7 @@ func onRequestCompleted(_result: int, _response_code: int, _headers: PackedStrin
 			$ReturnButton.disabled = false
 			print("User Logged In")
 		"login-failed":
-			$ReturnButton.disabled = true
+			$ReturnButton.disabled = false
 
 func loginUser() -> void:
 	if %UsernameLogin.text.is_empty():
@@ -40,12 +31,13 @@ func loginUser() -> void:
 		pass
 		
 	var username : String = %UsernameLogin.text
-	var password : String = %UsernameLogin.text
+	var password : String = %PasswordLogin.text
 	var password_hash = (password+GameManager.SALT).sha256_text()
 	
 	var jsonString : String = JSON.stringify({"username" : username, "password_hash" : password_hash})
 	
-	httpRequest.request("%s/login" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
+	#httpRequest.request("%s/login" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
+	RequestQueue.requestPost("%s/login" % GameManager.SERVER_ADRESS, onLoginCallback, jsonString)
 	$ReturnButton.disabled = true
 
 func registerUser() -> void:
@@ -73,6 +65,7 @@ func registerUser() -> void:
 	
 	var jsonString : String = JSON.stringify({"username" : username, "first_name" : first_name, "last_name" : last_name, "password_hash" : password_hash})
 	
-	httpRequest.request("%s/register" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
+	#httpRequest.request("%s/register" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
+	RequestQueue.requestPost("%s/register" % GameManager.SERVER_ADRESS, onLoginCallback, jsonString)
 	$ReturnButton.disabled = true
 	

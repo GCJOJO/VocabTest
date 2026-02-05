@@ -1,27 +1,23 @@
 extends Node
 
 var WORDS : Array[WordResource]
-var httpRequest : HTTPRequest
+#var httpRequest : HTTPRequest
 
 signal words_loaded()
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	httpRequest = HTTPRequest.new()
-	add_child(httpRequest)
-	httpRequest.request_completed.connect(self.http_request_completed)
+#func _ready() -> void:
+	#httpRequest = HTTPRequest.new()
+	#add_child(httpRequest)
+	#httpRequest.request_completed.connect(self.http_request_completed)
 
 func load_words() -> void:
-	var error := httpRequest.request("%s/vocab-test" % GameManager.SERVER_ADRESS)
-	if error != OK:
-		push_error("Une erreur est survenue dans la requête HTTP.")
+	#var error := httpRequest.request("%s/vocab-test" % GameManager.SERVER_ADRESS)
+	#if error != OK:
+		#push_error("Une erreur est survenue dans la requête HTTP.")
+	RequestQueue.requestGet("%s/vocab-test" % GameManager.SERVER_ADRESS, onWordsGet)
 
-func http_request_completed(result : int, response_code : int, headers : PackedStringArray, body : PackedByteArray):
-	var json = JSON.new()
-	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-
-	# Will print the user agent string used by the HTTPRequest node (as recognized by httpbin.org).
+func onWordsGet(response):
 	print(response["action"])
 	
 	var action = response["action"]

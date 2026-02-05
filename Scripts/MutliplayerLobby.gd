@@ -4,10 +4,8 @@ extends Control
 
 var lobbyId : String = ""
 
-var httpRequest : HTTPRequest = HTTPRequest.new()
+#var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
-
-var cached_players : Dictionary
 
 func _ready() -> void:
 	$LobbyScreen.visible = false
@@ -17,8 +15,8 @@ func _ready() -> void:
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	add_child(httpRequest)
-	httpRequest.request_completed.connect(self.http_request_completed)
+	#add_child(httpRequest)
+	#httpRequest.request_completed.connect(self.http_request_completed)
 	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
 	if error == OK:
 		print("Connecting to websocket")
@@ -57,7 +55,33 @@ func getLobbyList() -> void:
 	for child in children:
 		child.queue_free()
 	
-	httpRequest.request("%s/lobbies" % GameManager.SERVER_ADRESS)
+	RequestQueue.requestGet("%s/lobbies" % GameManager.SERVER_ADRESS, onLobbiesGet)
+
+func onLobbiesGet(response):
+	if response == null:
+		return
+
+	if not response.has("action"):
+		return
+	var action = response["action"]
+	if action == "set-lobbies":
+		%Refresh.disabled = false
+		
+		print(response["lobbies"])
+		for lobby in response["lobbies"]:
+			if lobby["status"] == "started":
+				continue
+			
+			var node = LOBBY_BUTTON_SCENE.instantiate()
+			if node is not LobbyButton:
+				node.queue_free()
+				continue
+			
+			var lobbyBtn : LobbyButton = node as LobbyButton
+			lobbyBtn.name = "LobbyButton-%s" % lobby["id"]
+			lobbyBtn.setup(lobby)
+			lobbyBtn.join_lobby.connect(joinLobby)
+			%Lobbies.add_child(lobbyBtn)
 
 func startLobby() -> void:
 	$LobbyScreen/StartLobby.disabled = true
@@ -90,7 +114,14 @@ func isInLobby() -> bool:
 	return not lobbyId.is_empty()
 	
 func queryIsLobbyOwner(id : String) -> void:
-	httpRequest.request('%s/owner/%s?player_id=%s' % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID])
+	RequestQueue.requestGet("%s/owner/%s?player_id=%s" % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID], func(response):
+		if response == null or response["action"] == null:
+			return
+		if response["action"] == "test-ownership":
+			var result : bool = response["result"]
+			$LobbyScreen/StartLobby.disabled = not result
+			$LobbyScreen/StartLobby.visible = result)
+	#httpRequest.request('%s/owner/%s?player_id=%s' % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID])
 
 func _doNewWord(newWordData) -> void:
 	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
@@ -155,42 +186,6 @@ func _doUpdateScores(updatedScores : Array) -> void:
 	%InGameScoreboard.refreshScoreboard()
 	%LobbyScoreboard.refreshScoreboard()
 
-func http_request_completed(_result : int, _response_code : int, _headers : PackedStringArray, body : PackedByteArray):
-	var json = JSON.new()
-	json.parse(body.get_string_from_utf8())
-	var response = json.get_data()
-
-	if response == null:
-		return
-
-	# Will print the user agent string used by the HTTPRequest node (as recognized by httpbin.org).
-	print(response)
-	if not response.has("action"):
-		return
-	var action = response["action"]
-	if action == "set-lobbies":
-		%Refresh.disabled = false
-		
-		print(response["lobbies"])
-		for lobby in response["lobbies"]:
-			if lobby["status"] == "started":
-				continue
-			
-			var node = LOBBY_BUTTON_SCENE.instantiate()
-			if node is not LobbyButton:
-				node.queue_free()
-				continue
-			
-			var lobbyBtn : LobbyButton = node as LobbyButton
-			lobbyBtn.name = "LobbyButton-%s" % lobby["id"]
-			lobbyBtn.setup(lobby)
-			lobbyBtn.join_lobby.connect(joinLobby)
-			%Lobbies.add_child(lobbyBtn)
-	if action == "test-ownership":
-		var result : bool = response["result"]
-		$LobbyScreen/StartLobby.disabled = not result
-		$LobbyScreen/StartLobby.visible = result
-	
 func handle_packet(packet_str : String) -> void:
 	var json : JSON = JSON.new()
 	json.parse(packet_str)
@@ -242,5 +237,6 @@ func _process(_delta):
 		var code = socket.get_close_code()
 		var reason = socket.get_close_reason()
 		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 		
 	

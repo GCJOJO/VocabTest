@@ -12,7 +12,7 @@ func disable() -> void:
 
 func setup(lobby):
 	lobbyId = lobby["id"]
-	$JoinButton.text = "Rejoindre : %d sur %d (%s)" % [lobby["player_count"], 10, lobbyId]
+	$JoinButton.text = "Rejoindre : %d sur %d" % [lobby["player_count"], 10]
 
 func join():
 	join_lobby.emit(lobbyId)

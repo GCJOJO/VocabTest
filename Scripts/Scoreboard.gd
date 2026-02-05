@@ -4,6 +4,8 @@ class_name Scoreboard
 @export var ScoreboardPlayerScene : PackedScene = preload("res://Scenes/scoreboard_player.tscn")
 var PLAYER_SCORES : Dictionary[String, int] = {}
 
+var PLAYERS_DATA_TO_UPDATE : Dictionary[String, Callable]
+
 #func _ready() -> void:
 	#setScore("Feur", 150)
 	#setScore("FJEioh0", 200)
@@ -22,6 +24,14 @@ var PLAYER_SCORES : Dictionary[String, int] = {}
 	#await get_tree().create_timer(5).timeout
 	#
 	#refreshScoreboard()
+	
+func _ready() -> void:
+	GameManager.userInfoChanged.connect(onUserInfoChanged)
+	
+func onUserInfoChanged(userId : String, userData : UserResource):
+	if PLAYERS_DATA_TO_UPDATE.has(userId):
+		var callback : Callable = PLAYERS_DATA_TO_UPDATE[userId]
+		callback.call(userData)
 	
 func setScore(playerId : String, playerScore : int) -> void:
 	PLAYER_SCORES[playerId] = playerScore
@@ -50,9 +60,15 @@ func refreshScoreboard() -> void:
 				node.queue_free()
 				continue
 			var scoreboardPlayer : ScoreboardPlayer = node as ScoreboardPlayer
+			
+			var player : UserResource = GameManager.getPlayerData(playerId)			
 			scoreboardPlayer.name = playerId
 			scoreboardPlayer.setId(playerId)
-			scoreboardPlayer.setName("Bob")
+			if player != null:
+				scoreboardPlayer.setName(player.USERNAME)
+			else:
+				PLAYERS_DATA_TO_UPDATE[playerId] = func(userData : UserResource): scoreboardPlayer.setName(userData.USERNAME)
+				
 			scoreboardPlayer.setScore(PLAYER_SCORES[playerId])
 			add_child(scoreboardPlayer)
 		orderedPlayer.push_back({"id" : playerId, "score" : PLAYER_SCORES[playerId]})

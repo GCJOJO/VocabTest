@@ -7,35 +7,56 @@ const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
 
 var PlayerUUID : String = ""
 
+var cachedPlayers : Dictionary = {}
+
+signal userInfoChanged(userId : String, userData : UserResource)
+
+func getPlayerData(userId : String):
+	if cachedPlayers.has(userId):
+		return cachedPlayers[userId]
+	
+	RequestQueue.requestGet("%s/user/%s" % [SERVER_ADRESS, userId], onUserGet)
+	return null
+
+func onUserGet(response) -> void:
+	if response == null:
+		return
+	
+	if not response.has("action"):
+		return
+	var action = response["action"]
+	if action != "user-info":
+		return
+		
+	var user = response["user_info"]
+	var userId : String = user["uuid"]
+	var newUser : UserResource = UserResource.new(userId, user["username"], user["first_name"], user["last_name"])
+	cachedPlayers[userId] = newUser
+	userInfoChanged.emit(userId, newUser)
+	print("User info changed for user id : %s", userId)
+
 func savePlayerData() -> void:
 	var save_file = FileAccess.open(PLAYER_DATA_SAVE_FILE, FileAccess.WRITE)
-	# JSON provides a static method to serialized JSON string.
 	var json_string = JSON.stringify({"player_uuid" : PlayerUUID})
-	# Store the save dictionary as a new line in the save file.
 	save_file.store_line(json_string)
 	
 func tryLoadPlayerData() -> void:
 	if not FileAccess.file_exists(PLAYER_DATA_SAVE_FILE):
-		return # Error! We don't have a save to load.
+		return
 
-	# Load the file line by line and process that dictionary to restore
-	# the object it represents.
 	var save_file = FileAccess.open(PLAYER_DATA_SAVE_FILE, FileAccess.READ)
 	var json_string = save_file.get_as_text()
 
-	# Creates the helper class to interact with JSON.
 	var json = JSON.new()
-
-	# Check if there is any error while parsing the JSON string, skip in case of failure.
 	var parse_result = json.parse(json_string)
 	if not parse_result == OK:
 		print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 		return
 
-	# Get the data from the JSON object.
 	var playerData = json.data
 
 	if not playerData.has("player_uuid"):
 		return
 	
 	PlayerUUID = playerData["player_uuid"]
+	GameManager.getPlayerData(PlayerUUID)

@@ -1,0 +1,50 @@
+extends Node
+
+var httpRequest : HTTPRequest = HTTPRequest.new()
+
+const HEADERS : = ["Content-Type: application/json"]
+
+var requestQueue : Array[Dictionary]
+var isProcessing : bool = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	httpRequest.request_completed.connect(self.onHttpRequestCompleted)
+	add_child(httpRequest)
+
+func requestGet(path : String, callback : Callable, body : String = ""):
+	requestQueue.push_back({"method" : "get", "path" : path, "callback" : callback, "body" : body})
+	
+func requestPost(path: String, callback : Callable, body : String = ""):
+	requestQueue.push_back({"method" : "post", "path" : path, "callback" : callback, "body" : body})
+
+func onHttpRequestCompleted(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	var request : Dictionary = requestQueue.pop_front()
+	var callback : Callable = request["callback"]
+	
+	var json : = JSON.new()
+	json.parse(body.get_string_from_utf8())
+	var response = json.get_data()
+	print("Got response : %s" % response)
+	
+	callback.call(response)
+	
+	isProcessing = false
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if not isProcessing and requestQueue.size() != 0:
+		var request : Dictionary = requestQueue.front()
+		var request_body : String = request["body"]
+		var request_method_string : String = request["method"]
+		var request_method : HTTPClient.Method
+		match request_method_string:
+			"get":
+				request_method = HTTPClient.Method.METHOD_GET
+			"post":
+				request_method = HTTPClient.Method.METHOD_POST
+		
+		var path : String = request["path"]
+		print("Processing request : %s %s, body : \"%s\"" % [request_method_string, path, request_body])
+		httpRequest.request(path, HEADERS, request_method, request_body)
+		isProcessing = true

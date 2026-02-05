@@ -18,14 +18,12 @@ func onUserLoggedIn(userUUID : String) -> void:
 	GameManager.PlayerUUID = userUUID
 	$MultiplayerPlayButton.disabled = false
 	
+	GameManager.getPlayerData(userUUID)
+	
 	GameManager.savePlayerData()
 	
 	$LoginButton.queue_free()
 	$LoginScreen.queue_free()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func loadSoloMode() -> void:
 	WordManager.load_words()
@@ -36,7 +34,3 @@ func loadSoloMode() -> void:
 
 func loadMultiplayer() -> void:
 	get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")
-
-
-func loginButton() -> void:
-	pass
