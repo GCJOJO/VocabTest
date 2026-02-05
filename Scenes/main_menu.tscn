@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxsasutebqvaq" path="res://Scripts/MainMenu.gd" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://dqey0lw1tgu36" path="res://Resources/Images/Britain_Flag.jpg" id="2_48xlc"]
+[ext_resource type="PackedScene" uid="uid://nay3bst87t03" path="res://Scenes/login_screen.tscn" id="3_1ehe0"]
 
 [node name="MainMenu" type="Control" unique_id=1559205946]
 layout_mode = 3
@@ -76,5 +77,24 @@ offset_right = 160.0
 offset_bottom = 0.07998657
 text = "Jouer (Multijoueur)"
 
+[node name="LoginButton" type="Button" parent="." unique_id=652983054]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.91700006
+anchor_right = 0.125
+anchor_bottom = 0.91700006
+offset_left = -96.0
+offset_top = -20.240051
+offset_right = 96.0
+offset_bottom = 19.759949
+grow_vertical = 0
+text = "Se connecter"
+
+[node name="LoginScreen" parent="." unique_id=1116364533 instance=ExtResource("3_1ehe0")]
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="SoloPlayButton" to="." method="loadSoloMode"]
 [connection signal="pressed" from="MultiplayerPlayButton" to="." method="loadMultiplayer"]
+[connection signal="pressed" from="LoginButton" to="LoginScreen" method="show"]

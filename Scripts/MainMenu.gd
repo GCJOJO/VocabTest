@@ -3,8 +3,25 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	GameManager.tryLoadPlayerData()
+	
+	if GameManager.PlayerUUID.is_empty():
+		$MultiplayerPlayButton.disabled = true
+		$LoginScreen.onUserLoggedIn.connect(onUserLoggedIn)
+	else:
+		$LoginButton.queue_free()
+		$LoginScreen.queue_free()
 
+
+func onUserLoggedIn(userUUID : String) -> void:
+	$LoginScreen.hide()
+	GameManager.PlayerUUID = userUUID
+	$MultiplayerPlayButton.disabled = false
+	
+	GameManager.savePlayerData()
+	
+	$LoginButton.queue_free()
+	$LoginScreen.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -19,3 +36,7 @@ func loadSoloMode() -> void:
 
 func loadMultiplayer() -> void:
 	get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")
+
+
+func loginButton() -> void:
+	pass

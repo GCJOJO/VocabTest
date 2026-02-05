@@ -1,0 +1,369 @@
+[gd_scene format=3 uid="uid://nay3bst87t03"]
+
+[ext_resource type="Script" uid="uid://rtf8d7tltf43" path="res://Scripts/LoginScreen.gd" id="1_5g20f"]
+
+[node name="LoginScreen" type="Control" unique_id=1116364533]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5g20f")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1537039517]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="ReturnButton" type="Button" parent="." unique_id=295682053]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.089
+anchor_right = 0.1
+anchor_bottom = 0.089
+offset_left = -64.0
+offset_top = -16.080002
+offset_right = 64.0
+offset_bottom = 15.919998
+text = "Retour"
+
+[node name="Login" type="ColorRect" parent="." unique_id=1627535769]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -232.0
+offset_right = 192.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="Control" type="Control" parent="Login" unique_id=745687936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Login/Control" unique_id=1520800315]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 32.0
+offset_right = 192.0
+offset_bottom = 112.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[font_size=32][center]Se connecter"
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Login/Control" unique_id=1468761030]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.30400002
+anchor_right = 0.5
+anchor_bottom = 0.393
+offset_left = -168.0
+offset_top = -0.1920166
+offset_right = 168.0
+offset_bottom = -0.06399536
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Nom d'utilisateur"
+scroll_active = false
+
+[node name="UsernameLogin" type="LineEdit" parent="Login/Control" unique_id=740748239]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.393
+anchor_right = 0.5
+anchor_bottom = 0.462
+offset_left = -168.0
+offset_top = -0.06399536
+offset_right = 168.0
+offset_bottom = 0.023986816
+max_length = 25
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Login/Control" unique_id=1232267131]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.30400002
+anchor_right = 0.5
+anchor_bottom = 0.393
+offset_left = -168.0
+offset_top = 111.80798
+offset_right = 168.0
+offset_bottom = 111.936005
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Mot de passe"
+scroll_active = false
+
+[node name="PasswordLogin" type="LineEdit" parent="Login/Control" unique_id=1699094894]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.393
+anchor_right = 0.5
+anchor_bottom = 0.462
+offset_left = -168.0
+offset_top = 111.936005
+offset_right = 168.0
+offset_bottom = 112.02399
+secret = true
+
+[node name="Login" type="Button" parent="Login/Control" unique_id=1936566961]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.75000006
+anchor_right = 0.5
+anchor_bottom = 0.82100004
+offset_left = -168.0
+offset_top = -3.0517578e-05
+offset_right = 168.0
+offset_bottom = 0.19198608
+text = "Se connecter"
+
+[node name="Register" type="Button" parent="Login/Control" unique_id=2113749064]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.87500006
+anchor_right = 0.5
+anchor_bottom = 0.98200005
+offset_left = -168.0
+offset_top = -3.0517578e-05
+offset_right = 168.0
+offset_bottom = 0.063964844
+text = "Ou Créer un compte"
+
+[node name="Register" type="ColorRect" parent="." unique_id=1178654552]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -296.0
+offset_right = 192.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="Control" type="Control" parent="Register" unique_id=906050060]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Register/Control" unique_id=787622692]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_right = 192.0
+offset_bottom = 40.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[font_size=18][center]Créer un compte"
+vertical_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Register/Control" unique_id=975274703]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.069000006
+anchor_right = 0.5
+anchor_bottom = 0.125
+offset_left = -168.0
+offset_top = 0.2559967
+offset_right = 168.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Nom d'utilisateur"
+scroll_active = false
+
+[node name="UsernameRegister" type="LineEdit" parent="Register/Control" unique_id=1209631050]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.13700001
+anchor_right = 0.5
+anchor_bottom = 0.19100001
+offset_left = -168.0
+offset_top = 0.08799744
+offset_right = 168.0
+offset_bottom = -0.01600647
+max_length = 25
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Register/Control" unique_id=1469415075]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.22200002
+anchor_right = 0.5
+anchor_bottom = 0.27600002
+offset_left = -168.0
+offset_top = -0.8720093
+offset_right = 168.0
+offset_bottom = 0.023986816
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Mot de passe"
+scroll_active = false
+
+[node name="PasswordRegister" type="LineEdit" parent="Register/Control" unique_id=1136884830]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.27800003
+anchor_right = 0.5
+anchor_bottom = 0.34500003
+offset_left = -168.0
+offset_top = -1.1280212
+offset_right = 168.0
+offset_bottom = 0.11198425
+secret = true
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Register/Control" unique_id=1384672258]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.35900003
+anchor_right = 0.5
+anchor_bottom = 0.42100003
+offset_left = -168.0
+offset_top = 0.21598816
+offset_right = 168.0
+offset_bottom = 0.023971558
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Confirmer le mot de passe"
+scroll_active = false
+
+[node name="PasswordConfirmation" type="LineEdit" parent="Register/Control" unique_id=1192963832]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.41500002
+anchor_right = 0.5
+anchor_bottom = 0.48400003
+offset_left = -168.0
+offset_top = -0.040008545
+offset_right = 168.0
+offset_bottom = 0.047973633
+secret = true
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Register/Control" unique_id=769933971]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.49800003
+anchor_right = 0.5
+anchor_bottom = 0.56
+offset_left = -168.0
+offset_top = 0.15197754
+offset_right = 168.0
+offset_bottom = -0.040008545
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Prénom"
+scroll_active = false
+
+[node name="FirstName" type="LineEdit" parent="Register/Control" unique_id=1187222862]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.54200006
+anchor_right = 0.5
+anchor_bottom = 0.623
+offset_left = -168.0
+offset_top = -0.1920166
+offset_right = 168.0
+offset_bottom = -7.0160217
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="Register/Control" unique_id=58720005]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.623
+anchor_right = 0.5
+anchor_bottom = 0.68500006
+offset_left = -168.0
+offset_top = 0.15197754
+offset_right = 168.0
+offset_bottom = -0.040039063
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Nom"
+scroll_active = false
+
+[node name="LastName" type="LineEdit" parent="Register/Control" unique_id=1795287985]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.679
+anchor_right = 0.5
+anchor_bottom = 0.75000006
+offset_left = -168.0
+offset_top = -0.104003906
+offset_right = 168.0
+offset_bottom = -1.1680298
+
+[node name="Register" type="Button" parent="Register/Control" unique_id=1412590990]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.79200006
+anchor_right = 0.5
+anchor_bottom = 0.84700006
+offset_left = -168.0
+offset_top = -0.1920166
+offset_right = 168.0
+offset_bottom = 0.1279602
+text = "Créer un compte"
+
+[node name="Login" type="Button" parent="Register/Control" unique_id=1999246447]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.88900006
+anchor_right = 0.5
+anchor_bottom = 0.97
+offset_left = -168.0
+offset_top = -0.06402588
+offset_right = 168.0
+offset_bottom = 0.27996826
+text = "Ou Se connecter"
+
+[connection signal="pressed" from="ReturnButton" to="." method="hide"]

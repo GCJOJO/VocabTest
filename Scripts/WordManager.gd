@@ -1,7 +1,5 @@
 extends Node
 
-const SERVER_ADRESS : String = "http://localhost:5762"
-
 var WORDS : Array[WordResource]
 var httpRequest : HTTPRequest
 
@@ -14,7 +12,7 @@ func _ready() -> void:
 	httpRequest.request_completed.connect(self.http_request_completed)
 
 func load_words() -> void:
-	var error := httpRequest.request("%s/vocab-test" % SERVER_ADRESS)
+	var error := httpRequest.request("%s/vocab-test" % GameManager.SERVER_ADRESS)
 	if error != OK:
 		push_error("Une erreur est survenue dans la requête HTTP.")
 

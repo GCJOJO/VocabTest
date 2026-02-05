@@ -1,15 +1,13 @@
 extends Control
 
-const SERVER_ADRESS : String = "http://localhost:5762"
-const WEBSOCKET_ADRESS : String = "ws://localhost:5763"
-
 @export var LOBBY_BUTTON_SCENE : PackedScene = preload("res://Prefabs/LobbyButton.tscn")
 
-@onready var playerId : String = UUID.v4()
 var lobbyId : String = ""
 
 var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
+
+var cached_players : Dictionary
 
 func _ready() -> void:
 	$LobbyScreen.visible = false
@@ -21,7 +19,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(httpRequest)
 	httpRequest.request_completed.connect(self.http_request_completed)
-	var error = socket.connect_to_url(WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
+	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
 	if error == OK:
 		print("Connecting to websocket")
 		await get_tree().create_timer(1).timeout
@@ -48,7 +46,7 @@ func enableAllButtons() -> void:
 func createLobby() -> void:
 	disableAllButtons()
 	
-	var json : String = JSON.stringify({"action" : "create-lobby", "player_id" : playerId})
+	var json : String = JSON.stringify({"action" : "create-lobby", "player_id" : GameManager.PlayerUUID})
 	#socket.put_packet(json.to_utf8_buffer())
 	socket.send_text(json)
 	
@@ -59,40 +57,40 @@ func getLobbyList() -> void:
 	for child in children:
 		child.queue_free()
 	
-	httpRequest.request("%s/lobbies" % SERVER_ADRESS)
+	httpRequest.request("%s/lobbies" % GameManager.SERVER_ADRESS)
 
 func startLobby() -> void:
 	$LobbyScreen/StartLobby.disabled = true
-	var json : String = JSON.stringify({"action" : "start-lobby", "player_id" : playerId, "lobby_id": lobbyId})
+	var json : String = JSON.stringify({"action" : "start-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id": lobbyId})
 	socket.send_text(json)
 	
 func joinLobby(joinedLobbyId : String) -> void:
 	disableAllButtons()
 		
-	var json : String = JSON.stringify({"action" : "join-lobby", "player_id" : playerId, "lobby_id" : joinedLobbyId})
+	var json : String = JSON.stringify({"action" : "join-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : joinedLobbyId})
 	socket.send_text(json)
 
 func leaveLobby() -> void:
-	var json : String = JSON.stringify({"action" : "leave-lobby", "player_id" : playerId, "lobby_id" : lobbyId})
+	var json : String = JSON.stringify({"action" : "leave-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
 	
 func disbandLobby() -> void:
-	var json : String = JSON.stringify({"action" : "disband-lobby", "player_id" : playerId, "lobby_id" : lobbyId})
+	var json : String = JSON.stringify({"action" : "disband-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
 
 func submitWord(word: String) -> void:
-	var json : String = JSON.stringify({"action" : "send-word", "player_id": playerId, "lobby_id": lobbyId, "word": word})
+	var json : String = JSON.stringify({"action" : "send-word", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "word": word})
 	socket.send_text(json)
 
 func requestNextWord() -> void:
-	var json : String = JSON.stringify({"action" : "request-next-word", "player_id" : playerId, "lobby_id": lobbyId})
+	var json : String = JSON.stringify({"action" : "request-next-word", "player_id" : GameManager.PlayerUUID, "lobby_id": lobbyId})
 	socket.send_text(json)
 
 func isInLobby() -> bool:
 	return not lobbyId.is_empty()
 	
 func queryIsLobbyOwner(id : String) -> void:
-	httpRequest.request('%s/owner/%s?player_id=%s' % [SERVER_ADRESS, id, playerId])
+	httpRequest.request('%s/owner/%s?player_id=%s' % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID])
 
 func _doNewWord(newWordData) -> void:
 	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
@@ -111,7 +109,7 @@ func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 	$LobbyScreen/StartLobby.visible = false
 	queryIsLobbyOwner(lobbyId)
 	
-	currentLobbyPlayers.push_back({"player_id" : playerId, "score" : 0})
+	currentLobbyPlayers.push_back({"player_id" : GameManager.PlayerUUID, "score" : 0})
 	for i in range(0, len(currentLobbyPlayers)):
 		var newScore = currentLobbyPlayers[i]
 		var scorePlayerId = newScore["player_id"]
