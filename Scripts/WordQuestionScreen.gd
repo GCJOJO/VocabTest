@@ -23,17 +23,28 @@ func setup(show_instant_result : bool, max_question_number: int) -> void:
 	showInstantResult = show_instant_result
 	maxQuestionNumber = max_question_number
 	
-func showResult(valid: bool) -> void:
+
+func showResult(wordSimilarity: float, similarityThreshold : float) -> void:
 	%SendButton.text = "Suivant"
 	%SendButton.disabled = false
 	%EnglishBox.editable = false
+	
+	hasAnswered = true
+	%SendButton.grab_focus()
 	
 	var englishStr : String = " / ".join(currentWord.ENGLISH)
 	
 	%EnglishBox.text = englishStr
 	%Result.visible = true
-	%Result.text = "[center][font_size=46][color=green]Correct !" if valid else "[center][font_size=46][color=red]Faux !"
-	mistakes += 0 if valid else 1
+	
+	if wordSimilarity == 1:
+		%Result.text = "[center][font_size=46][color=green]Correct !"
+	elif wordSimilarity >= similarityThreshold:
+		%Result.text = "[center][font_size=46][color=orange]Presque !"
+	else:
+		%Result.text = "[center][font_size=46][color=red]Faux !"
+	
+	mistakes += 0 if wordSimilarity >= similarityThreshold else 1
 	%Status.text = "[center][font_size=24]%d/%d\nFautes : %d" % [currentQuestionNumber, maxQuestionNumber, mistakes]
 	
 func incrementQuestionNumber() -> void:
@@ -50,6 +61,7 @@ func changeWord(newWord: WordResource) -> void:
 	%EnglishBox.text = ""
 	%Result.visible = false
 	%EnglishBox.grab_focus()
+	hasAnswered = false
 	
 func sendButtonPressed():
 	if hasAnswered:
@@ -59,16 +71,14 @@ func sendButtonPressed():
 	else:
 		if %EnglishBox.text.is_empty():
 			return
-		hasAnswered = true
 		var playerWord : String = %EnglishBox.text.to_lower()
 		%SendButton.disabled = true
 		%SendButton.text = "Envoyé"
 		%EnglishBox.editable = false
-		%SendButton.grab_focus()
 		entered_word.emit(playerWord)
 		
 		if showInstantResult:
-			showResult(WordManager.checkEnteredWord(currentWord, playerWord))
+			showResult(WordManager.checkEnteredWord(currentWord, playerWord), 0.8)
 			%SendButton.disabled = false
 			%SendButton.text = "Suivant"
 			%EnglishBox.editable = true

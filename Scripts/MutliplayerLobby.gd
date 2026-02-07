@@ -7,23 +7,52 @@ var lobbyId : String = ""
 #var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
 
+const WEBSOCKET_TIMEOUT : int = 100
+
+var LobbyOptions = {
+	"max_words" : 10,
+	"categories": 16,
+	"round_timer": 15, 
+	"similarity_threshold": 0.8
+}
+
 func _ready() -> void:
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
 	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
 	$InGameScreen/WordQuestion.readyNextQuestion.connect(requestNextWord)
 	
+	%GameOptions.wordsCountChanged.connect(func(value : int): updateLobbyOptions("max_words", value))
+	%GameOptions.wordsThresholdChanged.connect(func(value: float): updateLobbyOptions("similarity_threshold", value))
+	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
+	
+	%GameOptions.setIsDisabled(true)
+	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	#add_child(httpRequest)
-	#httpRequest.request_completed.connect(self.http_request_completed)
 	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
 	if error == OK:
 		print("Connecting to websocket")
-		await get_tree().create_timer(1).timeout
 		
-		socket.send_text("Feur ahahahahahahahahaéh")
-		getLobbyList()
+		%CreateLobby.disabled = true
+		%Refresh.disabled = true
+		
+		var timeSpent : int = 0
+		var couldConnect : bool = false
+		while timeSpent < WEBSOCKET_TIMEOUT:
+			await get_tree().create_timer(0.1).timeout
+			timeSpent += 1
+			if socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+				socket.send_text("Feur ahahahahahahahahaéh")
+				getLobbyList()
+				couldConnect = true
+				%CreateLobby.disabled = false
+				%Refresh.disabled = false
+				break
+		if not couldConnect:
+			push_warning("Unable to connect to websocket")
+			returnToMainMenu()
+			return
 	else:
 		push_error("Unable to connect to websocket")
 	
@@ -119,9 +148,18 @@ func queryIsLobbyOwner(id : String) -> void:
 			return
 		if response["action"] == "test-ownership":
 			var result : bool = response["result"]
-			$LobbyScreen/StartLobby.disabled = not result
-			$LobbyScreen/StartLobby.visible = result)
+			setIsLobbyOwner(result))
 	#httpRequest.request('%s/owner/%s?player_id=%s' % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID])
+
+func setIsLobbyOwner(isOwner : bool):
+	$LobbyScreen/StartLobby.disabled = not isOwner
+	$LobbyScreen/StartLobby.visible = isOwner
+	%GameOptions.setIsDisabled(not isOwner)
+
+func updateLobbyOptions(key : String, value) :
+	LobbyOptions[key] = value
+	var json : String = JSON.stringify({"action" : "update-lobby-options", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "options": LobbyOptions})
+	socket.send_text(json)
 
 func _doNewWord(newWordData) -> void:
 	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
@@ -129,8 +167,8 @@ func _doNewWord(newWordData) -> void:
 	var newWord : = WordResource.new(newWordData["identifiant"], newWordData["français"], context, englishWords)
 	%WordQuestion.changeWord(newWord)
 
-func _doShowResult(valid : bool) -> void:
-	$InGameScreen/WordQuestion.showResult(valid)
+func _doShowResult(wordSimilarity : float, similarityThreshold : float) -> void:
+	$InGameScreen/WordQuestion.showResult(wordSimilarity, similarityThreshold)
 
 func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 	lobbyId = newLobbyId
@@ -154,6 +192,8 @@ func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 func _doStartLobby() -> void:
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = true
+	$InGameScreen/Timer.setMaxRoundTimer(LobbyOptions["round_timer"])
+	$InGameScreen/Timer.setRoundTimer(LobbyOptions["round_timer"])
 
 func _doQuitLobby() -> void:
 	lobbyId = ""
@@ -193,7 +233,8 @@ func handle_packet(packet_str : String) -> void:
 		return
 	
 	var data = json.get_data()
-	print(data)
+	if GameManager.DEBUG_MODE:
+		print(data)
 	
 	if not data.has("action"):
 		return
@@ -217,10 +258,24 @@ func handle_packet(packet_str : String) -> void:
 			_doPlayerJoined(data["player_id"])
 		"update-scores":
 			_doUpdateScores(data["scores"])
+		"lobby-options-updated":
+			LobbyOptions = data["options"]
+			%GameOptions.updateOptions(data["options"])
 		"show-results":
-			_doShowResult(data["valid"])
+			_doShowResult(data["word_similarity"], data["similarity_threshold"])
 		"end-game":
 			_doEndGame()
+		"new-owner":
+			setIsLobbyOwner(data["player_id"] == GameManager.PlayerUUID)
+		"timer-update":
+			var currentTime = LobbyOptions["round_timer"] - data["current_round_timer"]
+			$InGameScreen/Timer.setRoundTimer(currentTime)
+		"player-left":
+			%LobbyScoreboard.removePlayer(data["player_id"])
+			%InGameScoreboard.removePlayer(data["player_id"])
+			%LobbyScoreboard.refreshScoreboard()
+			%InGameScoreboard.refreshScoreboard()
+			pass
 
 func _process(_delta):
 	socket.poll()
@@ -228,7 +283,6 @@ func _process(_delta):
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
 			var packetStr = socket.get_packet().get_string_from_utf8()
-			print("Packet: ", packetStr)
 			handle_packet(packetStr)
 	elif state == WebSocketPeer.STATE_CLOSING:
 		# Keep polling to achieve proper close.
@@ -237,6 +291,8 @@ func _process(_delta):
 		var code = socket.get_close_code()
 		var reason = socket.get_close_reason()
 		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
-		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+		returnToMainMenu()
 		
 	
+func returnToMainMenu() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

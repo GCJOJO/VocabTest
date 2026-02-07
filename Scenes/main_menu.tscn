@@ -91,6 +91,21 @@ offset_bottom = 19.759949
 grow_vertical = 0
 text = "Se connecter"
 
+[node name="LogoutButton" type="Button" parent="." unique_id=1008637926]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.91700006
+anchor_right = 0.125
+anchor_bottom = 0.91700006
+offset_left = -96.0
+offset_top = -20.240051
+offset_right = 96.0
+offset_bottom = 19.759949
+grow_vertical = 0
+text = "Se déconnecter"
+
 [node name="LoginScreen" parent="." unique_id=1116364533 instance=ExtResource("3_1ehe0")]
 visible = false
 layout_mode = 1
@@ -98,3 +113,4 @@ layout_mode = 1
 [connection signal="pressed" from="SoloPlayButton" to="." method="loadSoloMode"]
 [connection signal="pressed" from="MultiplayerPlayButton" to="." method="loadMultiplayer"]
 [connection signal="pressed" from="LoginButton" to="LoginScreen" method="show"]
+[connection signal="pressed" from="LogoutButton" to="." method="logout"]

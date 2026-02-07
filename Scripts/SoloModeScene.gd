@@ -1,5 +1,6 @@
 extends Control
 
+const ERROR_THRESHOLD : float = 0.8
 var RANDOMIZED_WORDS : Array[WordResource]
 var CURRENT_WORD_INDEX : int = -1
 var has_answered : bool = false
@@ -39,11 +40,13 @@ func sendAnswer() -> void:
 		%Result.visible = false
 		update_word()
 	else:
-		if %EnglishBox.text.is_empty():
+		var enteredWord : String = %EnglishBox.text
+		if enteredWord.is_empty():
 			return
 		
 		has_answered = true
-		var sucess = WordManager.checkEnteredWord(RANDOMIZED_WORDS[CURRENT_WORD_INDEX], %EnglishBox.text)
+		var similarity = WordManager.checkEnteredWord(RANDOMIZED_WORDS[CURRENT_WORD_INDEX], enteredWord)
+		var sucess =  similarity >= ERROR_THRESHOLD
 		%SendButton.text = "Suivant"
 		%EnglishBox.editable = false
 		
@@ -51,7 +54,14 @@ func sendAnswer() -> void:
 		
 		%EnglishBox.text = englishStr
 		%Result.visible = true
-		%Result.text = "[center][font_size=46][color=green]Correct !" if sucess else "[center][font_size=46][color=red]Faux !"
+		
+		if sucess and similarity == 1:
+			%Result.text = "[center][font_size=46][color=green]Correct !"
+		elif sucess and similarity != 1:
+			%Result.text = "[center][font_size=46][color=orange]Presque !"
+		else:
+			%Result.text = "[center][font_size=46][color=red]Faux !"
+		
 		mistakes += 0 if sucess else 1
 		%Status.text = "[font_size=24]%d/%d\nFautes : %d" % [CURRENT_WORD_INDEX + 1, len(RANDOMIZED_WORDS), mistakes]
 		%SendButton.grab_focus()

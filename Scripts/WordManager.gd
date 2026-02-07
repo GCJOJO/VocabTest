@@ -36,8 +36,44 @@ func onWordsGet(response):
 				
 	words_loaded.emit()
 				
-func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> bool:
+#func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
+	#for englishWord : String in wordResource.ENGLISH:
+		#if enteredWord.to_lower().contains(englishWord.to_lower()): # TODO : Better Checks, Check for distance and give less points but still "correct" answer
+			#return true
+	#return false
+	
+func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
+	var min_distance : float = 1.0
 	for englishWord : String in wordResource.ENGLISH:
-		if enteredWord.to_lower().contains(englishWord.to_lower()): # TODO : Better Checks, Check for distance and give less points but still "correct" answer
-			return true
-	return false
+		min_distance = min(levenshteinDistance(englishWord, enteredWord), min_distance)
+	return (1.0 - min_distance)
+
+func levenshteinDistance(wordA : String, wordB : String) -> float:
+	# Create an empty matrix with the dimensions of the lengths of the strings plus one
+	var maxLength : float = max(wordA.length(), wordB.length())
+	var matrix = []
+	for i in range(len(wordA) + 1):
+		matrix.append([])
+		for j in range(len(wordB) + 1):
+			matrix[i].append(0)
+
+	# Initialize the first row and column with the indices of the strings
+	for i in range(len(wordA) + 1):
+		matrix[i][0] = i
+	for j in range(len(wordB) + 1):
+		matrix[0][j] = j
+
+	# Fill the rest of the matrix with the minimum values of the possible operations
+	for i in range(1, len(wordA) + 1):
+		for j in range(1, len(wordB) + 1):
+			var cost
+			# If the characters are equal, there is no additional cost
+			if wordA[i - 1] == wordB[j - 1]:
+				cost = 0
+			else:
+				cost = 1
+			# The value of the cell is the minimum between deleting, inserting or replacing the character
+			matrix[i][j] = min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost)
+
+	# The last value of the matrix is ​​the Levenshtein distance between the two strings
+	return matrix[len(wordA)][len(wordB)] / maxLength

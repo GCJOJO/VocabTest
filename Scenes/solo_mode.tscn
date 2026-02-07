@@ -92,6 +92,7 @@ offset_top = 0.07998657
 offset_right = 256.0
 bbcode_enabled = true
 text = "[center][font_size=46][color=green]Correct !"
+scroll_active = false
 
 [node name="Status" type="RichTextLabel" parent="." unique_id=1867051884]
 unique_name_in_owner = true

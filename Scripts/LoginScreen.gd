@@ -21,6 +21,7 @@ func onLoginCallback(response):
 			onUserLoggedIn.emit(newUUID)
 			$ReturnButton.disabled = false
 			print("User Logged In")
+			hide()
 		"login-failed":
 			$ReturnButton.disabled = false
 

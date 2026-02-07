@@ -9,8 +9,9 @@ func _ready() -> void:
 		$MultiplayerPlayButton.disabled = true
 		$LoginScreen.onUserLoggedIn.connect(onUserLoggedIn)
 	else:
-		$LoginButton.queue_free()
-		$LoginScreen.queue_free()
+		onUserLoggedIn(GameManager.PlayerUUID)
+		
+	WordManager.load_words()
 
 
 func onUserLoggedIn(userUUID : String) -> void:
@@ -22,8 +23,9 @@ func onUserLoggedIn(userUUID : String) -> void:
 	
 	GameManager.savePlayerData()
 	
-	$LoginButton.queue_free()
-	$LoginScreen.queue_free()
+	$LoginButton.hide()
+	$LoginScreen.hide()
+	$LogoutButton.show()
 
 func loadSoloMode() -> void:
 	WordManager.load_words()
@@ -34,3 +36,11 @@ func loadSoloMode() -> void:
 
 func loadMultiplayer() -> void:
 	get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")
+
+
+func logout() -> void:
+	GameManager.PlayerUUID = ""
+	$MultiplayerPlayButton.disabled = false
+	$LoginButton.show()
+	$LogoutButton.hide()
+	

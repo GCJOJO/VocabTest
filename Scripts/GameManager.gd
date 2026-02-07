@@ -4,6 +4,7 @@ const SERVER_ADRESS : String = "http://localhost:5762"
 const WEBSOCKET_ADRESS : String = "ws://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
+const DEBUG_MODE : bool = true
 
 var PlayerUUID : String = ""
 

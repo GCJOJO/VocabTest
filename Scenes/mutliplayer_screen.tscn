@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/MutliplayerLobby.gd" id="1_7661t"]
 [ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
 [ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="2_qc2uw"]
+[ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
+[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Scenes/timer.tscn" id="5_nnvwm"]
 
 [node name="MutliplayerScreen" type="Control" unique_id=1630086052]
 layout_mode = 3
@@ -75,6 +77,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
+[node name="ReturnButton" type="Button" parent="LobbyDiscoveryScreen" unique_id=1196563208]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.022000002
+anchor_right = 0.075
+anchor_bottom = 0.022000002
+offset_left = -96.0
+offset_top = -15.840001
+offset_right = 96.0
+offset_bottom = 16.16
+text = "Retour"
+
 [node name="LobbyScreen" type="Control" parent="." unique_id=1765891286]
 layout_mode = 1
 anchors_preset = 15
@@ -95,13 +110,13 @@ color = Color(0.15686275, 0.17254902, 0.20392157, 1)
 [node name="ScrollContainer" type="ScrollContainer" parent="LobbyScreen" unique_id=1858267337]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
+anchor_left = 0.75000006
 anchor_top = 0.26700002
-anchor_right = 0.5
+anchor_right = 0.75000006
 anchor_bottom = 0.62200004
-offset_left = -288.0
+offset_left = -288.00006
 offset_top = -0.24002075
-offset_right = 288.0
+offset_right = 287.99994
 offset_bottom = 0.15997314
 
 [node name="LobbyScoreboard" parent="LobbyScreen/ScrollContainer" unique_id=1732405484 instance=ExtResource("2_gp6xo")]
@@ -155,6 +170,22 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Quitter la partie"
 
+[node name="CenterContainer" type="CenterContainer" parent="LobbyScreen" unique_id=2126280311]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.24800001
+anchor_top = 0.44400004
+anchor_right = 0.24800001
+anchor_bottom = 0.44400004
+offset_left = -253.44
+offset_top = -127.68002
+offset_right = 258.56
+offset_bottom = 128.31998
+
+[node name="GameOptions" parent="LobbyScreen/CenterContainer" unique_id=648845509 instance=ExtResource("3_ahrwp")]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="InGameScreen" type="Control" parent="." unique_id=1422569580]
 layout_mode = 1
 anchors_preset = 15
@@ -190,7 +221,17 @@ offset_top = -0.080005646
 offset_right = -0.32006836
 offset_bottom = -0.08001709
 
+[node name="Timer" parent="InGameScreen" unique_id=1884644969 instance=ExtResource("5_nnvwm")]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.48900002
+anchor_right = 0.5
+anchor_bottom = 0.48900002
+offset_top = -32.080017
+offset_bottom = 31.919983
+
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]
+[connection signal="pressed" from="LobbyDiscoveryScreen/ReturnButton" to="." method="returnToMainMenu"]
 [connection signal="pressed" from="LobbyScreen/StartLobby" to="." method="startLobby"]
 [connection signal="pressed" from="LobbyScreen/QuitLobby" to="." method="leaveLobby"]
