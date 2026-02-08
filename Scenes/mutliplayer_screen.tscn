@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="2_qc2uw"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
 [ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Scenes/timer.tscn" id="5_nnvwm"]
+[ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="6_yw3hq"]
 
 [node name="MutliplayerScreen" type="Control" unique_id=1630086052]
 layout_mode = 3
@@ -229,6 +230,9 @@ anchor_right = 0.5
 anchor_bottom = 0.48900002
 offset_top = -32.080017
 offset_bottom = 31.919983
+
+[node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("6_yw3hq")]
+layout_mode = 1
 
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]

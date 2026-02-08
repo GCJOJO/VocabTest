@@ -18,6 +18,10 @@ func load_words() -> void:
 	RequestQueue.requestGet("%s/vocab-test" % GameManager.SERVER_ADRESS, onWordsGet)
 
 func onWordsGet(response):
+	if response == null:
+		push_error("Respons is null")
+		return
+	
 	print(response["action"])
 	
 	var action = response["action"]
@@ -45,7 +49,7 @@ func onWordsGet(response):
 func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
 	var min_distance : float = 1.0
 	for englishWord : String in wordResource.ENGLISH:
-		min_distance = min(levenshteinDistance(englishWord, enteredWord), min_distance)
+		min_distance = min(levenshteinDistance(englishWord.to_lower(), enteredWord.to_lower()), min_distance)
 	return (1.0 - min_distance)
 
 func levenshteinDistance(wordA : String, wordB : String) -> float:

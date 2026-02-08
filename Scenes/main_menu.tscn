@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dxsasutebqvaq" path="res://Scripts/MainMenu.gd" id="1_28flt"]
 [ext_resource type="Texture2D" uid="uid://dqey0lw1tgu36" path="res://Resources/Images/Britain_Flag.jpg" id="2_48xlc"]
 [ext_resource type="PackedScene" uid="uid://nay3bst87t03" path="res://Scenes/login_screen.tscn" id="3_1ehe0"]
+[ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="4_ce3w2"]
 
 [node name="MainMenu" type="Control" unique_id=1559205946]
 layout_mode = 3
@@ -108,6 +109,9 @@ text = "Se déconnecter"
 
 [node name="LoginScreen" parent="." unique_id=1116364533 instance=ExtResource("3_1ehe0")]
 visible = false
+layout_mode = 1
+
+[node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("4_ce3w2")]
 layout_mode = 1
 
 [connection signal="pressed" from="SoloPlayButton" to="." method="loadSoloMode"]

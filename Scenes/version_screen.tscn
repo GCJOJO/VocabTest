@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c5a4yboia4xxs"]
+
+[ext_resource type="Script" uid="uid://b2ueeljbpcmq8" path="res://Scripts/VersionScreen.gd" id="1_rujsr"]
+
+[node name="VersionScreen" type="Control" unique_id=173934041]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rujsr")
+
+[node name="Version Label" type="RichTextLabel" parent="." unique_id=1797564912]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.97800004
+anchor_right = 0.05
+anchor_bottom = 0.97800004
+offset_top = -32.160034
+offset_right = 128.0
+offset_bottom = -0.16003418
+grow_vertical = 0
+mouse_filter = 2
+text = "Version 0.0.1"
+vertical_alignment = 2

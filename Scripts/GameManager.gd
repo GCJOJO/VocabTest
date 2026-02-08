@@ -1,10 +1,11 @@
 extends Node
 
-const SERVER_ADRESS : String = "http://localhost:5762"
-const WEBSOCKET_ADRESS : String = "ws://localhost:5763"
+const SERVER_ADRESS : String = "https://88.190.53.5:33362"
+const WEBSOCKET_ADRESS : String = "wss://88.190.53.5:33363"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
 const DEBUG_MODE : bool = true
+const VERSION_STRING = "0.0.1"
 
 var PlayerUUID : String = ""
 
