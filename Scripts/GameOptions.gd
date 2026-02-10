@@ -7,7 +7,11 @@ signal timerChanged(newValue : int)
 var useTimer : bool = false
 
 func _ready() -> void:
+	setup()
+	
+func setup():
 	var max_word_number : int = WordManager.WORDS.size()
+	%WordsSpinBox.min_value = 1
 	%WordsSpinBox.max_value = max_word_number
 	%WordsSpinBox.value = min(10, max_word_number)
 

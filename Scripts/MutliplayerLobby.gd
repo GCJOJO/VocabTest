@@ -3,6 +3,7 @@ extends Control
 @export var LOBBY_BUTTON_SCENE : PackedScene = preload("res://Prefabs/LobbyButton.tscn")
 
 var lobbyId : String = ""
+var hasAlreadyLoaded : bool = false
 
 #var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
@@ -15,8 +16,15 @@ var LobbyOptions = {
 	"round_timer": 15, 
 	"similarity_threshold": 0.8
 }
-
+	
 func _ready() -> void:
+	set_process(false)
+
+func loadMultiplayerScreen() -> void:
+	if hasAlreadyLoaded:
+		return
+	hasAlreadyLoaded = true
+	
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
 	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
@@ -55,7 +63,7 @@ func _ready() -> void:
 			return
 	else:
 		push_error("Unable to connect to websocket")
-	
+
 func disableAllButtons() -> void:
 	%CreateLobby.disabled = true
 	%Refresh.disabled = true
@@ -295,4 +303,5 @@ func _process(_delta):
 		
 	
 func returnToMainMenu() -> void:
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	set_process(false)
+	pass

@@ -1,9 +1,19 @@
 [gd_scene format=3 uid="uid://dm65j718p4jvv"]
 
 [ext_resource type="Script" uid="uid://dxsasutebqvaq" path="res://Scripts/MainMenu.gd" id="1_28flt"]
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_n45e2"]
 [ext_resource type="Texture2D" uid="uid://dqey0lw1tgu36" path="res://Resources/Images/Britain_Flag.jpg" id="2_48xlc"]
 [ext_resource type="PackedScene" uid="uid://nay3bst87t03" path="res://Scenes/login_screen.tscn" id="3_1ehe0"]
+[ext_resource type="PackedScene" uid="uid://do24ilobdftng" path="res://Scenes/mutliplayer_screen.tscn" id="3_cp0ys"]
+[ext_resource type="Theme" uid="uid://byun3u64o6chp" path="res://Resources/HeaderTheme.tres" id="3_opfnp"]
+[ext_resource type="PackedScene" uid="uid://bxecdkpxowukv" path="res://Scenes/solo_mode.tscn" id="3_yhxw7"]
 [ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="4_ce3w2"]
+
+[sub_resource type="Gradient" id="Gradient_n45e2"]
+colors = PackedColorArray(0.40392157, 0.49019608, 0.9098039, 1, 0.4627451, 0.29803923, 0.6392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_opfnp"]
+gradient = SubResource("Gradient_n45e2")
 
 [node name="MainMenu" type="Control" unique_id=1559205946]
 layout_mode = 3
@@ -12,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_n45e2")
 script = ExtResource("1_28flt")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1694837040]
@@ -21,22 +32,59 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+theme = ExtResource("1_n45e2")
+color = Color(0.15686275, 0.17254902, 0.25882354, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1110627461]
-clip_children = 2
+[node name="SoloMode" parent="." unique_id=194373753 instance=ExtResource("3_yhxw7")]
+layout_mode = 1
+offset_top = 64.0
+
+[node name="MutliplayerScreen" parent="." unique_id=1630086052 instance=ExtResource("3_cp0ys")]
+visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.05
+anchor_left = 0.001
 anchor_top = 0.089
-anchor_right = 0.95000005
-anchor_bottom = 0.26700002
-offset_bottom = -0.24002075
-bbcode_enabled = true
-text = "[font_size=64][rainbow value=1 freq=0.1][wave strength=0.5][center]Vocab Test"
-scroll_active = false
+offset_left = -1.2800001
+offset_top = -0.08000183
 
-[node name="TextureRect" type="TextureRect" parent="RichTextLabel" unique_id=528183285]
+[node name="Header" type="Control" parent="." unique_id=1681216742]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("3_opfnp")
+
+[node name="TextureRect" type="TextureRect" parent="Header" unique_id=508104388]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_opfnp")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Header" unique_id=1110627461]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -8.0
+offset_right = -1048.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_n45e2")
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[font_size=32][rainbow value=1 freq=0.1][wave strength=0.5] Vocab Test"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Header/RichTextLabel" unique_id=528183285]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -52,58 +100,53 @@ texture = ExtResource("2_48xlc")
 expand_mode = 2
 stretch_mode = 1
 
-[node name="SoloPlayButton" type="Button" parent="." unique_id=1731693430]
+[node name="VBoxContainer" type="HBoxContainer" parent="Header" unique_id=764078290]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.356
 anchor_right = 0.5
-anchor_bottom = 0.44400004
-offset_left = -160.0
-offset_top = -0.32000732
-offset_right = 160.0
-offset_bottom = 0.3199768
-text = "Jouer (Solo)"
+offset_left = -241.0
+offset_right = 241.0
+offset_bottom = 64.0
+grow_horizontal = 2
+alignment = 1
 
-[node name="MultiplayerPlayButton" type="Button" parent="." unique_id=323489552]
+[node name="SoloPlayButton" type="Button" parent="Header/VBoxContainer" unique_id=1731693430]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Partie Solo"
+
+[node name="MultiplayerPlayButton" type="Button" parent="Header/VBoxContainer" unique_id=323489552]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Partie Multijoueur"
+
+[node name="LoginButton" type="Button" parent="Header" unique_id=652983054]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.62200004
-anchor_right = 0.5
-anchor_bottom = 0.711
-offset_left = -160.0
-offset_top = 0.15997314
-offset_right = 160.0
-offset_bottom = 0.07998657
-text = "Jouer (Multijoueur)"
-
-[node name="LoginButton" type="Button" parent="." unique_id=652983054]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.91700006
-anchor_right = 0.125
-anchor_bottom = 0.91700006
-offset_left = -96.0
-offset_top = -20.240051
-offset_right = 96.0
-offset_bottom = 19.759949
+anchor_left = 0.919
+anchor_top = 0.5
+anchor_right = 0.919
+anchor_bottom = 0.5
+offset_left = -96.32007
+offset_top = -24.0
+offset_right = 95.67993
+offset_bottom = 24.0
 grow_vertical = 0
 text = "Se connecter"
 
-[node name="LogoutButton" type="Button" parent="." unique_id=1008637926]
+[node name="LogoutButton" type="Button" parent="Header" unique_id=1008637926]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.91700006
-anchor_right = 0.125
-anchor_bottom = 0.91700006
-offset_left = -96.0
-offset_top = -20.240051
-offset_right = 96.0
-offset_bottom = 19.759949
+anchor_left = 0.919
+anchor_top = 0.5
+anchor_right = 0.919
+anchor_bottom = 0.5
+offset_left = -96.32007
+offset_top = -24.0
+offset_right = 95.67993
+offset_bottom = 24.0
 grow_vertical = 0
 text = "Se déconnecter"
 
@@ -114,7 +157,7 @@ layout_mode = 1
 [node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("4_ce3w2")]
 layout_mode = 1
 
-[connection signal="pressed" from="SoloPlayButton" to="." method="loadSoloMode"]
-[connection signal="pressed" from="MultiplayerPlayButton" to="." method="loadMultiplayer"]
-[connection signal="pressed" from="LoginButton" to="LoginScreen" method="show"]
-[connection signal="pressed" from="LogoutButton" to="." method="logout"]
+[connection signal="pressed" from="Header/VBoxContainer/SoloPlayButton" to="." method="loadSoloMode"]
+[connection signal="pressed" from="Header/VBoxContainer/MultiplayerPlayButton" to="." method="loadMultiplayer"]
+[connection signal="pressed" from="Header/LoginButton" to="LoginScreen" method="show"]
+[connection signal="pressed" from="Header/LogoutButton" to="." method="logout"]
