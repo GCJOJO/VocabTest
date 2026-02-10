@@ -224,7 +224,60 @@ anchor_bottom = 0.38900003
 offset_top = -32.080017
 offset_bottom = 31.919983
 
+[node name="ResultsScreen" type="Control" parent="." unique_id=1713447722]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scoreboard" parent="ResultsScreen" unique_id=934471526 instance=ExtResource("2_gp6xo")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -208.0
+offset_right = 448.0
+offset_bottom = 208.0
+
+[node name="ContinueButton" type="Button" parent="ResultsScreen" unique_id=984594763]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35000002
+anchor_top = 0.89400005
+anchor_right = 0.35000002
+anchor_bottom = 0.89400005
+offset_left = -128.00003
+offset_top = -27.680054
+offset_right = 127.99997
+offset_bottom = 28.319946
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continuer"
+
+[node name="LeaveButton" type="Button" parent="ResultsScreen" unique_id=1919075188]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65000004
+anchor_top = 0.89400005
+anchor_right = 0.65000004
+anchor_bottom = 0.89400005
+offset_left = -128.00006
+offset_top = -27.680054
+offset_right = 127.99994
+offset_bottom = 28.319946
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quitter"
+
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]
 [connection signal="pressed" from="LobbyScreen/StartLobby" to="." method="startLobby"]
 [connection signal="pressed" from="LobbyScreen/QuitLobby" to="." method="leaveLobby"]
+[connection signal="pressed" from="ResultsScreen/ContinueButton" to="." method="continueGame"]
+[connection signal="pressed" from="ResultsScreen/LeaveButton" to="." method="leaveLobby"]

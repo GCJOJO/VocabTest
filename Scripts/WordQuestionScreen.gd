@@ -26,7 +26,7 @@ func setup(show_instant_result : bool, max_question_number: int, word_similarity
 	showInstantResult = show_instant_result
 	maxQuestionNumber = max_question_number
 	wordSimilarityThreshold = word_similarity_threshold
-	
+	%Status.text = "[center][font_size=24]%d/%d\nFautes : %d" % [currentQuestionNumber, maxQuestionNumber, mistakes]
 
 func showResult(wordSimilarity: float, similarityThreshold : float) -> void:
 	%SendButton.text = "Suivant"
@@ -49,6 +49,9 @@ func showResult(wordSimilarity: float, similarityThreshold : float) -> void:
 		%Result.text = "[center][font_size=46][color=red]Faux !"
 	
 	mistakes += 0 if wordSimilarity >= similarityThreshold else 1
+	updateStatus()
+	
+func updateStatus() -> void:
 	%Status.text = "[center][font_size=24]%d/%d\nFautes : %d" % [currentQuestionNumber, maxQuestionNumber, mistakes]
 	
 func incrementQuestionNumber() -> void:
@@ -67,7 +70,8 @@ func changeWord(newWord: WordResource) -> void:
 	%EnglishBox.grab_focus()
 	hasAnswered = false
 	wordChanged.emit(currentWord)
-	
+	incrementQuestionNumber()
+	updateStatus()
 	
 func sendButtonPressed():
 	if hasAnswered:

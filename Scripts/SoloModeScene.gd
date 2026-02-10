@@ -37,6 +37,8 @@ func onTimerTick() -> void:
 		$GameMenu/TimerScreen.setRoundTimer(roundTimer)
 	
 func loadSoloMode() -> void:
+	$GameMenu.hide()
+	$OptionScreen.show()
 	if WordManager.WORDS == null or len(WordManager.WORDS) == 0:
 		print("No words")
 		#get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

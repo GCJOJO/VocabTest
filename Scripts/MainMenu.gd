@@ -33,6 +33,7 @@ func loadSoloMode() -> void:
 	$MutliplayerScreen.hide()
 	$MutliplayerScreen.leaveLobby()
 	$SoloMode.show()
+	$SoloMode.loadSoloMode()
 	pass
 	#var callback = func():
 	#	get_tree().change_scene_to_file("res://Scenes/solo_mode.tscn")
@@ -42,8 +43,8 @@ func loadSoloMode() -> void:
 func loadMultiplayer() -> void:
 	#get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")
 	$SoloMode.hide()
-	$MutliplayerScreen.show()
 	$MutliplayerScreen.loadMultiplayerScreen()
+	$MutliplayerScreen.show()
 
 
 func logout() -> void:

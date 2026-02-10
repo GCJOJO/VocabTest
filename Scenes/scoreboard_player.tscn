@@ -17,9 +17,10 @@ script = ExtResource("1_k7vaj")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=238320610]
 custom_minimum_size = Vector2(0, 64)
-layout_mode = 0
-offset_right = 320.0
-offset_bottom = 64.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="PlayerName" type="RichTextLabel" parent="." unique_id=752266566]
 unique_name_in_owner = true

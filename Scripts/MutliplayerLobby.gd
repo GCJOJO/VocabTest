@@ -27,6 +27,7 @@ func loadMultiplayerScreen() -> void:
 	
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
+	$ResultsScreen.visible = false
 	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
 	$InGameScreen/WordQuestion.readyNextQuestion.connect(requestNextWord)
 	
@@ -35,6 +36,7 @@ func loadMultiplayerScreen() -> void:
 	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
 	
 	%GameOptions.setIsDisabled(true)
+	%GameOptions.setup()
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -202,9 +204,12 @@ func _doStartLobby() -> void:
 	$InGameScreen.visible = true
 	$InGameScreen/Timer.setMaxRoundTimer(LobbyOptions["round_timer"])
 	$InGameScreen/Timer.setRoundTimer(LobbyOptions["round_timer"])
+	%WordQuestion.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"])
 
 func _doQuitLobby() -> void:
 	lobbyId = ""
+	$ResultsScreen.visible = false
+	$InGameScreen.visible = false
 	$LobbyScreen.visible = false
 	$LobbyDiscoveryScreen.visible = true
 	enableAllButtons()
@@ -214,7 +219,7 @@ func _doQuitLobby() -> void:
 func _doEndGame() -> void:
 	#Maybe show end results screen
 	$InGameScreen.visible = false
-	$LobbyScreen.visible = true
+	$ResultsScreen.visible = true
 	queryIsLobbyOwner(lobbyId)
 
 func _doPlayerJoined(joiningPlayerId : String):
@@ -230,9 +235,15 @@ func _doUpdateScores(updatedScores : Array) -> void:
 		var newPlayerScore = newScore["new_score"]
 		%InGameScoreboard.setScore(scorePlayerId, newPlayerScore)
 		%LobbyScoreboard.setScore(scorePlayerId, newPlayerScore)
+		%Scoreboard.setScore(scorePlayerId, newPlayerScore)
 		
 	%InGameScoreboard.refreshScoreboard()
 	%LobbyScoreboard.refreshScoreboard()
+	%Scoreboard.refreshScoreboard()
+
+func continueGame() -> void:
+	$ResultsScreen.visible = false
+	$LobbyScreen.visible = true
 
 func handle_packet(packet_str : String) -> void:
 	var json : JSON = JSON.new()
@@ -283,7 +294,6 @@ func handle_packet(packet_str : String) -> void:
 			%InGameScoreboard.removePlayer(data["player_id"])
 			%LobbyScoreboard.refreshScoreboard()
 			%InGameScoreboard.refreshScoreboard()
-			pass
 
 func _process(_delta):
 	socket.poll()
