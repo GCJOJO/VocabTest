@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://ddxs2obj5ovi0"]
+
+[ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/SoloModeScene.gd" id="1_xncir"]
+[ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="2_66efl"]
+
+[node name="SoloMode" type="Control" unique_id=1698931305]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xncir")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=26065430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15686275, 0.17254902, 0.20392157, 1)
+
+[node name="FrenchWord" type="RichTextLabel" parent="." unique_id=136316826]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.089
+anchor_right = 0.5
+anchor_bottom = 0.26700002
+offset_left = -576.0
+offset_right = 576.0
+bbcode_enabled = true
+text = "[font_size=64][center]"
+
+[node name="Context" type="RichTextLabel" parent="." unique_id=658624676]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.178
+anchor_right = 0.5
+anchor_bottom = 0.256
+offset_left = -576.0
+offset_top = -0.16000366
+offset_right = 576.0
+offset_bottom = -0.32000732
+bbcode_enabled = true
+text = "[color=dark_gray][font_size=32][center]"
+scroll_active = false
+
+[node name="EnglishBox" type="LineEdit" parent="." unique_id=888001004]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.356
+anchor_right = 0.5
+anchor_bottom = 0.44400004
+offset_left = -256.0
+offset_top = -0.32000732
+offset_right = 256.0
+offset_bottom = 0.3199768
+grow_horizontal = 2
+grow_vertical = 2
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="SendButton" type="Button" parent="." unique_id=208019097]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.53300005
+anchor_right = 0.5
+anchor_bottom = 0.62200004
+offset_left = -256.0
+offset_right = 256.00006
+text = "Envoyer"
+
+[node name="Result" type="RichTextLabel" parent="." unique_id=1908928679]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.711
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -256.0
+offset_top = 0.07998657
+offset_right = 256.0
+bbcode_enabled = true
+text = "[center][font_size=46][color=green]Correct !"
+scroll_active = false
+
+[node name="Status" type="RichTextLabel" parent="." unique_id=1867051884]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.1
+offset_right = 320.0
+offset_bottom = 128.0
+bbcode_enabled = true
+text = "[font_size=24]1/100
+Fautes : 16"
+
+[node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("2_66efl")]
+layout_mode = 1
+
+[connection signal="text_changed" from="EnglishBox" to="." method="textUpdated"]
+[connection signal="text_submitted" from="EnglishBox" to="." method="_on_english_box_text_submitted"]
+[connection signal="pressed" from="SendButton" to="." method="sendAnswer"]

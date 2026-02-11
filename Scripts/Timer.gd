@@ -28,4 +28,5 @@ func setRoundTimer(value : int) -> void:
 	var blinkModifier : String = "[pulse freq=%s color=#ff000040 ease=-2.0]" % blinkValue if blinkValue > 0 else ""
 	var text : String = "%s%s%s" % [shakeModifier, blinkModifier, roundTimer]
 	$TimerText.text = text
-	print(text)
+	if GameManager.DEBUG_MODE:
+		print(text)

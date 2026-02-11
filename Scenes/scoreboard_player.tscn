@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ck1vtllbrroip"]
 
 [ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/ScoreboardPlayer.gd" id="1_k7vaj"]
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yne0d"]
 
 [node name="ScoreboardPlayer" type="Control" unique_id=711861562]
 custom_minimum_size = Vector2(320, 64)
@@ -11,14 +12,15 @@ offset_bottom = -0.08000183
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_yne0d")
 script = ExtResource("1_k7vaj")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1338631911]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=238320610]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.39215687)
 
 [node name="PlayerName" type="RichTextLabel" parent="." unique_id=752266566]
 unique_name_in_owner = true
@@ -26,6 +28,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = 8.0
+offset_right = -8.0
 bbcode_enabled = true
 text = "[font_size=24]Joueur"
 scroll_active = false
@@ -35,10 +39,12 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.6
+anchor_left = 1.0
 anchor_top = 0.625
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -136.0
+offset_right = -8.0
 bbcode_enabled = true
 text = "[font_size=18]Score"
 scroll_active = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqey0lw1tgu36"
-path="res://.godot/imported/Britain_Flag.jpg-424cea976982c6eb4ab8e05a4d1d2b5e.ctex"
+uid="uid://dd717u7l052fp"
+path="res://.godot/imported/PC _ Computer - Deltarune - Objects - Realistic Explosion.png-c4c9ee2b92231483495cb5cc864b1ebd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Images/Britain_Flag.jpg"
-dest_files=["res://.godot/imported/Britain_Flag.jpg-424cea976982c6eb4ab8e05a4d1d2b5e.ctex"]
+source_file="res://Resources/Images/PC _ Computer - Deltarune - Objects - Realistic Explosion.png"
+dest_files=["res://.godot/imported/PC _ Computer - Deltarune - Objects - Realistic Explosion.png-c4c9ee2b92231483495cb5cc864b1ebd.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

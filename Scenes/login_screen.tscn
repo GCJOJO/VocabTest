@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://nay3bst87t03"]
 
 [ext_resource type="Script" uid="uid://rtf8d7tltf43" path="res://Scripts/LoginScreen.gd" id="1_5g20f"]
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_hijib"]
 
 [node name="LoginScreen" type="Control" unique_id=1116364533]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hijib")
 script = ExtResource("1_5g20f")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1537039517]
@@ -66,6 +68,7 @@ offset_top = 32.0
 offset_right = 192.0
 offset_bottom = 112.0
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "[font_size=32][center]Se connecter"
 vertical_alignment = 1
@@ -82,6 +85,7 @@ offset_top = -0.1920166
 offset_right = 168.0
 offset_bottom = -0.06399536
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Nom d'utilisateur"
 scroll_active = false
@@ -112,6 +116,7 @@ offset_top = 111.80798
 offset_right = 168.0
 offset_bottom = 111.936005
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Mot de passe"
 scroll_active = false
@@ -189,6 +194,7 @@ offset_left = -192.0
 offset_right = 192.0
 offset_bottom = 40.0
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "[font_size=18][center]Créer un compte"
 vertical_alignment = 1
@@ -204,6 +210,7 @@ offset_left = -168.0
 offset_top = 0.2559967
 offset_right = 168.0
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Nom d'utilisateur"
 scroll_active = false
@@ -234,6 +241,7 @@ offset_top = -0.8720093
 offset_right = 168.0
 offset_bottom = 0.023986816
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Mot de passe"
 scroll_active = false
@@ -264,6 +272,7 @@ offset_top = 0.21598816
 offset_right = 168.0
 offset_bottom = 0.023971558
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Confirmer le mot de passe"
 scroll_active = false
@@ -294,6 +303,7 @@ offset_top = 0.15197754
 offset_right = 168.0
 offset_bottom = -0.040008545
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Prénom"
 scroll_active = false
@@ -323,6 +333,7 @@ offset_top = 0.15197754
 offset_right = 168.0
 offset_bottom = -0.040039063
 grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "Nom"
 scroll_active = false

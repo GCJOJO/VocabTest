@@ -3,6 +3,7 @@ extends Control
 @export var LOBBY_BUTTON_SCENE : PackedScene = preload("res://Prefabs/LobbyButton.tscn")
 
 var lobbyId : String = ""
+var hasAlreadyLoaded : bool = false
 
 #var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
@@ -15,10 +16,18 @@ var LobbyOptions = {
 	"round_timer": 15, 
 	"similarity_threshold": 0.8
 }
-
+	
 func _ready() -> void:
+	set_process(false)
+
+func loadMultiplayerScreen() -> void:
+	if hasAlreadyLoaded:
+		return
+	hasAlreadyLoaded = true
+	
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
+	$ResultsScreen.visible = false
 	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
 	$InGameScreen/WordQuestion.readyNextQuestion.connect(requestNextWord)
 	
@@ -27,12 +36,14 @@ func _ready() -> void:
 	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
 	
 	%GameOptions.setIsDisabled(true)
+	%GameOptions.setup()
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
 	if error == OK:
-		print("Connecting to websocket")
+		if GameManager.DEBUG_MODE:
+			print("Connecting to websocket")
 		
 		%CreateLobby.disabled = true
 		%Refresh.disabled = true
@@ -55,7 +66,7 @@ func _ready() -> void:
 			return
 	else:
 		push_error("Unable to connect to websocket")
-	
+
 func disableAllButtons() -> void:
 	%CreateLobby.disabled = true
 	%Refresh.disabled = true
@@ -96,7 +107,8 @@ func onLobbiesGet(response):
 	if action == "set-lobbies":
 		%Refresh.disabled = false
 		
-		print(response["lobbies"])
+		if GameManager.DEBUG_MODE:
+			print(response["lobbies"])
 		for lobby in response["lobbies"]:
 			if lobby["status"] == "started":
 				continue
@@ -194,9 +206,12 @@ func _doStartLobby() -> void:
 	$InGameScreen.visible = true
 	$InGameScreen/Timer.setMaxRoundTimer(LobbyOptions["round_timer"])
 	$InGameScreen/Timer.setRoundTimer(LobbyOptions["round_timer"])
+	%WordQuestion.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"])
 
 func _doQuitLobby() -> void:
 	lobbyId = ""
+	$ResultsScreen.visible = false
+	$InGameScreen.visible = false
 	$LobbyScreen.visible = false
 	$LobbyDiscoveryScreen.visible = true
 	enableAllButtons()
@@ -206,7 +221,7 @@ func _doQuitLobby() -> void:
 func _doEndGame() -> void:
 	#Maybe show end results screen
 	$InGameScreen.visible = false
-	$LobbyScreen.visible = true
+	$ResultsScreen.visible = true
 	queryIsLobbyOwner(lobbyId)
 
 func _doPlayerJoined(joiningPlayerId : String):
@@ -222,9 +237,15 @@ func _doUpdateScores(updatedScores : Array) -> void:
 		var newPlayerScore = newScore["new_score"]
 		%InGameScoreboard.setScore(scorePlayerId, newPlayerScore)
 		%LobbyScoreboard.setScore(scorePlayerId, newPlayerScore)
+		%Scoreboard.setScore(scorePlayerId, newPlayerScore)
 		
 	%InGameScoreboard.refreshScoreboard()
 	%LobbyScoreboard.refreshScoreboard()
+	%Scoreboard.refreshScoreboard()
+
+func continueGame() -> void:
+	$ResultsScreen.visible = false
+	$LobbyScreen.visible = true
 
 func handle_packet(packet_str : String) -> void:
 	var json : JSON = JSON.new()
@@ -250,7 +271,8 @@ func handle_packet(packet_str : String) -> void:
 		"lobby-joined":
 			_doJoinLobby(data["lobby_id"], data["current_lobby_players"])
 		"lobby-left":
-			print("Lobby Left")
+			if GameManager.DEBUG_MODE:
+				print("Lobby Left")
 			_doQuitLobby()
 		"lobby-disbanded":
 			_doQuitLobby()
@@ -275,7 +297,6 @@ func handle_packet(packet_str : String) -> void:
 			%InGameScoreboard.removePlayer(data["player_id"])
 			%LobbyScoreboard.refreshScoreboard()
 			%InGameScoreboard.refreshScoreboard()
-			pass
 
 func _process(_delta):
 	socket.poll()
@@ -290,9 +311,11 @@ func _process(_delta):
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var code = socket.get_close_code()
 		var reason = socket.get_close_reason()
-		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+		if GameManager.DEBUG_MODE:
+			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 		returnToMainMenu()
 		
 	
 func returnToMainMenu() -> void:
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	set_process(false)
+	pass

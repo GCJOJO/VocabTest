@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://blkeilidoubh2"]
 
 [ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/GameOptions.gd" id="1_hs2l2"]
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_vnmrx"]
 
 [node name="GameOptions" type="ScrollContainer" unique_id=1588180714]
 custom_minimum_size = Vector2(512, 256)
@@ -12,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_vnmrx")
 script = ExtResource("1_hs2l2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2133419068]
@@ -22,11 +24,17 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=278401409]
+[node name="Control" type="Control" parent="VBoxContainer/PanelContainer" unique_id=1197964044]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/Control" unique_id=278401409]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 496.0
+offset_bottom = 64.0
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1304524416]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/Control/HBoxContainer" unique_id=1304524416]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -34,7 +42,7 @@ text = "Nombre de Mots : "
 scroll_active = false
 vertical_alignment = 1
 
-[node name="WordsSpinBox" type="SpinBox" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=688769492]
+[node name="WordsSpinBox" type="SpinBox" parent="VBoxContainer/PanelContainer/Control/HBoxContainer" unique_id=688769492]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -1.0
@@ -44,11 +52,17 @@ value = 10.0
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2" unique_id=1960060308]
+[node name="Control" type="Control" parent="VBoxContainer/PanelContainer2" unique_id=1741289986]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Control" unique_id=1960060308]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 504.0
+offset_bottom = 64.0
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/HBoxContainer" unique_id=1496646785]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/Control/HBoxContainer" unique_id=1496646785]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -56,12 +70,12 @@ text = "Seuil de points :"
 scroll_active = false
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/HBoxContainer" unique_id=1786050052]
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/Control/HBoxContainer" unique_id=1786050052]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="WordThresholdText" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/HBoxContainer/HBoxContainer" unique_id=309292878]
+[node name="WordThresholdText" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer" unique_id=309292878]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -69,7 +83,7 @@ text = "80 %"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="WordThresholdSlider" type="HSlider" parent="VBoxContainer/PanelContainer2/HBoxContainer/HBoxContainer" unique_id=668572674]
+[node name="WordThresholdSlider" type="HSlider" parent="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer" unique_id=668572674]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -80,9 +94,11 @@ value = 80.0
 [node name="PanelContainer3" type="FoldableContainer" parent="VBoxContainer" unique_id=1624642931]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
+folded = true
 title = "Temps Limite"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3" unique_id=581232558]
+visible = false
 layout_mode = 2
 alignment = 1
 
@@ -123,7 +139,7 @@ max_value = 120.0
 step = 15.0
 value = 30.0
 
-[connection signal="value_changed" from="VBoxContainer/PanelContainer/HBoxContainer/WordsSpinBox" to="." method="onWordsCountChanged"]
-[connection signal="drag_ended" from="VBoxContainer/PanelContainer2/HBoxContainer/HBoxContainer/WordThresholdSlider" to="." method="onWordsThresholdSliderChanged"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer/Control/HBoxContainer/WordsSpinBox" to="." method="onWordsCountChanged"]
+[connection signal="drag_ended" from="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer/WordThresholdSlider" to="." method="onWordsThresholdSliderChanged"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer3/HBoxContainer/UseTimerCheckbob" to="." method="onUseTimerChanged"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer/TimerSlider" to="." method="onTimerSliderChanged"]

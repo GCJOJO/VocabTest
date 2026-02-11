@@ -6,7 +6,8 @@ var playerName : String
 var playerScore : float
 
 func _ready() -> void:
-	size = Vector2(320, 64)
+	var width = max(320, get_parent().size.x)
+	size = Vector2(width, 64)
 
 func setId(newId : String) -> void:
 	playerId = newId

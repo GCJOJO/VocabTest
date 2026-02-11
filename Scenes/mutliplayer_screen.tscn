@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://do24ilobdftng"]
 
 [ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/MutliplayerLobby.gd" id="1_7661t"]
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yw3hq"]
 [ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
 [ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="2_qc2uw"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
 [ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Scenes/timer.tscn" id="5_nnvwm"]
-[ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="6_yw3hq"]
 
 [node name="MutliplayerScreen" type="Control" unique_id=1630086052]
 layout_mode = 3
@@ -14,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_yw3hq")
 script = ExtResource("1_7661t")
 
 [node name="LobbyDiscoveryScreen" type="Control" parent="." unique_id=1102496413]
@@ -25,6 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="LobbyDiscoveryScreen" unique_id=494700670]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,20 +80,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="ReturnButton" type="Button" parent="LobbyDiscoveryScreen" unique_id=1196563208]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.075
-anchor_top = 0.022000002
-anchor_right = 0.075
-anchor_bottom = 0.022000002
-offset_left = -96.0
-offset_top = -15.840001
-offset_right = 96.0
-offset_bottom = 16.16
-text = "Retour"
-
 [node name="LobbyScreen" type="Control" parent="." unique_id=1765891286]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -100,6 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="LobbyScreen" unique_id=1636389915]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,6 +179,7 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="InGameScreen" type="Control" parent="." unique_id=1422569580]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,6 +188,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="InGameScreen" unique_id=1001161699]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -225,17 +218,67 @@ offset_bottom = -0.08001709
 [node name="Timer" parent="InGameScreen" unique_id=1884644969 instance=ExtResource("5_nnvwm")]
 layout_mode = 1
 anchor_left = 0.5
-anchor_top = 0.48900002
+anchor_top = 0.38900003
 anchor_right = 0.5
-anchor_bottom = 0.48900002
+anchor_bottom = 0.38900003
 offset_top = -32.080017
 offset_bottom = 31.919983
 
-[node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("6_yw3hq")]
+[node name="ResultsScreen" type="Control" parent="." unique_id=1713447722]
+visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Scoreboard" parent="ResultsScreen" unique_id=934471526 instance=ExtResource("2_gp6xo")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -208.0
+offset_right = 448.0
+offset_bottom = 208.0
+
+[node name="ContinueButton" type="Button" parent="ResultsScreen" unique_id=984594763]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35000002
+anchor_top = 0.89400005
+anchor_right = 0.35000002
+anchor_bottom = 0.89400005
+offset_left = -128.00003
+offset_top = -27.680054
+offset_right = 127.99997
+offset_bottom = 28.319946
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continuer"
+
+[node name="LeaveButton" type="Button" parent="ResultsScreen" unique_id=1919075188]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.65000004
+anchor_top = 0.89400005
+anchor_right = 0.65000004
+anchor_bottom = 0.89400005
+offset_left = -128.00006
+offset_top = -27.680054
+offset_right = 127.99994
+offset_bottom = 28.319946
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quitter"
 
 [connection signal="pressed" from="LobbyDiscoveryScreen/CreateLobby" to="." method="createLobby"]
 [connection signal="pressed" from="LobbyDiscoveryScreen/Refresh" to="." method="getLobbyList"]
-[connection signal="pressed" from="LobbyDiscoveryScreen/ReturnButton" to="." method="returnToMainMenu"]
 [connection signal="pressed" from="LobbyScreen/StartLobby" to="." method="startLobby"]
 [connection signal="pressed" from="LobbyScreen/QuitLobby" to="." method="leaveLobby"]
+[connection signal="pressed" from="ResultsScreen/ContinueButton" to="." method="continueGame"]
+[connection signal="pressed" from="ResultsScreen/LeaveButton" to="." method="leaveLobby"]

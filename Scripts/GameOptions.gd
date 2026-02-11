@@ -7,7 +7,11 @@ signal timerChanged(newValue : int)
 var useTimer : bool = false
 
 func _ready() -> void:
+	setup()
+	
+func setup():
 	var max_word_number : int = WordManager.WORDS.size()
+	%WordsSpinBox.min_value = 1
 	%WordsSpinBox.max_value = max_word_number
 	%WordsSpinBox.value = min(10, max_word_number)
 
@@ -22,17 +26,12 @@ func updateOptions(data) -> void:
 	if data.has("similarity_threshold"):
 		%WordThresholdSlider.value = (data["similarity_threshold"] * 100)
 		%WordThresholdText.text = "%.0f %%" % (data["similarity_threshold"] * 100)
-		print(data["similarity_threshold"])
-		print("%.0f %%" % (data["similarity_threshold"] * 100))
 	if data.has("round_timer"):
 		var newTimer = data["round_timer"]
 		%UseTimerCheckbob.button_pressed = newTimer >= 15
-		print(%UseTimerCheckbob.button_pressed)
 		if %UseTimerCheckbob.button_pressed:
 			%TimerSlider.value = newTimer
 			%TimerText.text = "%d secondes" % newTimer
-			print(newTimer)
-			print("%d secondes" % newTimer)
 
 func onWordsCountChanged(value : float) -> void:
 	wordsCountChanged.emit(floor(value))

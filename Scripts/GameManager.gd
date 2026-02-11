@@ -2,10 +2,12 @@ extends Node
 
 const SERVER_ADRESS : String = "https://88.190.53.5:33362"
 const WEBSOCKET_ADRESS : String = "wss://88.190.53.5:33363"
+#const SERVER_ADRESS : String = "https://localhost:5762"
+#const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
-const DEBUG_MODE : bool = true
-const VERSION_STRING = "0.0.1"
+const DEBUG_MODE : bool = false
+const VERSION_STRING = "0.0.3"
 
 var PlayerUUID : String = ""
 
@@ -35,7 +37,8 @@ func onUserGet(response) -> void:
 	var newUser : UserResource = UserResource.new(userId, user["username"], user["first_name"], user["last_name"])
 	cachedPlayers[userId] = newUser
 	userInfoChanged.emit(userId, newUser)
-	print("User info changed for user id : %s", userId)
+	if GameManager.DEBUG_MODE:
+		print("User info changed for user id : %s", userId)
 
 func savePlayerData() -> void:
 	var save_file = FileAccess.open(PLAYER_DATA_SAVE_FILE, FileAccess.WRITE)
@@ -52,7 +55,8 @@ func tryLoadPlayerData() -> void:
 	var json = JSON.new()
 	var parse_result = json.parse(json_string)
 	if not parse_result == OK:
-		print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+		if GameManager.DEBUG_MODE:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 		return
 
 	var playerData = json.data
