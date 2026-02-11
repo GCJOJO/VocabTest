@@ -114,6 +114,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+button_pressed = true
 text = "Activée ?"
 
 [node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=120937605]

@@ -21,6 +21,9 @@ func _ready() -> void:
 	set_process(false)
 
 func loadMultiplayerScreen() -> void:
+	if hasAlreadyLoaded and (socket.get_ready_state() == WebSocketPeer.STATE_CLOSING or socket.get_ready_state() == WebSocketPeer.STATE_CLOSING):
+		connectToWebsocket()
+	
 	if hasAlreadyLoaded:
 		return
 	hasAlreadyLoaded = true
@@ -37,6 +40,12 @@ func loadMultiplayerScreen() -> void:
 	
 	%GameOptions.setIsDisabled(true)
 	%GameOptions.setup()
+	
+	connectToWebsocket()
+	
+func connectToWebsocket():
+	if socket.get_ready_state() == WebSocketPeer.STATE_CONNECTING or socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		return
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -169,6 +178,8 @@ func setIsLobbyOwner(isOwner : bool):
 	%GameOptions.setIsDisabled(not isOwner)
 
 func updateLobbyOptions(key : String, value) :
+	if socket.get_ready_state() != socket.STATE_OPEN:
+		return
 	LobbyOptions[key] = value
 	var json : String = JSON.stringify({"action" : "update-lobby-options", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "options": LobbyOptions})
 	socket.send_text(json)

@@ -7,7 +7,7 @@ const WEBSOCKET_ADRESS : String = "wss://88.190.53.5:33363"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
 const DEBUG_MODE : bool = false
-const VERSION_STRING = "0.0.3"
+const VERSION_STRING = "0.0.4"
 
 var PlayerUUID : String = ""
 
