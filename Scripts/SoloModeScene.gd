@@ -3,8 +3,6 @@ extends Control
 const ERROR_THRESHOLD : float = 0.8
 var RANDOMIZED_WORDS : Array[WordResource]
 var CURRENT_WORD_INDEX : int = -1
-var has_answered : bool = false
-var mistakes : int = 0
 
 var LobbyOptions = {
 	"max_words" : 10,
@@ -57,6 +55,7 @@ func startGame() -> void:
 	$GameMenu.show()
 	
 	CURRENT_WORD_INDEX = 0
+	%WordQuestion.mistakes = 0
 	RANDOMIZED_WORDS = WordManager.WORDS
 	RANDOMIZED_WORDS.shuffle()
 	
@@ -70,7 +69,8 @@ func startGame() -> void:
 func update_word() -> void:
 	CURRENT_WORD_INDEX += 1
 	if(CURRENT_WORD_INDEX > min(len(RANDOMIZED_WORDS), LobbyOptions["max_words"])):
-		%CorrectWords.text = "%s / %s" % [LobbyOptions["max_words"] - mistakes, LobbyOptions["max_words"]]
+		var correct_words : int = LobbyOptions["max_words"] - %WordQuestion.mistakes
+		%CorrectWords.text = "%s / %s" % [correct_words, LobbyOptions["max_words"]]
 		$Results.show()
 		$GameMenu.hide()
 		return
