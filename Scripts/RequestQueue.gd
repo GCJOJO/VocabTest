@@ -30,8 +30,8 @@ func onHttpRequestCompleted(_result: int, _response_code: int, _headers: PackedS
 	if response == null:
 		push_error("Null response !")
 		return
-	
-	print("Got response : %s" % response)
+	if GameManager.DEBUG_MODE:
+		print("Got response : %s" % response)
 	
 	callback.call(response)
 	
@@ -51,6 +51,7 @@ func _process(_delta: float) -> void:
 				request_method = HTTPClient.Method.METHOD_POST
 		
 		var path : String = request["path"]
-		print("Processing request : %s %s, body : \"%s\"" % [request_method_string, path, request_body])
+		if GameManager.DEBUG_MODE:
+			print("Processing request : %s %s, body : \"%s\"" % [request_method_string, path, request_body])
 		httpRequest.request(path, HEADERS, request_method, request_body)
 		isProcessing = true

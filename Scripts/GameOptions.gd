@@ -26,17 +26,12 @@ func updateOptions(data) -> void:
 	if data.has("similarity_threshold"):
 		%WordThresholdSlider.value = (data["similarity_threshold"] * 100)
 		%WordThresholdText.text = "%.0f %%" % (data["similarity_threshold"] * 100)
-		print(data["similarity_threshold"])
-		print("%.0f %%" % (data["similarity_threshold"] * 100))
 	if data.has("round_timer"):
 		var newTimer = data["round_timer"]
 		%UseTimerCheckbob.button_pressed = newTimer >= 15
-		print(%UseTimerCheckbob.button_pressed)
 		if %UseTimerCheckbob.button_pressed:
 			%TimerSlider.value = newTimer
 			%TimerText.text = "%d secondes" % newTimer
-			print(newTimer)
-			print("%d secondes" % newTimer)
 
 func onWordsCountChanged(value : float) -> void:
 	wordsCountChanged.emit(floor(value))

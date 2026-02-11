@@ -42,7 +42,8 @@ func loadMultiplayerScreen() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
 	if error == OK:
-		print("Connecting to websocket")
+		if GameManager.DEBUG_MODE:
+			print("Connecting to websocket")
 		
 		%CreateLobby.disabled = true
 		%Refresh.disabled = true
@@ -106,7 +107,8 @@ func onLobbiesGet(response):
 	if action == "set-lobbies":
 		%Refresh.disabled = false
 		
-		print(response["lobbies"])
+		if GameManager.DEBUG_MODE:
+			print(response["lobbies"])
 		for lobby in response["lobbies"]:
 			if lobby["status"] == "started":
 				continue
@@ -269,7 +271,8 @@ func handle_packet(packet_str : String) -> void:
 		"lobby-joined":
 			_doJoinLobby(data["lobby_id"], data["current_lobby_players"])
 		"lobby-left":
-			print("Lobby Left")
+			if GameManager.DEBUG_MODE:
+				print("Lobby Left")
 			_doQuitLobby()
 		"lobby-disbanded":
 			_doQuitLobby()
@@ -308,7 +311,8 @@ func _process(_delta):
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var code = socket.get_close_code()
 		var reason = socket.get_close_reason()
-		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+		if GameManager.DEBUG_MODE:
+			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 		returnToMainMenu()
 		
 	

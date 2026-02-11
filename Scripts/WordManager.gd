@@ -1,28 +1,19 @@
 extends Node
 
 var WORDS : Array[WordResource]
-#var httpRequest : HTTPRequest
 
 signal words_loaded()
 
-# Called when the node enters the scene tree for the first time.
-#func _ready() -> void:
-	#httpRequest = HTTPRequest.new()
-	#add_child(httpRequest)
-	#httpRequest.request_completed.connect(self.http_request_completed)
-
 func load_words() -> void:
-	#var error := httpRequest.request("%s/vocab-test" % GameManager.SERVER_ADRESS)
-	#if error != OK:
-		#push_error("Une erreur est survenue dans la requête HTTP.")
-	RequestQueue.requestGet("%s/vocab-test" % GameManager.SERVER_ADRESS, onWordsGet)
+	RequestQueue.requestGet("%s/word-list" % GameManager.SERVER_ADRESS, onWordsGet)
 
 func onWordsGet(response):
 	if response == null:
 		push_error("Respons is null")
 		return
 	
-	print(response["action"])
+	if GameManager.DEBUG_MODE:
+		print(response["action"])
 	
 	var action = response["action"]
 	match action:
@@ -33,19 +24,15 @@ func onWordsGet(response):
 				var id : int = wordJson["identifiant"]
 				var fr : String = wordJson["français"]
 				var con : String = wordJson["contexte"] if wordJson["contexte"] != null else ""
+				var pre : String = wordJson["prefix"] if wordJson["prefix"] != null else ""
 				
 				var unsplittedEn : String = wordJson["anglais"]
 				var en : PackedStringArray = unsplittedEn.split("/")
-				WORDS.append(WordResource.new(id, fr, con, en))
+				WORDS.append(WordResource.new(id, fr, con, en, pre))
 				
 	words_loaded.emit()
 				
-#func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
-	#for englishWord : String in wordResource.ENGLISH:
-		#if enteredWord.to_lower().contains(englishWord.to_lower()): # TODO : Better Checks, Check for distance and give less points but still "correct" answer
-			#return true
-	#return false
-	
+
 func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
 	var min_distance : float = 1.0
 	for englishWord : String in wordResource.ENGLISH:

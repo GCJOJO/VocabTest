@@ -21,6 +21,8 @@ func _ready() -> void:
 	%EnglishBox.text_submitted.connect(onEnglishTextSubmitted)
 	%SendButton.disabled = true
 	$Status.visible = true
+	%ExplosionSprite.animation_finished.connect(%ExplosionSprite.hide)
+	
 
 func setup(show_instant_result : bool, max_question_number: int, word_similarity_threshold : float = -1) -> void:
 	showInstantResult = show_instant_result
@@ -43,10 +45,16 @@ func showResult(wordSimilarity: float, similarityThreshold : float) -> void:
 	
 	if wordSimilarity == 1:
 		%Result.text = "[center][font_size=46][color=green]Correct !"
+		#%GreenParticles.emitting = true
+		#%RedParticles.emitting = true
+		#%OrangeParticles.emitting = true
 	elif wordSimilarity >= similarityThreshold:
 		%Result.text = "[center][font_size=46][color=orange]Presque !"
 	else:
 		%Result.text = "[center][font_size=46][color=red]Faux !"
+		%ExplosionSprite.show()
+		%ExplosionSprite.play(&"default")
+		$ExplosionSound.play()
 	
 	mistakes += 0 if wordSimilarity >= similarityThreshold else 1
 	updateStatus()
@@ -60,8 +68,9 @@ func incrementQuestionNumber() -> void:
 func changeWord(newWord: WordResource) -> void:
 	currentWord = newWord
 	
-	%FrenchWord.text = "[font_size=64][center]%s" % currentWord.FRENCH
+	%FrenchWord.text = "[font_size=46][center]%s" % currentWord.FRENCH
 	%Context.text = "[color=dark_gray][font_size=32][center]%s" % currentWord.CONTEXT
+	%Prefix.text = "[color=#555][font_size=28]%s" % currentWord.PREFIX
 	
 	%SendButton.text = "Envoyer"
 	%EnglishBox.editable = true
