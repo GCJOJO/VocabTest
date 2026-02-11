@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ss6nu6u66tgv"
-path="res://.godot/imported/wakatime_logo.jpg-a50f628e445fd6bef17dff1651d611bc.ctex"
+path="res://.godot/imported/wakatime_logo.jpg-9b39670b542ccd4f8b4d163a7f00d5ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wakatime_logo.jpg"
-dest_files=["res://.godot/imported/wakatime_logo.jpg-a50f628e445fd6bef17dff1651d611bc.ctex"]
+source_file="res://addons/wakatime/wakatime_logo.jpg"
+dest_files=["res://.godot/imported/wakatime_logo.jpg-9b39670b542ccd4f8b4d163a7f00d5ac.ctex"]
 
 [params]
 

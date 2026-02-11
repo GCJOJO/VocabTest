@@ -2,9 +2,18 @@
 
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_66efl"]
 [ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/SoloModeScene.gd" id="1_xncir"]
-[ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Scenes/word_question.tscn" id="3_7b7f5"]
+[ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Prefabs/word_question.tscn" id="3_7b7f5"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_n6xxp"]
-[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Scenes/timer.tscn" id="4_xemin"]
+[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="4_xemin"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="6_ag1oh"]
+[ext_resource type="StyleBox" uid="uid://dk2berdsm4ouo" path="res://Resources/Theme/panel_container/panel_border.tres" id="6_bbn6k"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_g4m7a"]
+
+[sub_resource type="Resource" id="Resource_r4ymn"]
+script = ExtResource("7_g4m7a")
+
+[sub_resource type="Resource" id="Resource_fx5rh"]
+script = ExtResource("7_g4m7a")
 
 [node name="SoloMode" type="Control" unique_id=194373753]
 layout_mode = 3
@@ -76,4 +85,154 @@ offset_bottom = 32.0
 
 [node name="Timer" type="Timer" parent="GameMenu" unique_id=1111712050]
 
+[node name="Results" type="Control" parent="." unique_id=1671799819]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Results" unique_id=1213261511]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.156
+anchor_right = 0.85
+anchor_bottom = 0.84400004
+offset_top = -0.3199997
+offset_bottom = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Results" unique_id=850820139]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.187
+anchor_top = 0.31100002
+anchor_right = 0.81200004
+anchor_bottom = 0.62200004
+offset_left = 0.63998413
+offset_top = 0.07998657
+offset_right = 0.6398926
+offset_bottom = 0.15997314
+script = ExtResource("6_ag1oh")
+wheel_scroll_damper = SubResource("Resource_r4ymn")
+dragging_scroll_damper = SubResource("Resource_fx5rh")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+
+[node name="Control" type="Control" parent="Results/ScrollContainer" unique_id=472581510]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="Panel" type="Panel" parent="Results/ScrollContainer/Control" unique_id=1224078768]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.020000001
+anchor_top = 0.10700001
+anchor_right = 0.93000007
+anchor_bottom = 0.321
+offset_top = 0.03199768
+offset_right = -6.1035156e-05
+offset_bottom = 0.09600067
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("6_bbn6k")
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Results/ScrollContainer/Control" unique_id=1966926265]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16000001
+anchor_top = 0.21400002
+anchor_right = 0.16000001
+anchor_bottom = 0.21400002
+offset_left = -104.000015
+offset_top = -23.936005
+offset_right = 103.99994
+offset_bottom = 24.064026
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "Nombre de mots corrects"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="CorrectWords" type="RichTextLabel" parent="Results/ScrollContainer/Control" unique_id=1733927886]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83000004
+anchor_top = 0.21400002
+anchor_right = 0.83000004
+anchor_bottom = 0.21400002
+offset_left = -104.00006
+offset_top = -23.936005
+offset_right = 103.99994
+offset_bottom = 24.064026
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "0 / 0 = la tête à toto"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Results" unique_id=627479991]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.23300001
+anchor_right = 0.5
+anchor_bottom = 0.23300001
+offset_left = -104.0
+offset_top = -23.76001
+offset_right = 104.0
+offset_bottom = 24.23999
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.5764706, 0.2, 0.91764706, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "[b][i]Résultats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Results" unique_id=1357899776]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.683
+anchor_right = 0.5
+anchor_bottom = 0.683
+offset_left = -128.0
+offset_top = -19.76001
+offset_right = 128.0
+offset_bottom = 20.23999
+text = "Continuer"
+
+[node name="QuitButton" type="Button" parent="Results" unique_id=556491908]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.76100004
+anchor_right = 0.5
+anchor_bottom = 0.76100004
+offset_left = -128.0
+offset_top = -19.920044
+offset_right = 128.0
+offset_bottom = 20.079956
+text = "Arrêter"
+
 [connection signal="pressed" from="OptionScreen/StartGame" to="." method="startGame"]
+[connection signal="pressed" from="Results/ContinueButton" to="." method="startGame"]
+[connection signal="pressed" from="Results/QuitButton" to="." method="returnToOptionScreen"]

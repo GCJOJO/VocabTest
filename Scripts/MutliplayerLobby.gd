@@ -145,18 +145,26 @@ func joinLobby(joinedLobbyId : String) -> void:
 	socket.send_text(json)
 
 func leaveLobby() -> void:
+	if socket.get_ready_state() != socket.STATE_OPEN:
+		return
 	var json : String = JSON.stringify({"action" : "leave-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
 	
 func disbandLobby() -> void:
+	if socket.get_ready_state() != socket.STATE_OPEN:
+		return
 	var json : String = JSON.stringify({"action" : "disband-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
 
 func submitWord(word: String) -> void:
+	if socket.get_ready_state() != socket.STATE_OPEN:
+		return
 	var json : String = JSON.stringify({"action" : "send-word", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "word": word})
 	socket.send_text(json)
 
 func requestNextWord() -> void:
+	if socket.get_ready_state() != socket.STATE_OPEN:
+		return
 	var json : String = JSON.stringify({"action" : "request-next-word", "player_id" : GameManager.PlayerUUID, "lobby_id": lobbyId})
 	socket.send_text(json)
 

@@ -18,6 +18,7 @@ var roundTimer : int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$GameMenu.hide()
+	$Results.hide()
 	%WordQuestion.readyNextQuestion.connect(update_word)
 	%GameOptions.wordsCountChanged.connect(func(value : int): LobbyOptions["max_words"] = value)
 	%GameOptions.timerChanged.connect(func(value : int): LobbyOptions["round_timer"] = value)
@@ -38,19 +39,27 @@ func onTimerTick() -> void:
 	
 func loadSoloMode() -> void:
 	$GameMenu.hide()
+	$Results.hide()
 	$OptionScreen.show()
 	if WordManager.WORDS == null or len(WordManager.WORDS) == 0:
 		print("No words")
 		#get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 		return
 	
+	CURRENT_WORD_INDEX = 0
 	RANDOMIZED_WORDS = WordManager.WORDS
 	RANDOMIZED_WORDS.shuffle()
 	%GameOptions.setup()
 	
 func startGame() -> void:
 	$OptionScreen.hide()
+	$Results.hide()
 	$GameMenu.show()
+	
+	CURRENT_WORD_INDEX = 0
+	RANDOMIZED_WORDS = WordManager.WORDS
+	RANDOMIZED_WORDS.shuffle()
+	
 	%WordQuestion.setup(true, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"])
 	roundTimer = LobbyOptions["round_timer"]
 	$GameMenu/TimerScreen.setRoundTimer(roundTimer)
@@ -60,11 +69,14 @@ func startGame() -> void:
 
 func update_word() -> void:
 	CURRENT_WORD_INDEX += 1
-	if(CURRENT_WORD_INDEX >= min(len(RANDOMIZED_WORDS), LobbyOptions["max_words"])):
-		#get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-		# show results
-		$OptionScreen.show()
+	if(CURRENT_WORD_INDEX > min(len(RANDOMIZED_WORDS), LobbyOptions["max_words"])):
+		%CorrectWords.text = "%s / %s" % [LobbyOptions["max_words"] - mistakes, LobbyOptions["max_words"]]
+		$Results.show()
 		$GameMenu.hide()
 		return
 	
 	%WordQuestion.changeWord(RANDOMIZED_WORDS[CURRENT_WORD_INDEX])
+
+func returnToOptionScreen() -> void:
+	$Results.hide()
+	$OptionScreen.show()

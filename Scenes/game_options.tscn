@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/GameOptions.gd" id="1_hs2l2"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_vnmrx"]
 
-[node name="GameOptions" type="ScrollContainer" unique_id=1588180714]
+[node name="GameOptions" type="ScrollContainer" unique_id=807257538]
 custom_minimum_size = Vector2(512, 256)
 anchors_preset = -1
 anchor_right = 0.4
@@ -15,6 +15,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_vnmrx")
 script = ExtResource("1_hs2l2")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2133419068]
 layout_mode = 2

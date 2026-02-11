@@ -1,30 +1,11 @@
 extends Control
 class_name Scoreboard
 
-@export var ScoreboardPlayerScene : PackedScene = preload("res://Scenes/scoreboard_player.tscn")
+@export var ScoreboardPlayerScene : PackedScene = preload("res://Prefabs/scoreboard_player.tscn")
 var PLAYER_SCORES : Dictionary[String, float] = {}
 
 var PLAYERS_DATA_TO_UPDATE : Dictionary[String, Callable]
 
-#func _ready() -> void:
-	#setScore("Feur", 150)
-	#setScore("FJEioh0", 200)
-	#setScore("Bonbon", 1)
-	#setScore("Bob", 5000)
-	#
-	#await get_tree().create_timer(1).timeout
-	#
-	#refreshScoreboard()
-	#
-	#setScore("Feur", 250)
-	#setScore("FJEioh0", 300)
-	#setScore("Bonbon", 500)
-	#setScore("Bob", 10)
-	#
-	#await get_tree().create_timer(5).timeout
-	#
-	#refreshScoreboard()
-	
 func _ready() -> void:
 	GameManager.userInfoChanged.connect(onUserInfoChanged)
 	
@@ -92,6 +73,9 @@ func refreshScoreboard() -> void:
 	for index in range(0, len(orderedPlayer)):
 		var playerId = orderedPlayer[index]
 		var scoreboardPlayer : Control = get_node(playerId["id"])
+		if scoreboardPlayer == null:
+			continue
+			
 		var positionTween : Tween = get_tree().create_tween()
 		positionTween.set_ease(Tween.EASE_IN_OUT)
 		var calculatedPosition : Vector2 = Vector2(0, scoreboardPlayer.size.y * index)

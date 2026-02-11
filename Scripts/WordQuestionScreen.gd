@@ -26,6 +26,7 @@ func _ready() -> void:
 
 func setup(show_instant_result : bool, max_question_number: int, word_similarity_threshold : float = -1) -> void:
 	showInstantResult = show_instant_result
+	currentQuestionNumber = 0
 	maxQuestionNumber = max_question_number
 	wordSimilarityThreshold = word_similarity_threshold
 	%Status.text = "[center][font_size=24]%d/%d\nFautes : %d" % [currentQuestionNumber, maxQuestionNumber, mistakes]
