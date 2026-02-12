@@ -4,7 +4,7 @@ class_name WordQuestionScreen
 var showInstantResult : bool
 var maxQuestionNumber: int
 var currentQuestionNumber: int = 0
-var mistakes: int = 0
+var mistakes: float = 0
 
 var hasAnswered: bool = false
 var currentWord : WordResource
@@ -51,17 +51,19 @@ func showResult(wordSimilarity: float, similarityThreshold : float) -> void:
 		#%OrangeParticles.emitting = true
 	elif wordSimilarity >= similarityThreshold:
 		%Result.text = "[center][font_size=46][color=orange]Presque !"
+		mistakes += 1 - wordSimilarity
+		updateStatus()
 	else:
 		%Result.text = "[center][font_size=46][color=red]Faux !"
+		mistakes += 1.0
 		%ExplosionSprite.show()
 		%ExplosionSprite.play(&"default")
 		$ExplosionSound.play()
 	
-	mistakes += 0 if wordSimilarity >= similarityThreshold else 1
 	updateStatus()
 	
 func updateStatus() -> void:
-	%Status.text = "[center][font_size=24]%d/%d\nFautes : %d" % [currentQuestionNumber, maxQuestionNumber, mistakes]
+	%Status.text = "[center][font_size=24]%d/%d\nFautes : %.1f" % [currentQuestionNumber, maxQuestionNumber, mistakes]
 	
 func incrementQuestionNumber() -> void:
 	currentQuestionNumber += 1

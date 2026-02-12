@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_nnxl5"]
 [ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="5_nnvwm"]
-[ext_resource type="PackedScene" uid="uid://bqeh6556vw4qc" path="res://Prefabs/LobbyButton.tscn" id="5_nnxl5"]
 
 [sub_resource type="Resource" id="Resource_sj15e"]
 script = ExtResource("4_nnxl5")
@@ -89,11 +88,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
-metadata/_smooth_scroll_default_mouse_filter_set = true
-
-[node name="LobbyButton" parent="LobbyDiscoveryScreen/ScrollContainer/Lobbies" unique_id=2063067488 instance=ExtResource("5_nnxl5")]
-layout_mode = 2
-mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
 [node name="LobbyScreen" type="Control" parent="." unique_id=1765891286]
