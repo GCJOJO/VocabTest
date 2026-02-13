@@ -31,10 +31,11 @@ func loadMultiplayerScreen() -> void:
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = false
 	$ResultsScreen.visible = false
-	$InGameScreen/WordQuestion.entered_word.connect(submitWord)
-	$InGameScreen/WordQuestion.readyNextQuestion.connect(requestNextWord)
+	%GameMenu.answerEntered.connect(submitAnswer)
+	%GameMenu.readyNextQuestion.connect(requestNextQuestion)
 	
 	%GameOptions.wordsCountChanged.connect(func(value : int): updateLobbyOptions("max_words", value))
+	%GameOptions.categoriesChanged.connect(func(value : int): updateLobbyOptions("categories", value))
 	%GameOptions.wordsThresholdChanged.connect(func(value: float): updateLobbyOptions("similarity_threshold", value))
 	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
 	
@@ -156,16 +157,16 @@ func disbandLobby() -> void:
 	var json : String = JSON.stringify({"action" : "disband-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
 
-func submitWord(word: String) -> void:
+func submitAnswer(answerType : int, answer) -> void:
 	if socket.get_ready_state() != socket.STATE_OPEN:
 		return
-	var json : String = JSON.stringify({"action" : "send-word", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "word": word})
+	var json : String = JSON.stringify({"action" : "send-answer", "player_id": GameManager.PlayerUUID, "lobby_id" : lobbyId, "answer_type" : answerType, "answer"  : answer})
 	socket.send_text(json)
 
-func requestNextWord() -> void:
+func requestNextQuestion() -> void:
 	if socket.get_ready_state() != socket.STATE_OPEN:
 		return
-	var json : String = JSON.stringify({"action" : "request-next-word", "player_id" : GameManager.PlayerUUID, "lobby_id": lobbyId})
+	var json : String = JSON.stringify({"action" : "request-next-question", "player_id" : GameManager.PlayerUUID, "lobby_id": lobbyId})
 	socket.send_text(json)
 
 func isInLobby() -> bool:
@@ -192,14 +193,24 @@ func updateLobbyOptions(key : String, value) :
 	var json : String = JSON.stringify({"action" : "update-lobby-options", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "options": LobbyOptions})
 	socket.send_text(json)
 
-func _doNewWord(newWordData) -> void:
-	var context : String = newWordData["contexte"] if newWordData["contexte"] != null else ""
-	var englishWords : PackedStringArray = newWordData["anglais"].split("/")
-	var newWord : = WordResource.new(newWordData["identifiant"], newWordData["français"], context, englishWords)
-	%WordQuestion.changeWord(newWord)
+func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
+	match questionType:
+		GameManager.WORD_CATEGORY:
+			var context : String = newQuestion["contexte"] if newQuestion["contexte"] != null else ""
+			var englishWords : PackedStringArray = newQuestion["anglais"].split("/")
+			var newWord : = WordResource.new(newQuestion["identifiant"], newQuestion["français"], context, englishWords)
+			%GameMenu.setWord(newWord)
+		GameManager.VERB_CATEGORY:
+			var context : String = newQuestion["context"] if newQuestion["context"] != null else ""
+			var inf : String = newQuestion["infinitive"]
+			var pre : String = newQuestion["preterit"]
+			var pp : String = newQuestion["past_participle"]
+			var newVerb : = VerbResource.new(newQuestion["id"], newQuestion["french"], context, inf.split("/"), pre.split("/"), pp.split("/"))
+			%GameMenu.setVerb(newVerb)
 
 func _doShowResult(wordSimilarity : float, similarityThreshold : float) -> void:
-	$InGameScreen/WordQuestion.showResult(wordSimilarity, similarityThreshold)
+	#$InGameScreen/WordQuestion.showResult(wordSimilarity, similarityThreshold)
+	%GameMenu.showResultsSimilarity(wordSimilarity, similarityThreshold)
 
 func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 	lobbyId = newLobbyId
@@ -223,9 +234,7 @@ func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 func _doStartLobby() -> void:
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = true
-	$InGameScreen/Timer.setMaxRoundTimer(LobbyOptions["round_timer"])
-	$InGameScreen/Timer.setRoundTimer(LobbyOptions["round_timer"])
-	%WordQuestion.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"])
+	%GameMenu.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"], LobbyOptions["round_timer"], false)
 
 func _doQuitLobby() -> void:
 	lobbyId = ""
@@ -281,8 +290,9 @@ func handle_packet(packet_str : String) -> void:
 	
 	var action = data["action"]
 	match action:
-		"new-word":
-			_doNewWord(data["word"])
+		"new-question":
+			var newQuestion = data["question"]
+			_doNewQuestion(newQuestion["category"], newQuestion["question"])
 		"lobby-started":
 			_doStartLobby()
 		"lobby-created":
@@ -310,7 +320,7 @@ func handle_packet(packet_str : String) -> void:
 			setIsLobbyOwner(data["player_id"] == GameManager.PlayerUUID)
 		"timer-update":
 			var currentTime = LobbyOptions["round_timer"] - data["current_round_timer"]
-			$InGameScreen/Timer.setRoundTimer(currentTime)
+			%GameMenu.setTimer(currentTime)
 		"player-left":
 			%LobbyScoreboard.removePlayer(data["player_id"])
 			%InGameScoreboard.removePlayer(data["player_id"])

@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://b3iqx1hgg3d6t"]
 
-[ext_resource type="Script" uid="uid://dm51qewwvsqhj" path="res://Scripts/WordQuestionScreen.gd" id="1_u0qxv"]
+[ext_resource type="Script" uid="uid://dm51qewwvsqhj" path="res://Scripts/Screens/WordQuestionScreen.gd" id="1_u0qxv"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="2_vkcbi"]
-[ext_resource type="SpriteFrames" uid="uid://chln6cbvga2yu" path="res://Resources/Images/Explosion.tres" id="3_rln02"]
-[ext_resource type="AudioStream" uid="uid://cyf1rm5i0wwxk" path="res://Resources/SFX/snd_badexplosion.wav" id="4_kf264"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vkcbi"]
 bg_color = Color(0.60784316, 0.16470589, 1, 1)
@@ -32,9 +30,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_kf264"]
-viewport_path = NodePath("ExplosionSubViewport")
 
 [node name="WordQuestion" type="Control" unique_id=2005529088]
 layout_mode = 3
@@ -172,144 +167,5 @@ pivot_offset = Vector2(256, 32)
 bbcode_enabled = true
 text = "[center][font_size=46][color=green]Correct !"
 scroll_active = false
-
-[node name="Status" type="RichTextLabel" parent="." unique_id=505411195]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.86700004
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -96.0
-offset_top = -0.24005127
-offset_right = 96.0
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-bbcode_enabled = true
-text = "[center][font_size=24]1/100
-Fautes : 16"
-vertical_alignment = 1
-
-[node name="ExplosionSound" type="AudioStreamPlayer" parent="." unique_id=997919627]
-stream = ExtResource("4_kf264")
-volume_db = -10.0
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=414119412]
-z_index = 100
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -152.0
-offset_right = 109.0
-offset_bottom = 148.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("ViewportTexture_kf264")
-
-[node name="ExplosionSubViewport" type="SubViewport" parent="." unique_id=838020128]
-disable_3d = true
-transparent_bg = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(71, 100)
-size_2d_override = Vector2i(71, 100)
-
-[node name="Camera2D" type="Camera2D" parent="ExplosionSubViewport" unique_id=1699612137]
-position = Vector2(-35, -50)
-
-[node name="ExplosionSprite" type="AnimatedSprite2D" parent="ExplosionSubViewport" unique_id=1919879698]
-unique_name_in_owner = true
-visible = false
-texture_filter = 1
-sprite_frames = ExtResource("3_rln02")
-frame = 16
-frame_progress = 1.0
-centered = false
-offset = Vector2(-71, -100)
-
-[node name="GreenParticles" type="CPUParticles2D" parent="." unique_id=655553011]
-unique_name_in_owner = true
-position = Vector2(640, 743.99994)
-scale = Vector2(2.5, 2.5)
-emitting = false
-amount = 90
-lifetime = 2.5
-one_shot = true
-explosiveness = 1.0
-randomness = 0.5
-local_coords = true
-emission_shape = 1
-emission_sphere_radius = 5.0
-direction = Vector2(0, -1)
-gravity = Vector2(0, 100)
-initial_velocity_min = 100.0
-initial_velocity_max = 130.0
-angular_velocity_min = 424.95
-angular_velocity_max = 656.56
-angle_min = -178.2
-angle_max = 164.1
-scale_amount_min = 0.5
-scale_amount_max = 5.0
-color = Color(0.46239173, 0.82942384, 0.30617526, 1)
-hue_variation_min = -0.83
-hue_variation_max = 0.77
-
-[node name="RedParticles" type="CPUParticles2D" parent="." unique_id=660104448]
-unique_name_in_owner = true
-position = Vector2(648, 728)
-scale = Vector2(2.5, 2.5)
-emitting = false
-amount = 75
-lifetime = 2.5
-one_shot = true
-explosiveness = 1.0
-randomness = 0.5
-local_coords = true
-emission_shape = 1
-emission_sphere_radius = 5.0
-direction = Vector2(0, -1)
-gravity = Vector2(0, 100)
-initial_velocity_min = 100.0
-initial_velocity_max = 130.0
-angular_velocity_min = 424.95
-angular_velocity_max = 656.56
-angle_min = -178.2
-angle_max = 164.1
-scale_amount_min = 0.5
-scale_amount_max = 5.0
-color = Color(0.83137256, 0.3013534, 0.45428255, 1)
-hue_variation_min = -0.83
-hue_variation_max = 0.77
-
-[node name="OrangeParticles" type="CPUParticles2D" parent="." unique_id=1112130557]
-unique_name_in_owner = true
-position = Vector2(656, 760)
-scale = Vector2(2.5, 2.5)
-emitting = false
-amount = 65
-lifetime = 2.5
-one_shot = true
-explosiveness = 1.0
-randomness = 0.5
-local_coords = true
-emission_shape = 1
-emission_sphere_radius = 5.0
-direction = Vector2(0, -1)
-gravity = Vector2(0, 100)
-initial_velocity_min = 100.0
-initial_velocity_max = 130.0
-angular_velocity_min = 424.95
-angular_velocity_max = 656.56
-angle_min = -178.2
-angle_max = 164.1
-scale_amount_min = 0.5
-scale_amount_max = 5.0
-color = Color(0.3884564, 0.5970848, 0.83137256, 1)
-hue_variation_min = -0.83
-hue_variation_max = 0.77
 
 [connection signal="pressed" from="SendButton" to="." method="sendButtonPressed"]

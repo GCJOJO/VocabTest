@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://do24ilobdftng"]
 
-[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/MutliplayerLobby.gd" id="1_7661t"]
+[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/Screens/MutliplayerLobby.gd" id="1_7661t"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yw3hq"]
 [ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
-[ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Prefabs/word_question.tscn" id="2_qc2uw"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="3_3qimo"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_nnxl5"]
-[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="5_nnvwm"]
+[ext_resource type="PackedScene" uid="uid://d0077t4pbxw86" path="res://Prefabs/game_menu.tscn" id="7_12yhm"]
 
 [sub_resource type="Resource" id="Resource_sj15e"]
 script = ExtResource("4_nnxl5")
@@ -207,10 +206,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.15686275, 0.17254902, 0.20392157, 1)
 
-[node name="WordQuestion" parent="InGameScreen" unique_id=2005529088 instance=ExtResource("2_qc2uw")]
+[node name="GameMenu" parent="InGameScreen" unique_id=1515599100 instance=ExtResource("7_12yhm")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = -1
 
 [node name="InGameScoreboard" parent="InGameScreen" unique_id=955663915 instance=ExtResource("2_gp6xo")]
 unique_name_in_owner = true
@@ -224,15 +222,6 @@ offset_left = -320.32007
 offset_top = -0.080005646
 offset_right = -0.32006836
 offset_bottom = -0.08001709
-
-[node name="Timer" parent="InGameScreen" unique_id=1884644969 instance=ExtResource("5_nnvwm")]
-layout_mode = 1
-anchor_left = 0.5
-anchor_top = 0.38900003
-anchor_right = 0.5
-anchor_bottom = 0.38900003
-offset_top = -32.080017
-offset_bottom = 31.919983
 
 [node name="ResultsScreen" type="Control" parent="." unique_id=1713447722]
 visible = false

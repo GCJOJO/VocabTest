@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://bxecdkpxowukv"]
 
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_66efl"]
-[ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/SoloModeScene.gd" id="1_xncir"]
-[ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Prefabs/word_question.tscn" id="3_7b7f5"]
+[ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/Screens/SoloModeScene.gd" id="1_xncir"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_n6xxp"]
-[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="4_xemin"]
+[ext_resource type="PackedScene" uid="uid://d0077t4pbxw86" path="res://Prefabs/game_menu.tscn" id="4_hn1gp"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="6_ag1oh"]
 [ext_resource type="StyleBox" uid="uid://dk2berdsm4ouo" path="res://Resources/Theme/panel_container/panel_border.tres" id="6_bbn6k"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="7_g4m7a"]
@@ -61,29 +60,9 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Lancer la partie"
 
-[node name="GameMenu" type="Control" parent="." unique_id=1778101570]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="WordQuestion" parent="GameMenu" unique_id=2005529088 instance=ExtResource("3_7b7f5")]
+[node name="GameMenu" parent="." unique_id=1515599100 instance=ExtResource("4_hn1gp")]
 unique_name_in_owner = true
 layout_mode = 1
-
-[node name="TimerScreen" parent="GameMenu" unique_id=1884644969 instance=ExtResource("4_xemin")]
-layout_mode = 1
-anchor_left = 0.5
-anchor_top = 0.4
-anchor_right = 0.5
-anchor_bottom = 0.4
-offset_top = -32.0
-offset_bottom = 32.0
-
-[node name="Timer" type="Timer" parent="GameMenu" unique_id=1111712050]
 
 [node name="Results" type="Control" parent="." unique_id=1671799819]
 visible = false

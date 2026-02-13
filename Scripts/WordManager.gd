@@ -1,11 +1,14 @@
 extends Node
 
 var WORDS : Array[WordResource]
+var VERBS : Array[VerbResource]
 
 signal words_loaded()
+signal verbs_loaded()
 
 func load_words() -> void:
-	RequestQueue.requestGet("%s/word-list" % GameManager.SERVER_ADRESS, onWordsGet)
+	RequestQueue.requestGet("%s/words-list" % GameManager.SERVER_ADRESS, onWordsGet)
+	RequestQueue.requestGet("%s/verbs-list" % GameManager.SERVER_ADRESS, onVerbsGet)
 
 func onWordsGet(response):
 	if response == null:
@@ -16,28 +19,61 @@ func onWordsGet(response):
 		print(response["action"])
 	
 	var action = response["action"]
-	match action:
-		"set-words":
-			WORDS.clear()
-			var new_words = response["words"]
-			for wordJson in new_words:
-				var id : int = wordJson["identifiant"]
-				var fr : String = wordJson["français"]
-				var con : String = wordJson["contexte"] if wordJson["contexte"] != null else ""
-				var pre : String = wordJson["prefix"] if wordJson["prefix"] != null else ""
-				
-				var unsplittedEn : String = wordJson["anglais"]
-				var en : PackedStringArray = unsplittedEn.split("/")
-				WORDS.append(WordResource.new(id, fr, con, en, pre))
+	if action != "words-list":
+		return
+	
+	WORDS.clear()
+	var new_words = response["words"]
+	for wordJson in new_words:
+		var id : int = wordJson["identifiant"]
+		var fr : String = wordJson["français"]
+		var con : String = wordJson["contexte"] if wordJson["contexte"] != null else ""
+		var pre : String = wordJson["prefix"] if (wordJson.has("prefix") and wordJson["prefix"] != null) else ""
+		
+		var unsplittedEn : String = wordJson["anglais"]
+		var en : PackedStringArray = unsplittedEn.split("/")
+		WORDS.append(WordResource.new(id, fr, con, en, pre))
 				
 	words_loaded.emit()
+
+func onVerbsGet(response) -> void:
+	if response == null:
+		return
+		
+	var action = response["action"]
+	if action != "verbs-list":
+		return
+		
+	VERBS.clear()
+	var new_verbs = response["verbs"]
+	for wordJson in new_verbs:
+		var id : int = wordJson["id"]
+		var fr : String = wordJson["french"]
+		var con : String = wordJson["context"] if wordJson["context"] != null else ""
+		var inf : PackedStringArray = wordJson["infinitive"].split("/")
+		var pre : PackedStringArray = wordJson["preterit"].split("/")
+		var pp : PackedStringArray = wordJson["past_participle"].split("/")
+		VERBS.append(VerbResource.new(id, fr, con, inf, pre, pp))
 				
+	verbs_loaded.emit()
 
 func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
 	var min_distance : float = 1.0
 	for englishWord : String in wordResource.ENGLISH:
 		min_distance = min(levenshteinDistance(englishWord.to_lower(), enteredWord.to_lower()), min_distance)
 	return (1.0 - min_distance)
+
+func checkEnteredVerb(verbResource : VerbResource, enteredVerbs : PackedStringArray) -> float:
+	var infDistance : float = 1.0
+	var preDistance : float = 1.0
+	var ppDistance : float = 1.0
+	for inf : String in verbResource.INFINITIVE:
+		infDistance = min(levenshteinDistance(inf.to_lower(), enteredVerbs[0].to_lower()), infDistance)
+	for pre : String in verbResource.PRETERIT:
+		preDistance = min(levenshteinDistance(pre.to_lower(), enteredVerbs[1].to_lower()), preDistance)
+	for pp : String in verbResource.PRESENT_PARTICIPLE:
+		ppDistance = min(levenshteinDistance(pp.to_lower(), enteredVerbs[2].to_lower()), ppDistance)
+	return 1 - ((infDistance + preDistance + ppDistance) / 3.0)
 
 func levenshteinDistance(wordA : String, wordB : String) -> float:
 	# Create an empty matrix with the dimensions of the lengths of the strings plus one

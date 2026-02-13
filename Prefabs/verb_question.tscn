@@ -1,0 +1,206 @@
+[gd_scene format=3 uid="uid://cs51nyp5fi3h"]
+
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_1wh38"]
+[ext_resource type="Script" uid="uid://bfj3kw0nqc36a" path="res://Scripts/Screens/VerbQuestion.gd" id="2_1c5p2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mx33"]
+bg_color = Color(0.60784316, 0.16470589, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1hk0"]
+bg_color = Color(0.49411765, 0.13333334, 0.80784315, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oches"]
+bg_color = Color(0.5247397, 0.14218749, 0.86328125, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srt02"]
+bg_color = Color(0.53295475, 0.14318179, 0.875, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="VerbQuestion" type="Control" unique_id=1368086970]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1wh38")
+script = ExtResource("2_1c5p2")
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=352291829]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1wh38")
+color = Color(0.15686275, 0.17254902, 0.25882354, 1)
+
+[node name="Panel" type="Panel" parent="." unique_id=2002025628]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.156
+anchor_right = 0.85
+anchor_bottom = 0.84400004
+offset_top = -56.32
+offset_bottom = -7.6800537
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FrenchWord" type="RichTextLabel" parent="." unique_id=411878200]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15100001
+anchor_right = 0.5
+anchor_bottom = 0.15100001
+offset_left = -400.0
+offset_top = -36.72001
+offset_right = 400.0
+offset_bottom = 36.27999
+bbcode_enabled = true
+text = "[font_size=46][center]Être"
+scroll_active = false
+
+[node name="Context" type="RichTextLabel" parent="." unique_id=1494670112]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.23900001
+anchor_right = 0.5
+anchor_bottom = 0.23900001
+offset_left = -416.0
+offset_top = -28.080002
+offset_right = 416.0
+offset_bottom = 27.919998
+bbcode_enabled = true
+text = "[color=#555][font_size=32][center]dans les backrooms"
+scroll_active = false
+
+[node name="Prefix" type="RichTextLabel" parent="." unique_id=1806868888]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.21200001
+anchor_top = 0.31100002
+anchor_right = 0.287
+anchor_bottom = 0.38900003
+offset_left = 0.63998413
+offset_top = 0.07998657
+offset_right = 0.64001465
+offset_bottom = -0.08001709
+bbcode_enabled = true
+text = "[color=#555][font_size=28]to"
+scroll_active = false
+horizontal_alignment = 2
+
+[node name="Infinitive" type="LineEdit" parent="." unique_id=836851788]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.344
+anchor_right = 0.5
+anchor_bottom = 0.344
+offset_left = -256.0
+offset_top = -31.680008
+offset_right = 256.0
+offset_bottom = 32.319992
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Infinitif"
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="Preterit" type="LineEdit" parent="." unique_id=1665144031]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44400004
+anchor_right = 0.5
+anchor_bottom = 0.44400004
+offset_left = -256.0
+offset_top = -31.680023
+offset_right = 256.0
+offset_bottom = 32.319977
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Prétérit"
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="PP" type="LineEdit" parent="." unique_id=936702499]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.544
+anchor_right = 0.5
+anchor_bottom = 0.544
+offset_left = -256.0
+offset_top = -31.680023
+offset_right = 256.0
+offset_bottom = 32.319977
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Participe Passé"
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="SendButton" type="Button" parent="." unique_id=515087537]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.67800003
+anchor_right = 0.5
+anchor_bottom = 0.67800003
+offset_left = -256.0
+offset_top = -32.160034
+offset_right = 256.00006
+offset_bottom = 31.919922
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7mx33")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y1hk0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oches")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_srt02")
+disabled = true
+text = "Envoyer"
+
+[node name="Result" type="RichTextLabel" parent="." unique_id=540678217]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.73300004
+anchor_right = 0.5
+anchor_bottom = 0.822
+offset_left = -256.0
+offset_top = 0.23999023
+offset_right = 256.0
+offset_bottom = 0.16003418
+pivot_offset = Vector2(256, 32)
+bbcode_enabled = true
+text = "[center][font_size=46][color=green]Correct !"
+scroll_active = false
+
+[connection signal="pressed" from="SendButton" to="." method="sendButtonPressed"]

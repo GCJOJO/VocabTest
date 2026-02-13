@@ -1,7 +1,19 @@
 [gd_scene format=3 uid="uid://ck1vtllbrroip"]
 
-[ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/ScoreboardPlayer.gd" id="1_k7vaj"]
+[ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/Screens/ScoreboardPlayer.gd" id="1_k7vaj"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yne0d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmjsm"]
+bg_color = Color(0.9529412, 0.9529412, 0.95686275, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3738189, 0.19514087, 0.4140625, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="ScoreboardPlayer" type="Control" unique_id=711861562]
 custom_minimum_size = Vector2(320, 64)
@@ -21,6 +33,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qmjsm")
 
 [node name="PlayerName" type="RichTextLabel" parent="." unique_id=752266566]
 unique_name_in_owner = true

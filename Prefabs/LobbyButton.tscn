@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqeh6556vw4qc"]
 
-[ext_resource type="Script" uid="uid://bvynjtsf4jj61" path="res://Scripts/LobbyButton.gd" id="1_74j8m"]
+[ext_resource type="Script" uid="uid://bvynjtsf4jj61" path="res://Scripts/Screens/LobbyButton.gd" id="1_74j8m"]
 
 [node name="LobbyButton" type="Control" unique_id=2063067488]
 custom_minimum_size = Vector2(256, 64)

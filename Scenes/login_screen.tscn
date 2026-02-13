@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://nay3bst87t03"]
 
-[ext_resource type="Script" uid="uid://rtf8d7tltf43" path="res://Scripts/LoginScreen.gd" id="1_5g20f"]
+[ext_resource type="Script" uid="uid://rtf8d7tltf43" path="res://Scripts/Screens/LoginScreen.gd" id="1_5g20f"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_hijib"]
 
 [node name="LoginScreen" type="Control" unique_id=1116364533]

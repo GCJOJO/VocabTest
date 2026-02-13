@@ -3,6 +3,7 @@ extends ScrollContainer
 signal wordsCountChanged(newValue : int)
 signal wordsThresholdChanged(newValue : float)
 signal timerChanged(newValue : int)
+signal categoriesChanged(newValue : int)
 
 var useTimer : bool = false
 
@@ -11,9 +12,11 @@ func _ready() -> void:
 	
 func setup():
 	var max_word_number : int = WordManager.WORDS.size()
+	var max_verb_number : int = WordManager.VERBS.size()
+	
 	%WordsSpinBox.min_value = 1
-	%WordsSpinBox.max_value = max_word_number
-	%WordsSpinBox.value = min(10, max_word_number)
+	%WordsSpinBox.max_value = max_word_number + max_verb_number
+	%WordsSpinBox.value = min(10, max_word_number + max_verb_number)
 
 func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled
@@ -56,3 +59,15 @@ func onTimerSliderChanged(valueChanged : bool) -> void:
 		%TimerText.text = "%d secondes" % newValue
 		if useTimer:
 			timerChanged.emit(newValue)
+
+func onCategoriesChanged() -> void:
+	var categories : int = 0
+	if %WordsCategory.button_pressed:
+		categories |= GameManager.WORD_CATEGORY
+	if %VerbsCategory.button_pressed:
+		categories |= GameManager.VERB_CATEGORY
+		
+	if categories == 0:
+		categories |= GameManager.WORD_CATEGORY
+		
+	categoriesChanged.emit(categories)

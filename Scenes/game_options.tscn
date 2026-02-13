@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://blkeilidoubh2"]
 
-[ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/GameOptions.gd" id="1_hs2l2"]
+[ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/Screens/GameOptions.gd" id="1_hs2l2"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_vnmrx"]
 
 [node name="GameOptions" type="ScrollContainer" unique_id=807257538]
@@ -93,13 +93,13 @@ step = 5.0
 value = 80.0
 
 [node name="PanelContainer3" type="FoldableContainer" parent="VBoxContainer" unique_id=1624642931]
-custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 folded = true
 title = "Temps Limite"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3" unique_id=581232558]
 visible = false
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 alignment = 1
 
@@ -141,7 +141,38 @@ max_value = 120.0
 step = 15.0
 value = 30.0
 
+[node name="Categories" type="FoldableContainer" parent="VBoxContainer" unique_id=1474791587]
+layout_mode = 2
+title = "Catégories"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Categories" unique_id=984380437]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Categories/CenterContainer" unique_id=1436772406]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 1
+
+[node name="WordsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1242538954]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Mots"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=371817584]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="VerbsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=80007882]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Verbes"
+
 [connection signal="value_changed" from="VBoxContainer/PanelContainer/Control/HBoxContainer/WordsSpinBox" to="." method="onWordsCountChanged"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer/WordThresholdSlider" to="." method="onWordsThresholdSliderChanged"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer3/HBoxContainer/UseTimerCheckbob" to="." method="onUseTimerChanged"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer/TimerSlider" to="." method="onTimerSliderChanged"]
+[connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/WordsCategory" to="." method="onCategoriesChanged"]
+[connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/VerbsCategory" to="." method="onCategoriesChanged"]
