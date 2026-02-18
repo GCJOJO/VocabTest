@@ -38,7 +38,8 @@ func loadSoloMode() -> void:
 	$Results.hide()
 	$OptionScreen.show()
 	if WordManager.WORDS == null or len(WordManager.WORDS) == 0 or WordManager.VERBS == null or WordManager.VERBS.size() == 0:
-		push_warning("No words")
+		if GameManager.DEBUG_MODE:
+			push_warning("No words")
 		return
 	
 	%GameOptions.setup()

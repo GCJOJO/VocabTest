@@ -7,7 +7,7 @@ const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
 const DEBUG_MODE : bool = false
-const VERSION_STRING = "0.0.4"
+const VERSION_STRING = "0.0.5"
 
 const WORD_CATEGORY : int = 1 << 0
 const VERB_CATEGORY : int = 1 << 1
@@ -42,6 +42,12 @@ func onUserGet(response) -> void:
 	userInfoChanged.emit(userId, newUser)
 	if GameManager.DEBUG_MODE:
 		print("User info changed for user id : %s", userId)
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("fullscreen"):
+		var mode := DisplayServer.window_get_mode()
+		var is_window: bool = mode != DisplayServer.WINDOW_MODE_FULLSCREEN
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if is_window else DisplayServer.WINDOW_MODE_WINDOWED)
 
 func savePlayerData() -> void:
 	var save_file = FileAccess.open(PLAYER_DATA_SAVE_FILE, FileAccess.WRITE)

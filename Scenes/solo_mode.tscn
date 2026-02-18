@@ -182,7 +182,7 @@ theme_override_colors/default_color = Color(0.5764706, 0.2, 0.91764706, 1)
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/bold_italics_font_size = 24
 bbcode_enabled = true
-text = "[b][i]Résultats"
+text = "[wave][b][i]Résultats"
 horizontal_alignment = 1
 vertical_alignment = 1
 

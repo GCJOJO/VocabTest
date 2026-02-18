@@ -18,4 +18,4 @@ func setName(newName : String) -> void:
 	
 func setScore(newScore : float) -> void:
 	playerScore = newScore
-	$%PlayerScore.text = "[font_size=18]%.2f" % playerScore
+	$%PlayerScore.text = "[font_size=18]%.2f points" % playerScore

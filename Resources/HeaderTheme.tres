@@ -1,5 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://byun3u64o6chp"]
 
+[ext_resource type="StyleBox" uid="uid://dejid136ucewd" path="res://Resources/Theme/buttons/button_hovered.tres" id="1_jilo1"]
+[ext_resource type="StyleBox" uid="uid://ct7ohjcmh0r1n" path="res://Resources/Theme/buttons/button_hovered_pressed.tres" id="2_o8yn7"]
+[ext_resource type="StyleBox" uid="uid://pr77ptcwd0h" path="res://Resources/Theme/buttons/button_pressed.tres" id="3_eogo5"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lhhj"]
 bg_color = Color(0.49411765, 0.13333334, 0.80784315, 1)
 corner_radius_top_left = 8
@@ -26,3 +30,8 @@ Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_4lhhj")
 Button/styles/normal = SubResource("StyleBoxFlat_bdbd0")
 Button/styles/pressed = SubResource("StyleBoxFlat_wp1lp")
+SelectedButton/base_type = &"Button"
+SelectedButton/styles/hover = ExtResource("1_jilo1")
+SelectedButton/styles/hover_pressed = ExtResource("2_o8yn7")
+SelectedButton/styles/normal = ExtResource("3_eogo5")
+SelectedButton/styles/pressed = ExtResource("3_eogo5")

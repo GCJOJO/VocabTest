@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://do24ilobdftng"]
 
-[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/Screens/MutliplayerLobby.gd" id="1_7661t"]
+[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/Screens/MultiplayerScreen.gd" id="1_7661t"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yw3hq"]
 [ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="3_3qimo"]
@@ -232,6 +232,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="RichTextLabel" type="RichTextLabel" parent="ResultsScreen" unique_id=1942995195]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.14400001
+anchor_right = 0.5
+anchor_bottom = 0.14400001
+offset_left = -104.0
+offset_top = -23.680008
+offset_right = 104.0
+offset_bottom = 24.319992
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.5764706, 0.2, 0.91764706, 1)
+theme_override_constants/outline_size = 11
+theme_override_font_sizes/bold_italics_font_size = 32
+bbcode_enabled = true
+text = "[wave][b][i]Résultats"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Scoreboard" parent="ResultsScreen" unique_id=934471526 instance=ExtResource("2_gp6xo")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -244,6 +265,7 @@ offset_left = -448.0
 offset_top = -208.0
 offset_right = 448.0
 offset_bottom = 208.0
+metadata/_edit_lock_ = true
 
 [node name="ContinueButton" type="Button" parent="ResultsScreen" unique_id=984594763]
 layout_mode = 1

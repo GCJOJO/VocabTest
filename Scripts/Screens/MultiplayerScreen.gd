@@ -23,6 +23,7 @@ func _ready() -> void:
 func loadMultiplayerScreen() -> void:
 	if hasAlreadyLoaded and (socket.get_ready_state() == WebSocketPeer.STATE_CLOSING or socket.get_ready_state() == WebSocketPeer.STATE_CLOSING):
 		connectToWebsocket()
+		return
 	
 	if hasAlreadyLoaded:
 		return

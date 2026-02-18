@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://cj35lhc86wfxo"]
+
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_4pn2y"]
+[ext_resource type="Script" uid="uid://dliiyt4dgo2c5" path="res://Scripts/Screens/AdminPanel.gd" id="1_q0irj"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="2_uej7p"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_4pn2y"]
+[ext_resource type="PackedScene" uid="uid://bhk0uila7ynry" path="res://Prefabs/list_word.tscn" id="5_23nf5"]
+
+[sub_resource type="Resource" id="Resource_23nf5"]
+script = ExtResource("3_4pn2y")
+
+[sub_resource type="Resource" id="Resource_1015g"]
+script = ExtResource("3_4pn2y")
+
+[node name="AdminPanel" type="Control" unique_id=511847490]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4pn2y")
+script = ExtResource("1_q0irj")
+
+[node name="WordListPanel" type="Panel" parent="." unique_id=1721412390]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.53300005
+anchor_right = 0.85
+anchor_bottom = 1.0
+offset_top = 0.23995972
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="WordsListScrollContainer" type="ScrollContainer" parent="WordListPanel" unique_id=361909866]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_uej7p")
+wheel_scroll_damper = SubResource("Resource_23nf5")
+dragging_scroll_damper = SubResource("Resource_1015g")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="WordsList" type="VBoxContainer" parent="WordListPanel/WordsListScrollContainer" unique_id=1668307972]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=1879615553 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord2" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=1046759751 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord3" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=1954935293 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord4" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=1450419488 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord5" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=558394458 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord6" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=535414416 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord7" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=2042391838 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="ListWord8" parent="WordListPanel/WordsListScrollContainer/WordsList" unique_id=1516332803 instance=ExtResource("5_23nf5")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="WordEditPanel" type="Panel" parent="." unique_id=1081606106]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.089
+anchor_right = 0.90000004
+anchor_bottom = 0.44400004
+offset_top = -0.08000183
+offset_bottom = 0.3199768
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="WordEditScrollContainer" type="ScrollContainer" parent="WordEditPanel" unique_id=803366314]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062000003
+anchor_right = 0.81200004
+anchor_bottom = 1.0
+offset_left = 0.5119972
+offset_right = 0.5119629
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_uej7p")
+wheel_scroll_damper = SubResource("Resource_23nf5")
+dragging_scroll_damper = SubResource("Resource_1015g")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="WordsList" type="Control" parent="WordEditPanel/WordEditScrollContainer" unique_id=607086238]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="UpdateButton" type="Button" parent="WordEditPanel" unique_id=970801717]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82000005
+anchor_top = 0.094000004
+anchor_right = 0.984
+anchor_bottom = 0.344
+offset_left = 0.3199463
+offset_top = -0.06400108
+offset_right = 0.38397217
+offset_bottom = -0.06400299
+text = "Mettre à jour"
+
+[node name="Annuler" type="Button" parent="WordEditPanel" unique_id=132225224]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82000005
+anchor_top = 0.656
+anchor_right = 0.984
+anchor_bottom = 0.906
+offset_left = 0.3199463
+offset_top = 0.06399536
+offset_right = 0.38397217
+offset_bottom = 0.06399536
+text = "Annuler"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=79398917]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.30600002
+anchor_right = 0.694
+anchor_bottom = 0.067
+offset_left = 0.3199768
+offset_right = 1.3200073
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 32
+text = "Panneau d'administration"
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_smooth_scroll_default_mouse_filter_set = true

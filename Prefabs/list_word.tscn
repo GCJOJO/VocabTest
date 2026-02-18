@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://bhk0uila7ynry"]
+
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_ggnvf"]
+[ext_resource type="Script" uid="uid://si7xuvvnuyum" path="res://Scripts/Screens/ListWord.gd" id="2_tt8di"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt8di"]
+bg_color = Color(0.71969455, 0.71969455, 0.72265625, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.546875, 0.546875, 0.546875, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="ListWord" type="Control" unique_id=1879615553]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 3
+anchor_right = 0.70000005
+anchor_bottom = 0.089
+offset_right = -6.1035156e-05
+offset_bottom = -0.08000183
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ggnvf")
+script = ExtResource("2_tt8di")
+
+[node name="Panel" type="Panel" parent="." unique_id=1913797967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tt8di")
+
+[node name="SelectedCheckbox" type="CheckBox" parent="." unique_id=700407635]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.036000002
+anchor_top = 0.37500003
+anchor_right = 0.054
+anchor_bottom = 0.625
+offset_left = -0.25600052
+offset_right = -0.3840027
+grow_vertical = 2
+flat = true
+alignment = 1
+icon_alignment = 1
+expand_icon = true
+
+[node name="FrenchLabel" type="RichTextLabel" parent="." unique_id=852599274]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.071
+anchor_top = 0.5
+anchor_right = 0.286
+anchor_bottom = 0.87500006
+offset_left = 32.384
+offset_top = -24.0
+offset_right = 31.743988
+offset_bottom = -24.000004
+bbcode_enabled = true
+text = "[b][i]Français :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FrenchWord" type="RichTextLabel" parent="." unique_id=938755646]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.071
+anchor_top = 0.5
+anchor_right = 0.35700002
+anchor_bottom = 0.87500006
+offset_left = 0.38399887
+offset_right = 0.12799072
+text = "salut c'est moi bob le bricoleur et je suis actuellement içi pour manger des pommes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Word" type="Control" parent="." unique_id=1882023778]
+layout_mode = 1
+anchor_left = 0.071
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 256.384
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContextLabel" type="RichTextLabel" parent="Word" unique_id=462025072]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11100001
+anchor_top = 0.125
+anchor_right = 0.31100002
+anchor_bottom = 0.5
+offset_left = 0.06401062
+offset_right = 0.06399536
+bbcode_enabled = true
+text = "[b][i]Contexte :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Context" type="RichTextLabel" parent="Word" unique_id=973554190]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.44400004
+anchor_bottom = 0.87500006
+offset_right = 0.25598145
+grow_vertical = 0
+text = "salut c'est moi bob le bricoleur et je suis actuellement içi pour manger des pommes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnglishLabel" type="RichTextLabel" parent="Word" unique_id=74260364]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11100001
+anchor_top = 0.125
+anchor_right = 0.31100002
+anchor_bottom = 0.5
+offset_left = 304.064
+offset_right = 304.064
+bbcode_enabled = true
+text = "[b][i]Anglais :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="English" type="RichTextLabel" parent="Word" unique_id=805257377]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514
+anchor_top = 0.5
+anchor_right = 0.97200006
+anchor_bottom = 0.87500006
+offset_left = -0.06399536
+offset_right = 0.12799072
+grow_vertical = 0
+text = "salut c'est moi bob le bricoleur et je suis actuellement içi pour manger des pommes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="SelectedCheckbox" to="." method="setSelected"]

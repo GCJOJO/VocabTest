@@ -28,7 +28,8 @@ func onHttpRequestCompleted(_result: int, _response_code: int, _headers: PackedS
 	var response = json.get_data()
 	
 	if response == null:
-		push_error("Null response !")
+		if GameManager.DEBUG_MODE:
+			push_error("Null response !")
 		return
 	if GameManager.DEBUG_MODE:
 		print("Got response : %s" % response)

@@ -93,7 +93,7 @@ offset_top = -28.160004
 offset_right = 416.0
 offset_bottom = 27.839996
 bbcode_enabled = true
-text = "[color=#555][font_size=32][center]aaaaa"
+text = "[color=#555][font_size=32][center]aaaaa "
 scroll_active = false
 
 [node name="Prefix" type="RichTextLabel" parent="." unique_id=1539108084]

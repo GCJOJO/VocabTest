@@ -7,6 +7,9 @@
 [ext_resource type="Theme" uid="uid://byun3u64o6chp" path="res://Resources/HeaderTheme.tres" id="3_opfnp"]
 [ext_resource type="PackedScene" uid="uid://bxecdkpxowukv" path="res://Scenes/solo_mode.tscn" id="3_yhxw7"]
 [ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="4_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://ye3cy61pmnwh" path="res://Resources/Images/kenney_pattern-pack/Vector/pattern_54.svg" id="4_vr1f0"]
+[ext_resource type="Shader" uid="uid://bc5pmyy6jlp61" path="res://Resources/Shaders/VerticalTransparent.tres" id="6_yhxw7"]
+[ext_resource type="Shader" uid="uid://d4anik4fs5t4o" path="res://Resources/Shaders/ScrollingBackground.gdshader" id="9_16hvj"]
 
 [sub_resource type="Gradient" id="Gradient_trj04"]
 colors = PackedColorArray(0.15686275, 0.17254902, 0.25882354, 1, 0.21461204, 0.17818284, 0.30078125, 1)
@@ -17,11 +20,24 @@ fill_from = Vector2(0.5, 0.3)
 fill_to = Vector2(0.5, 1)
 metadata/_snap_enabled = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1dhk"]
+shader = ExtResource("9_16hvj")
+shader_parameter/color_modifier = Color(0.244, 0.26740003, 0.4, 0.34509805)
+shader_parameter/scroll_speed = 0.0010000000475
+shader_parameter/angle_degrees = 45.0
+shader_parameter/repeat_x = 20.0
+shader_parameter/repeat_y = 12.0
+shader_parameter/row_offset = 0.0
+shader_parameter/texture_to_scroll = ExtResource("4_vr1f0")
+
 [sub_resource type="Gradient" id="Gradient_n45e2"]
 colors = PackedColorArray(0.40392157, 0.49019608, 0.9098039, 1, 0.4627451, 0.29803923, 0.6392157, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_opfnp"]
 gradient = SubResource("Gradient_n45e2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trj04"]
+shader = ExtResource("6_yhxw7")
 
 [sub_resource type="Gradient" id="Gradient_yhxw7"]
 interpolation_mode = 2
@@ -51,7 +67,7 @@ grow_vertical = 2
 theme = ExtResource("1_n45e2")
 color = Color(0.15686275, 0.17254902, 0.25882354, 1)
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1467668479]
+[node name="VerticalGradient" type="TextureRect" parent="." unique_id=1467668479]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,9 +76,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_16hvj")
 
+[node name="Sparkles" type="ColorRect" parent="." unique_id=895290638]
+material = SubResource("ShaderMaterial_t1dhk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="SoloMode" parent="." unique_id=194373753 instance=ExtResource("3_yhxw7")]
 layout_mode = 1
 offset_top = 64.0
+metadata/_edit_lock_ = true
 
 [node name="MutliplayerScreen" parent="." unique_id=1630086052 instance=ExtResource("3_cp0ys")]
 visible = false
@@ -72,6 +98,7 @@ anchor_left = 0.001
 anchor_top = 0.089
 offset_left = -1.2800001
 offset_top = -0.08000183
+metadata/_edit_lock_ = true
 
 [node name="Header" type="Control" parent="." unique_id=1681216742]
 layout_mode = 1
@@ -91,11 +118,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_opfnp")
 
-[node name="TextureRect2" type="TextureRect" parent="Header" unique_id=1673568478]
+[node name="HeaderBackground" type="TextureRect" parent="Header" unique_id=1673568478]
+material = SubResource("ShaderMaterial_trj04")
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_trj04")
@@ -134,6 +163,8 @@ alignment = 1
 [node name="SoloPlayButton" type="Button" parent="Header/VBoxContainer" unique_id=1731693430]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("3_opfnp")
+theme_type_variation = &"SelectedButton"
 text = "Partie Solo"
 
 [node name="MultiplayerPlayButton" type="Button" parent="Header/VBoxContainer" unique_id=323489552]
@@ -173,9 +204,11 @@ text = "Se déconnecter"
 [node name="LoginScreen" parent="." unique_id=1116364533 instance=ExtResource("3_1ehe0")]
 visible = false
 layout_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="VersionScreen" parent="." unique_id=173934041 instance=ExtResource("4_ce3w2")]
 layout_mode = 1
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Header/VBoxContainer/SoloPlayButton" to="." method="loadSoloMode"]
 [connection signal="pressed" from="Header/VBoxContainer/MultiplayerPlayButton" to="." method="loadMultiplayer"]

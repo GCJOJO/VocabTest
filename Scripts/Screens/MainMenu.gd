@@ -30,6 +30,8 @@ func onUserLoggedIn(userUUID : String) -> void:
 	$Header/LogoutButton.show()
 
 func loadSoloMode() -> void:
+	$Header/VBoxContainer/SoloPlayButton.theme_type_variation = "SelectedButton"
+	$Header/VBoxContainer/MultiplayerPlayButton.theme_type_variation = ""
 	$MutliplayerScreen.hide()
 	$MutliplayerScreen.leaveLobby()
 	$SoloMode.show()
@@ -42,6 +44,8 @@ func loadSoloMode() -> void:
 
 func loadMultiplayer() -> void:
 	#get_tree().change_scene_to_file("res://Scenes/mutliplayer_screen.tscn")
+	$Header/VBoxContainer/SoloPlayButton.theme_type_variation = ""
+	$Header/VBoxContainer/MultiplayerPlayButton.theme_type_variation = "SelectedButton"
 	$SoloMode.hide()
 	$MutliplayerScreen.loadMultiplayerScreen()
 	$MutliplayerScreen.show()
