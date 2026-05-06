@@ -66,6 +66,10 @@ func onCategoriesChanged() -> void:
 		categories |= GameManager.WORD_CATEGORY
 	if %VerbsCategory.button_pressed:
 		categories |= GameManager.VERB_CATEGORY
+	if %CountryCategory.button_pressed:
+		categories |= GameManager.COUNTRY_CATEGORY
+	if %GrammarCategory.button_pressed:
+		categories |= GameManager.GRAMMAR_CATEGORY
 		
 	if categories == 0:
 		categories |= GameManager.WORD_CATEGORY

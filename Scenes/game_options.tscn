@@ -157,18 +157,42 @@ alignment = 1
 [node name="WordsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1242538954]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Mots"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=371817584]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 
 [node name="VerbsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=80007882]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Verbes"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1175044529]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="CountryCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1770050466]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+button_pressed = true
+text = "Pays"
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=968432656]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="GrammarCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=15747833]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+button_pressed = true
+text = "Grammaire"
 
 [connection signal="value_changed" from="VBoxContainer/PanelContainer/Control/HBoxContainer/WordsSpinBox" to="." method="onWordsCountChanged"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer/WordThresholdSlider" to="." method="onWordsThresholdSliderChanged"]
@@ -176,3 +200,5 @@ text = "Verbes"
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer/TimerSlider" to="." method="onTimerSliderChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/WordsCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/VerbsCategory" to="." method="onCategoriesChanged"]
+[connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/CountryCategory" to="." method="onCategoriesChanged"]
+[connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/GrammarCategory" to="." method="onCategoriesChanged"]

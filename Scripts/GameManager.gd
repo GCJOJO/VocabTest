@@ -6,11 +6,13 @@ const SERVER_ADRESS : String = "https://localhost:5762"
 const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
-const DEBUG_MODE : bool = false
-const VERSION_STRING = "0.0.5"
+const VERSION_STRING = "0.0.6"
+@onready var DEBUG_MODE : bool = OS.is_debug_build() or Engine.is_editor_hint()
 
-const WORD_CATEGORY : int = 1 << 0
-const VERB_CATEGORY : int = 1 << 1
+const WORD_CATEGORY : int    = 1 << 0
+const VERB_CATEGORY : int    = 1 << 1
+const COUNTRY_CATEGORY : int = 1 << 2
+const GRAMMAR_CATEGORY : int = 1 << 3
 
 var PlayerUUID : String = ""
 

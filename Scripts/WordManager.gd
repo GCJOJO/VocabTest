@@ -2,13 +2,19 @@ extends Node
 
 var WORDS : Array[WordResource]
 var VERBS : Array[VerbResource]
+var COUNTRIES : Array[WordResource]
+var GRAMMAR : Array[WordResource]
 
 signal words_loaded()
 signal verbs_loaded()
+signal countries_loaded()
+signal grammar_loaded()
 
 func load_words() -> void:
 	RequestQueue.requestGet("%s/words-list" % GameManager.SERVER_ADRESS, onWordsGet)
 	RequestQueue.requestGet("%s/verbs-list" % GameManager.SERVER_ADRESS, onVerbsGet)
+	RequestQueue.requestGet("%s/countries-list" % GameManager.SERVER_ADRESS, onCountriesGet)
+	RequestQueue.requestGet("%s/grammar-list" % GameManager.SERVER_ADRESS, onGrammarGet)
 
 func onWordsGet(response):
 	if response == null:
@@ -56,6 +62,57 @@ func onVerbsGet(response) -> void:
 		VERBS.append(VerbResource.new(id, fr, con, inf, pre, pp))
 				
 	verbs_loaded.emit()
+
+func onCountriesGet(response) -> void:
+	if response == null:
+		push_error("Respons is null")
+		return
+	
+	if GameManager.DEBUG_MODE:
+		print(response["action"])
+	
+	var action = response["action"]
+	if action != "countries-list":
+		return
+	
+	COUNTRIES.clear()
+	var new_words = response["countries"]
+	for wordJson in new_words:
+		var id : int = wordJson["id"]
+		var fr : String = wordJson["french"]
+		var en : PackedStringArray = [wordJson["english"]]
+		var con : String = "" # No Context for countries
+		var pre : String = "" # No prefix for countries
+		
+		COUNTRIES.append(WordResource.new(id, fr, con, en, pre))
+		
+	countries_loaded.emit()
+
+func onGrammarGet(response):
+	if response == null:
+		push_error("Respons is null")
+		return
+	
+	if GameManager.DEBUG_MODE:
+		print(response["action"])
+	
+	var action = response["action"]
+	if action != "grammar-list":
+		return
+	
+	GRAMMAR.clear()
+	var new_words = response["grammar"]
+	for wordJson in new_words:
+		var id : int = wordJson["id"]
+		var fr : String = wordJson["french"]
+		var con : String = wordJson["category"] if wordJson["category"] != null else ""
+		var pre : String = ""
+		
+		var unsplittedEn : String = wordJson["english"]
+		var en : PackedStringArray = unsplittedEn.split("/")
+		GRAMMAR.append(WordResource.new(id, fr, con, en, pre))
+		
+	grammar_loaded.emit()
 
 func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
 	var min_distance : float = 1.0

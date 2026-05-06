@@ -5,13 +5,18 @@ const ERROR_THRESHOLD : float = 0.8
 var QUESTION_TYPE_ORDER : PackedByteArray
 var RANDOMIZED_WORDS : Array[WordResource]
 var RANDOMIZED_VERBS : Array[VerbResource]
+var RANDOMIZED_COUNTRIES : Array[WordResource]
+var RANDOMIZED_GRAMMAR : Array[WordResource]
+
 var CURRENT_QUESTION_INDEX : int = -1
 var CURRENT_WORD_INDEX : int = -1
 var CURRENT_VERB_INDEX : int = -1
+var CURRENT_COUNTRY_INDEX : int = -1
+var CURRENT_GRAMMAR_INDEX : int = -1
 
 var LobbyOptions = {
 	"max_words" : 10,
-	"categories": GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY,
+	"categories": GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY | GameManager.COUNTRY_CATEGORY | GameManager.GRAMMAR_CATEGORY,
 	"round_timer": 15, 
 	"similarity_threshold": 0.8
 }
@@ -37,7 +42,7 @@ func loadSoloMode() -> void:
 	$GameMenu.hide()
 	$Results.hide()
 	$OptionScreen.show()
-	if WordManager.WORDS == null or len(WordManager.WORDS) == 0 or WordManager.VERBS == null or WordManager.VERBS.size() == 0:
+	if WordManager.WORDS == null or WordManager.WORDS.size() == 0 or WordManager.VERBS == null or WordManager.VERBS.size() == 0 or WordManager.COUNTRIES == null or WordManager.COUNTRIES.size() == 0 or WordManager.GRAMMAR == null or WordManager.GRAMMAR.size() == 0:
 		if GameManager.DEBUG_MODE:
 			push_warning("No words")
 		return
@@ -52,6 +57,8 @@ func startGame() -> void:
 	CURRENT_QUESTION_INDEX = -1
 	CURRENT_VERB_INDEX = -1
 	CURRENT_WORD_INDEX = -1
+	CURRENT_COUNTRY_INDEX = -1
+	CURRENT_GRAMMAR_INDEX = -1
 	
 	var questionTypes : PackedByteArray = []
 	var maxAvailableQuestions : int = 0
@@ -71,12 +78,28 @@ func startGame() -> void:
 		RANDOMIZED_VERBS.shuffle()
 		questionTypes.push_back(GameManager.VERB_CATEGORY)
 		maxAvailableQuestions += RANDOMIZED_VERBS.size()
+		
+	if LobbyOptions["categories"] & GameManager.COUNTRY_CATEGORY:
+		CURRENT_COUNTRY_INDEX = 0
+		RANDOMIZED_COUNTRIES = WordManager.COUNTRIES
+		RANDOMIZED_COUNTRIES.shuffle()
+		questionTypes.push_back(GameManager.COUNTRY_CATEGORY)
+		maxAvailableQuestions += RANDOMIZED_COUNTRIES.size()
+		
+	if LobbyOptions["categories"] & GameManager.GRAMMAR_CATEGORY:
+		CURRENT_GRAMMAR_INDEX = 0
+		RANDOMIZED_GRAMMAR = WordManager.GRAMMAR
+		RANDOMIZED_GRAMMAR.shuffle()
+		questionTypes.push_back(GameManager.GRAMMAR_CATEGORY)
+		maxAvailableQuestions += RANDOMIZED_GRAMMAR.size()
 	
 	LobbyOptions["max_words"] = min(LobbyOptions["max_words"], maxAvailableQuestions)
 	
 	var questionTypeMaxAmounts : Dictionary[int, int]
 	questionTypeMaxAmounts[GameManager.WORD_CATEGORY] = RANDOMIZED_WORDS.size()
 	questionTypeMaxAmounts[GameManager.VERB_CATEGORY] = RANDOMIZED_VERBS.size()
+	questionTypeMaxAmounts[GameManager.COUNTRY_CATEGORY] = RANDOMIZED_COUNTRIES.size()
+	questionTypeMaxAmounts[GameManager.GRAMMAR_CATEGORY] = RANDOMIZED_GRAMMAR.size()
 		
 	# make question type order
 	var questionTypeAmounts : Dictionary[int, int]
@@ -126,6 +149,12 @@ func update_word() -> void:
 		GameManager.VERB_CATEGORY:
 			%GameMenu.setVerb(RANDOMIZED_VERBS[CURRENT_VERB_INDEX])
 			CURRENT_VERB_INDEX += 1
+		GameManager.COUNTRY_CATEGORY:
+			%GameMenu.setWord(RANDOMIZED_COUNTRIES[CURRENT_COUNTRY_INDEX])
+			CURRENT_COUNTRY_INDEX += 1
+		GameManager.GRAMMAR_CATEGORY:
+			%GameMenu.setWord(RANDOMIZED_GRAMMAR[CURRENT_GRAMMAR_INDEX])
+			CURRENT_GRAMMAR_INDEX += 1
 
 func returnToOptionScreen() -> void:
 	$Results.hide()
