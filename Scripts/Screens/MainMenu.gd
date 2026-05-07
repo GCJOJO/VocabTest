@@ -12,7 +12,7 @@ func _ready() -> void:
 		onUserLoggedIn(GameManager.PlayerUUID)
 		
 	WordManager.load_words()
-	WordManager.words_loaded.connect($SoloMode.loadSoloMode)
+	WordManager.words_loaded.connect(%SoloMode.loadSoloMode)
 	#$MutliplayerScreen.loadMultiplayerScreen()
 	
 

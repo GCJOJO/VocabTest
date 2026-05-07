@@ -27,7 +27,6 @@ RequestQueue="*uid://bvmyk0spm66yy"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
 
 [dotnet]
 

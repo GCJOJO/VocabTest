@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bxecdkpxowukv" path="res://Scenes/solo_mode.tscn" id="3_yhxw7"]
 [ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="4_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://ye3cy61pmnwh" path="res://Resources/Images/kenney_pattern-pack/Vector/pattern_54.svg" id="4_vr1f0"]
+[ext_resource type="Shader" uid="uid://fsxbpddpf6ll" path="res://Resources/Shaders/BalatroCard.gdshader" id="5_t1dhk"]
+[ext_resource type="Script" uid="uid://wkg42p3uf7pd" path="res://Scripts/3dCardEffect.gd" id="6_5egv6"]
 [ext_resource type="Shader" uid="uid://bc5pmyy6jlp61" path="res://Resources/Shaders/VerticalTransparent.tres" id="6_yhxw7"]
 [ext_resource type="Shader" uid="uid://d4anik4fs5t4o" path="res://Resources/Shaders/ScrollingBackground.gdshader" id="9_16hvj"]
 
@@ -29,6 +31,18 @@ shader_parameter/repeat_x = 20.0
 shader_parameter/repeat_y = 12.0
 shader_parameter/row_offset = 0.0
 shader_parameter/texture_to_scroll = ExtResource("4_vr1f0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtepg"]
+shader = ExtResource("5_t1dhk")
+shader_parameter/rect_size = Vector2(1280, 720)
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = false
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ylut5"]
+viewport_path = NodePath("WordQuestionViewportTexture/SubViewport")
 
 [sub_resource type="Gradient" id="Gradient_n45e2"]
 colors = PackedColorArray(0.40392157, 0.49019608, 0.9098039, 1, 0.4627451, 0.29803923, 0.6392157, 1)
@@ -85,12 +99,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SoloMode" parent="." unique_id=194373753 instance=ExtResource("3_yhxw7")]
+[node name="WordQuestionViewportTexture" type="TextureRect" parent="." unique_id=1854996999]
+material = SubResource("ShaderMaterial_vtepg")
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_ylut5")
+expand_mode = 1
+script = ExtResource("6_5egv6")
+angle_x_max = 2.5
+angle_y_max = 2.5
+
+[node name="SubViewport" type="SubViewport" parent="WordQuestionViewportTexture" unique_id=1932470828]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+
+[node name="SoloMode" parent="WordQuestionViewportTexture/SubViewport" unique_id=194373753 instance=ExtResource("3_yhxw7")]
+unique_name_in_owner = true
 offset_top = 64.0
 metadata/_edit_lock_ = true
 
-[node name="MutliplayerScreen" parent="." unique_id=1630086052 instance=ExtResource("3_cp0ys")]
+[node name="MutliplayerMode" parent="." unique_id=1630086052 instance=ExtResource("3_cp0ys")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -137,7 +171,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
 offset_top = -8.0
-offset_right = -1048.0
+offset_right = -895.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -150,13 +184,14 @@ vertical_alignment = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Header" unique_id=764078290]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.81200004
 offset_left = -241.0
 offset_top = 12.0
 offset_right = 241.0
-offset_bottom = 52.0
+offset_bottom = 0.03199768
 grow_horizontal = 2
 alignment = 1
 
@@ -175,14 +210,12 @@ text = "Partie Multijoueur"
 [node name="LoginButton" type="Button" parent="Header" unique_id=652983054]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.919
-anchor_top = 0.5
-anchor_right = 0.919
-anchor_bottom = 0.5
-offset_left = -96.32007
-offset_top = -24.0
-offset_right = 95.67993
-offset_bottom = 24.0
+anchor_left = 0.84400004
+anchor_top = 0.125
+anchor_right = 0.994
+anchor_bottom = 0.87500006
+offset_left = -0.32006836
+offset_right = -0.32006836
 grow_vertical = 0
 text = "Se connecter"
 

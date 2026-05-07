@@ -21,7 +21,6 @@ script = ExtResource("1_ukmr1")
 
 [node name="WordQuestion" parent="." unique_id=2005529088 instance=ExtResource("1_sdkr4")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 
 [node name="VerbQuestion" parent="." unique_id=1368086970 instance=ExtResource("2_ukmr1")]
@@ -53,6 +52,7 @@ anchor_bottom = 1.0
 offset_left = -96.0
 offset_top = -0.24005127
 offset_right = 96.0
+mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 bbcode_enabled = true
 text = "[center][font_size=24]1/100
@@ -63,7 +63,7 @@ vertical_alignment = 1
 stream = ExtResource("5_4w0g2")
 volume_db = -10.0
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=825432991]
+[node name="ExplosionViewportTexture" type="TextureRect" parent="." unique_id=825432991]
 z_index = 100
 layout_mode = 1
 anchors_preset = 8

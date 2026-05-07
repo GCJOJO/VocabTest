@@ -1,7 +1,6 @@
 extends Control
 class_name WordQuestionScreen
 
-
 var hasAnswered: bool = false
 var currentWord : WordResource
 
@@ -15,7 +14,6 @@ func _ready() -> void:
 	%EnglishBox.text_submitted.connect(onEnglishTextSubmitted)
 	%SendButton.disabled = true
 	
-
 func showResult(wordSimilarity: float, similarityThreshold : float, _showingInstantResult : bool) -> float:
 	%SendButton.text = "Suivant"
 	%SendButton.disabled = false
