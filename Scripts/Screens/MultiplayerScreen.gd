@@ -7,16 +7,22 @@ var hasAlreadyLoaded : bool = false
 
 signal word_changed()
 
-#var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
 
 const WEBSOCKET_TIMEOUT : int = 100
+
+enum LobbyMode
+{
+	Classic = 0,
+	BattleRoyale = 1
+}
 
 var LobbyOptions = {
 	"max_words" : 10,
 	"categories": 16,
 	"round_timer": 15, 
-	"similarity_threshold": 0.8
+	"similarity_threshold": 0.8,
+	"lobby_mode" : int(LobbyMode.BattleRoyale)
 }
 	
 func _ready() -> void:
@@ -261,7 +267,18 @@ func _doQuitLobby() -> void:
 	getLobbyList()
 	#get_tree().reload_current_scene()
 
-func _doEndGame() -> void:
+func _doEndGame(winner_id : String) -> void:
+	%WinnerName.hide()
+	var winner_info : UserResource = GameManager.getPlayerData(winner_id)
+	if winner_info == null:
+		GameManager.onUserGet(func(user_id : String):
+			if user_id == winner_id:
+				%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
+				%WinnerName.show())
+	else:
+		%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
+		%WinnerName.show()
+	
 	#Maybe show end results screen
 	$InGameScreen.visible = false
 	$ResultsScreen.visible = true
@@ -285,6 +302,12 @@ func _doUpdateScores(updatedScores : Array) -> void:
 	%InGameScoreboard.refreshScoreboard()
 	%LobbyScoreboard.refreshScoreboard()
 	%Scoreboard.refreshScoreboard()
+
+func _doEliminate() -> void:
+	pass
+
+func _doEliminateOtherPlayer(other_id : String) -> void:
+	pass
 
 func continueGame() -> void:
 	$ResultsScreen.visible = false
@@ -311,7 +334,8 @@ func handle_packet(packet_str : String) -> void:
 		"lobby-started":
 			_doStartLobby()
 		"lobby-created":
-			_doJoinLobby(data["lobby_id"], [])
+			#_doJoinLobby(data["lobby_id"], [])
+			joinLobby(data["lobby_id"])
 		"lobby-joined":
 			_doJoinLobby(data["lobby_id"], data["current_lobby_players"])
 		"lobby-left":
@@ -329,8 +353,14 @@ func handle_packet(packet_str : String) -> void:
 			%GameOptions.updateOptions(data["options"])
 		"show-results":
 			_doShowResult(data["word_similarity"], data["similarity_threshold"])
-		"end-game":
-			_doEndGame()
+		"elimination":
+			_doEliminate()
+		"player-eliminated": #player_id
+			_doEliminateOtherPlayer(data["player_id"])
+		"player-answered": #player_id / Used when a player is spectating to know who has already answered
+			pass
+		"end-game": #winner_id
+			_doEndGame(data["winner_id"])
 		"new-owner":
 			setIsLobbyOwner(data["player_id"] == GameManager.PlayerUUID)
 		"timer-update":

@@ -1,12 +1,12 @@
 extends Node
 
-const SERVER_ADRESS : String = "https://88.190.53.5:33362"
-const WEBSOCKET_ADRESS : String = "wss://88.190.53.5:33363"
-#const SERVER_ADRESS : String = "https://localhost:5762"
-#const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
+#const SERVER_ADRESS : String = "https://88.190.53.5:33362"
+#const WEBSOCKET_ADRESS : String = "wss://88.190.53.5:33363"
+const SERVER_ADRESS : String = "https://localhost:5762"
+const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
-const VERSION_STRING = "0.0.6"
+const VERSION_STRING = "0.0.7"
 @onready var DEBUG_MODE : bool = OS.is_debug_build() or Engine.is_editor_hint()
 
 const WORD_CATEGORY : int    = 1 << 0
@@ -20,7 +20,7 @@ var cachedPlayers : Dictionary = {}
 
 signal userInfoChanged(userId : String, userData : UserResource)
 
-func getPlayerData(userId : String):
+func getPlayerData(userId : String) -> UserResource:
 	if cachedPlayers.has(userId):
 		return cachedPlayers[userId]
 	
