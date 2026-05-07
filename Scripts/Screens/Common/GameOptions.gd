@@ -1,14 +1,17 @@
 extends ScrollContainer
 
+@export var is_multiplayer_game : bool = false
+
 signal wordsCountChanged(newValue : int)
 signal wordsThresholdChanged(newValue : float)
 signal timerChanged(newValue : int)
 signal categoriesChanged(newValue : int)
+signal gamemode_changed(new_game_mode : int)
 
 var useTimer : bool = false
 
 func _ready() -> void:
-	setup()
+	$VBoxContainer/Mode.visible = is_multiplayer_game
 	
 func setup():
 	var max_word_number : int = WordManager.WORDS.size()
@@ -26,6 +29,11 @@ func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled
 	%WordThresholdSlider.editable = not disabled
 	%TimerSlider.editable = not disabled
+	%WordsCategory.disabled = disabled
+	%VerbsCategory.disabled = disabled
+	%CountryCategory.disabled = disabled
+	%GrammarCategory.disabled = disabled
+	%ModeOptionButton.disabled = disabled
 
 func updateOptions(data) -> void:
 	if data.has("max_words"):
@@ -39,6 +47,21 @@ func updateOptions(data) -> void:
 		if %UseTimerCheckbob.button_pressed:
 			%TimerSlider.value = newTimer
 			%TimerText.text = "%d secondes" % newTimer
+	if data.has("categories"):
+		var categories : int = data["categories"]
+		
+		var words_category : bool = categories & GameManager.WORD_CATEGORY
+		var verbs_category : bool = categories & GameManager.VERB_CATEGORY
+		var countries_category : bool = categories & GameManager.COUNTRY_CATEGORY
+		var grammar_category : bool = categories & GameManager.GRAMMAR_CATEGORY
+		
+		%WordsCategory.button_pressed = words_category
+		%VerbsCategory.button_pressed = verbs_category
+		%CountryCategory.button_pressed = countries_category
+		%GrammarCategory.button_pressed = grammar_category
+		
+	if data.has("lobby_mode"):
+		%ModeOptionButton.select(data["lobby_mode"])
 
 func onWordsCountChanged(value : float) -> void:
 	wordsCountChanged.emit(floor(value))
@@ -79,3 +102,8 @@ func onCategoriesChanged() -> void:
 		categories |= GameManager.WORD_CATEGORY
 		
 	categoriesChanged.emit(categories)
+
+
+func _on_mode_changed(index: int) -> void:
+	if not is_multiplayer_game: return
+	gamemode_changed.emit(index)

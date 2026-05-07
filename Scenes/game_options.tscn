@@ -14,6 +14,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_vnmrx")
+scroll_vertical = 46
 script = ExtResource("1_hs2l2")
 metadata/_custom_type_script = "uid://bgqglerkcylxx"
 
@@ -194,6 +195,26 @@ theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Grammaire"
 
+[node name="Mode" type="FoldableContainer" parent="VBoxContainer" unique_id=2071147489]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+title = "Mode de jeu"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Mode" unique_id=1640439161]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ModeOptionButton" type="OptionButton" parent="VBoxContainer/Mode/CenterContainer" unique_id=1222464526]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Classique"
+popup/item_0/id = 0
+popup/item_1/text = "Battle Royale"
+popup/item_1/id = 1
+
 [connection signal="value_changed" from="VBoxContainer/PanelContainer/Control/HBoxContainer/WordsSpinBox" to="." method="onWordsCountChanged"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer2/Control/HBoxContainer/HBoxContainer/WordThresholdSlider" to="." method="onWordsThresholdSliderChanged"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer3/HBoxContainer/UseTimerCheckbob" to="." method="onUseTimerChanged"]
@@ -202,3 +223,4 @@ text = "Grammaire"
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/VerbsCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/CountryCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/GrammarCategory" to="." method="onCategoriesChanged"]
+[connection signal="item_selected" from="VBoxContainer/Mode/CenterContainer/ModeOptionButton" to="." method="_on_mode_changed"]

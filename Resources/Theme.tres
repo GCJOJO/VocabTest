@@ -10,7 +10,10 @@
 [ext_resource type="StyleBox" uid="uid://catfxfohu3rlo" path="res://Resources/Theme/panel_container/panel_title_normal.tres" id="6_pbjdw"]
 [ext_resource type="StyleBox" uid="uid://e70174npy74h" path="res://Resources/Theme/panel_container/panel_title_hovered_pressed.tres" id="7_u3www"]
 [ext_resource type="StyleBox" uid="uid://lu4cqw4wxkcv" path="res://Resources/Theme/panel_container/panel_title_pressed.tres" id="8_7t41e"]
+[ext_resource type="StyleBox" uid="uid://ga26n707rll6" path="res://Resources/Theme/option_button/option_button_hovered.tres" id="10_i3xj7"]
+[ext_resource type="StyleBox" uid="uid://ddb8daj02h2qs" path="res://Resources/Theme/option_button/option_button_normal.tres" id="11_egwcr"]
 [ext_resource type="StyleBox" uid="uid://uh5vs6yolbpk" path="res://Resources/Theme/panel_container/panel_spectator_player_answered.tres" id="11_pbjdw"]
+[ext_resource type="StyleBox" uid="uid://c6q5a3oo4has0" path="res://Resources/Theme/option_button/option_button_pressed.tres" id="12_1cpra"]
 [ext_resource type="StyleBox" uid="uid://dbr70fw6nahqr" path="res://Resources/Theme/panel_container/panel_spectator_player_eliminated.tres" id="12_u3www"]
 [ext_resource type="StyleBox" uid="uid://khgxhrmi731c" path="res://Resources/Theme/panel_container/panel_spectator_player_typing_answer.tres" id="13_7t41e"]
 
@@ -84,6 +87,10 @@ LineEdit/colors/font_uneditable_color = Color(0, 0, 0, 0.5019608)
 LineEdit/constants/outline_size = 0
 LineEdit/styles/normal = SubResource("StyleBoxFlat_eltnc")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_pbjdw")
+OptionButton/colors/font_color = Color(1, 1, 1, 1)
+OptionButton/styles/hover = ExtResource("10_i3xj7")
+OptionButton/styles/normal = ExtResource("11_egwcr")
+OptionButton/styles/pressed = ExtResource("12_1cpra")
 Panel/styles/panel = SubResource("StyleBoxFlat_2ratw")
 PanelContainer/styles/panel = ExtResource("5_wytm8")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

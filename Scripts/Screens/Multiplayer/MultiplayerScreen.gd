@@ -14,24 +14,19 @@ var socket : WebSocketPeer = WebSocketPeer.new()
 
 const WEBSOCKET_TIMEOUT : int = 100
 
-enum LobbyMode
-{
-	Classic = 0,
-	BattleRoyale = 1
-}
-
 var LobbyOptions = {
 	"max_words" : 10,
 	"categories": 16,
 	"round_timer": 15, 
 	"similarity_threshold": 0.8,
-	"lobby_mode" : int(LobbyMode.BattleRoyale)
+	"lobby_mode" : int(GameManager.LobbyMode.Classic)
 }
 	
 func _ready() -> void:
 	set_process(false)
 
 func loadMultiplayerScreen() -> void:
+	$SpectatorScreen.hide()
 	if hasAlreadyLoaded and (socket.get_ready_state() == WebSocketPeer.STATE_CLOSING or socket.get_ready_state() == WebSocketPeer.STATE_CLOSING):
 		connectToWebsocket()
 		return
@@ -50,6 +45,7 @@ func loadMultiplayerScreen() -> void:
 	%GameOptions.categoriesChanged.connect(func(value : int): updateLobbyOptions("categories", value))
 	%GameOptions.wordsThresholdChanged.connect(func(value: float): updateLobbyOptions("similarity_threshold", value))
 	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
+	%GameOptions.gamemode_changed.connect(func(value: int): updateLobbyOptions("lobby_mode", value))
 	
 	%GameOptions.setIsDisabled(true)
 	%GameOptions.setup()

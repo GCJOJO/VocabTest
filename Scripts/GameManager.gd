@@ -14,6 +14,12 @@ const VERB_CATEGORY : int    = 1 << 1
 const COUNTRY_CATEGORY : int = 1 << 2
 const GRAMMAR_CATEGORY : int = 1 << 3
 
+enum LobbyMode
+{
+	Classic = 0,
+	BattleRoyale = 1
+}
+
 var PlayerUUID : String = ""
 
 var cachedPlayers : Dictionary = {}

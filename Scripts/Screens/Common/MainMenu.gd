@@ -14,7 +14,6 @@ func _ready() -> void:
 		
 	WordManager.load_words()
 	WordManager.words_loaded.connect(%SoloMode.loadSoloMode)
-	%MultiplayerMode.loadMultiplayerScreen()
 	
 
 func _process(delta: float) -> void:
