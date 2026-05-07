@@ -91,7 +91,6 @@ alignment = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
 [node name="LobbyScreen" type="Control" parent="." unique_id=1765891286]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,13 +175,13 @@ text = "Quitter la partie"
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.24800001
-anchor_top = 0.44400004
-anchor_right = 0.24800001
-anchor_bottom = 0.44400004
+anchor_top = 0.26700002
+anchor_right = 0.25
+anchor_bottom = 0.62200004
 offset_left = -253.44
-offset_top = -127.68002
-offset_right = 258.56
-offset_bottom = 128.31998
+offset_top = -0.24002075
+offset_right = 256.0
+offset_bottom = 0.15997314
 
 [node name="GameOptions" parent="LobbyScreen/CenterContainer" unique_id=648845509 instance=ExtResource("3_ahrwp")]
 unique_name_in_owner = true
