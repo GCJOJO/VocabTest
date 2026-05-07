@@ -208,6 +208,16 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 			var pp : String = newQuestion["past_participle"]
 			var newVerb : = VerbResource.new(newQuestion["id"], newQuestion["french"], context, inf.split("/"), pre.split("/"), pp.split("/"))
 			%GameMenu.setVerb(newVerb)
+		GameManager.COUNTRY_CATEGORY:
+			var context : String = ""
+			var englishWords : PackedStringArray = newQuestion["english"].split("/")
+			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
+			%GameMenu.setCountry(newWord)
+		GameManager.GRAMMAR_CATEGORY:
+			var context : String = newQuestion["category"] if newQuestion["category"] != null else ""
+			var englishWords : PackedStringArray = newQuestion["english"].split("/")
+			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
+			%GameMenu.setGrammar(newWord)
 
 func _doShowResult(wordSimilarity : float, similarityThreshold : float) -> void:
 	#$InGameScreen/WordQuestion.showResult(wordSimilarity, similarityThreshold)

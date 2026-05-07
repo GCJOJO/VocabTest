@@ -20,11 +20,11 @@ func _ready() -> void:
 	%VerbQuestion.readyNextQuestion.connect(readyNextQuestion.emit)
 	
 	%WordQuestion.enteredWord.connect(func(answer): 
-		onAnswerEntered(GameManager.WORD_CATEGORY, answer))
+		onAnswerEntered(currentQuestionCategory, answer))
 	%WordQuestion.wordChanged.connect(onQuestionChanged)
 		
 	%VerbQuestion.enteredVerb.connect(func(answer): 
-		onAnswerEntered(GameManager.VERB_CATEGORY, answer))
+		onAnswerEntered(currentQuestionCategory, answer))
 	%VerbQuestion.verbChanged.connect(onQuestionChanged)
 		
 	$Timer.timeout.connect(onTimerTick)
@@ -76,6 +76,22 @@ func setVerb(newVerb : VerbResource) -> void:
 	%VerbQuestion.visible = true
 	incrementQuestionNumber()
 	updateStatus()
+	
+func setCountry(newWord : WordResource) -> void:
+	currentQuestionCategory = GameManager.COUNTRY_CATEGORY
+	%WordQuestion.changeWord(newWord)
+	%WordQuestion.visible = true
+	%VerbQuestion.visible = false
+	incrementQuestionNumber()
+	updateStatus()
+	
+func setGrammar(newWord : WordResource) -> void:
+	currentQuestionCategory = GameManager.GRAMMAR_CATEGORY
+	%WordQuestion.changeWord(newWord)
+	%WordQuestion.visible = true
+	%VerbQuestion.visible = false
+	incrementQuestionNumber()
+	updateStatus()
 
 func incrementQuestionNumber() -> void:
 	currentQuestionNumber += 1
@@ -87,6 +103,10 @@ func showResultsSimilarity(answerSimilarity : float, similarityThreshold : float
 			errorAmount = %WordQuestion.showResult(answerSimilarity, similarityThreshold, false)
 		GameManager.VERB_CATEGORY:
 			errorAmount = %VerbQuestion.showResult(answerSimilarity, similarityThreshold, false)
+		GameManager.COUNTRY_CATEGORY:
+			errorAmount = %WordQuestion.showResult(answerSimilarity, similarityThreshold, false)
+		GameManager.GRAMMAR_CATEGORY:
+			errorAmount = %WordQuestion.showResult(answerSimilarity, similarityThreshold, false)
 		
 	print("Error amount : %s" % errorAmount)
 	
@@ -113,6 +133,16 @@ func showResults(answer) -> void:
 			var similarity : float = WordManager.checkEnteredVerb(curVerb, answer)
 			print("Similarity %s" % similarity)
 			errorAmount = %VerbQuestion.showResult(similarity, questionSimilarityThreshold, showInstantResults)
+		GameManager.COUNTRY_CATEGORY:
+			var curWord : WordResource = %WordQuestion.currentWord
+			var similarity : float = WordManager.checkEnteredWord(curWord, answer)
+			print("Similarity %s" % similarity)
+			errorAmount = %WordQuestion.showResult(similarity, questionSimilarityThreshold, showInstantResults)
+		GameManager.GRAMMAR_CATEGORY:
+			var curWord : WordResource = %WordQuestion.currentWord
+			var similarity : float = WordManager.checkEnteredWord(curWord, answer)
+			print("Similarity %s" % similarity)
+			errorAmount = %WordQuestion.showResult(similarity, questionSimilarityThreshold, showInstantResults)
 		
 	print("Error amount : %s" % errorAmount)
 	
