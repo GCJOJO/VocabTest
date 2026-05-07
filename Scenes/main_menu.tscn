@@ -110,8 +110,8 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_ylut5")
 expand_mode = 1
 script = ExtResource("6_5egv6")
-angle_x_max = 2.5
-angle_y_max = 2.5
+angle_x_max = 5.0
+angle_y_max = 5.0
 
 [node name="SubViewport" type="SubViewport" parent="WordQuestionViewportTexture" unique_id=1932470828]
 transparent_bg = true
@@ -123,10 +123,9 @@ unique_name_in_owner = true
 offset_top = 64.0
 metadata/_edit_lock_ = true
 
-[node name="MutliplayerMode" parent="." unique_id=1630086052 instance=ExtResource("3_cp0ys")]
+[node name="MultiplayerMode" parent="WordQuestionViewportTexture/SubViewport" unique_id=1630086052 instance=ExtResource("3_cp0ys")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.001
 anchor_top = 0.089
@@ -245,5 +244,6 @@ metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Header/VBoxContainer/SoloPlayButton" to="." method="loadSoloMode"]
 [connection signal="pressed" from="Header/VBoxContainer/MultiplayerPlayButton" to="." method="loadMultiplayer"]
+[connection signal="pressed" from="Header/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="Header/LoginButton" to="LoginScreen" method="show"]
 [connection signal="pressed" from="Header/LogoutButton" to="." method="logout"]

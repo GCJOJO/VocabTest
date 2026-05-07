@@ -23,6 +23,8 @@ var LobbyOptions = {
 
 var roundTimer : int = 0
 
+signal word_changed()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$GameMenu.hide()
@@ -136,7 +138,6 @@ func update_word() -> void:
 		$GameMenu.hide()
 		return
 		
-	
 	match QUESTION_TYPE_ORDER[CURRENT_QUESTION_INDEX]:
 		0:
 			var correct_words : int = LobbyOptions["max_words"] - %WordQuestion.mistakes
@@ -155,6 +156,8 @@ func update_word() -> void:
 		GameManager.GRAMMAR_CATEGORY:
 			%GameMenu.setWord(RANDOMIZED_GRAMMAR[CURRENT_GRAMMAR_INDEX])
 			CURRENT_GRAMMAR_INDEX += 1
+			
+	word_changed.emit()
 
 func returnToOptionScreen() -> void:
 	$Results.hide()

@@ -3,7 +3,6 @@ extends Control
 signal onUserLoggedIn(userId : String)
 
 func _ready() -> void:
-	
 	$Login/Control/Register.pressed.connect($Register.show)
 	$Login/Control/Login.pressed.connect(loginUser)
 	$Register/Control/Register.pressed.connect(registerUser)
@@ -21,7 +20,6 @@ func onLoginCallback(response):
 			onUserLoggedIn.emit(newUUID)
 			$ReturnButton.disabled = false
 			print("User Logged In")
-			hide()
 		"login-failed":
 			$ReturnButton.disabled = false
 

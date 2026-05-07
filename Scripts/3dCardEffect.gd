@@ -23,49 +23,33 @@ var following_mouse: bool = false
 var last_pos: Vector2
 var velocity: Vector2
 
+var y_angle : float = 0.0
+
 @onready var card_texture: TextureRect = self
 
 func _ready() -> void:
 	# Convert to radians because lerp_angle is using that
 	angle_x_max = deg_to_rad(angle_x_max)
 	angle_y_max = deg_to_rad(angle_y_max)
+	%SoloMode.word_changed.connect(spin)
+	%MultiplayerMode.word_changed.connect(spin)
 
-func _process(delta: float) -> void:
-	rotate_velocity(delta)
-	follow_mouse(delta)
-	
+
+func _process(_delta: float) -> void:
 	card_texture.material.set_shader_parameter("rect_size", get_tree().root.size)
 	$SubViewport.size = get_tree().root.size
-	
-func rotate_velocity(delta: float) -> void:
-	if not following_mouse: return
-	var center_pos: Vector2 = global_position - (size/2.0)
-	print("Pos: ", center_pos)
-	print("Pos: ", last_pos)
-	# Compute the velocity
-	velocity = (position - last_pos) / delta
-	last_pos = position
-	
-	print("Velocity: ", velocity)
-	oscillator_velocity += velocity.normalized().x * velocity_multiplier
-	
-	# Oscillator stuff
-	var force = -spring * displacement - damp * oscillator_velocity
-	oscillator_velocity += force * delta
-	displacement += oscillator_velocity * delta
-	
-	rotation = displacement
-
-func follow_mouse(_delta: float) -> void:
-	if not following_mouse: return
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	global_position = mouse_pos - (size/2.0)
 
 func _input(event) -> void:
+	if mouse_filter == MouseFilter.MOUSE_FILTER_IGNORE:
+		return
+	
+	#if Input.is_key_pressed(KEY_G):
+	#	spin()
 	$SubViewport.push_input(event)
 
 func _gui_input(event) -> void:
-	print("on_gui_input")
+	if mouse_filter == MouseFilter.MOUSE_FILTER_IGNORE:
+		return
 	
 	# Don't compute rotation when moving the card
 	if following_mouse: return
@@ -111,3 +95,27 @@ func _on_mouse_exited() -> void:
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_hover.tween_property(self, "scale", Vector2.ONE, 0.55)
+
+func set_card_y_rot(rot_y : float):
+		card_texture.material.set_shader_parameter("y_rot", rot_y)
+
+func spin() -> void:
+	following_mouse = true
+	
+	var position_tween : = create_tween()
+	var rotation_tween : = create_tween()
+	
+	position_tween.set_ease(Tween.EASE_IN_OUT)
+	position_tween.set_trans(Tween.TRANS_CUBIC)
+	position_tween.tween_property(self, "position", Vector2(0, -50), 0.125)
+	position_tween.tween_property(self, "position", Vector2(0, 0), 0.125)
+	
+	rotation_tween.set_ease(Tween.EASE_IN_OUT)
+	rotation_tween.set_trans(Tween.TRANS_CUBIC)
+	rotation_tween.tween_method(set_card_y_rot, 0, 90, 0.125)
+	rotation_tween.tween_method(set_card_y_rot, -90, 0, 0.125)
+	rotation_tween.tween_callback(func() : 
+		following_mouse = false
+		set_card_y_rot(0)
+		)
+	

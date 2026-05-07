@@ -5,6 +5,8 @@ extends Control
 var lobbyId : String = ""
 var hasAlreadyLoaded : bool = false
 
+signal word_changed()
+
 #var httpRequest : HTTPRequest = HTTPRequest.new()
 var socket : WebSocketPeer = WebSocketPeer.new()
 
@@ -218,6 +220,8 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 			var englishWords : PackedStringArray = newQuestion["english"].split("/")
 			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
 			%GameMenu.setGrammar(newWord)
+	
+	word_changed.emit()
 
 func _doShowResult(wordSimilarity : float, similarityThreshold : float) -> void:
 	#$InGameScreen/WordQuestion.showResult(wordSimilarity, similarityThreshold)
