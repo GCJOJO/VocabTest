@@ -1,5 +1,8 @@
 extends Control
 
+@onready var header_noise : FastNoiseLite = preload("res://Resources/MainMenu_HeaderNoise.tres")
+@export var header_noise_speed : float = 10.0
+
 func _ready() -> void:
 	GameManager.tryLoadPlayerData()
 	$LoginScreen.onUserLoggedIn.connect(onUserLoggedIn)
@@ -13,6 +16,9 @@ func _ready() -> void:
 	WordManager.words_loaded.connect(%SoloMode.loadSoloMode)
 	%MultiplayerMode.loadMultiplayerScreen()
 	
+
+func _process(delta: float) -> void:
+	header_noise.offset.x += delta * header_noise_speed
 
 func onUserLoggedIn(userUUID : String) -> void:
 	$LoginScreen.hide()
