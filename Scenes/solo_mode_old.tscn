@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ddxs2obj5ovi0"]
 
-[ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/Screens/SoloModeScene.gd" id="1_xncir"]
+[ext_resource type="Script" uid="uid://higa5n6e3vl2" path="res://Scripts/Screens/Solo/SoloModeScene.gd" id="1_xncir"]
 [ext_resource type="PackedScene" uid="uid://c5a4yboia4xxs" path="res://Scenes/version_screen.tscn" id="2_66efl"]
 
 [node name="SoloMode" type="Control" unique_id=1698931305]

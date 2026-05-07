@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cs51nyp5fi3h"]
 
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_1wh38"]
-[ext_resource type="Script" uid="uid://bfj3kw0nqc36a" path="res://Scripts/Screens/VerbQuestion.gd" id="2_1c5p2"]
+[ext_resource type="Script" uid="uid://bfj3kw0nqc36a" path="res://Scripts/Screens/Common/QuestionScreens/VerbQuestion.gd" id="2_1c5p2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mx33"]
 bg_color = Color(0.60784316, 0.16470589, 1, 1)

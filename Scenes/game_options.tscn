@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://blkeilidoubh2"]
 
-[ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/Screens/GameOptions.gd" id="1_hs2l2"]
+[ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/Screens/Common/GameOptions.gd" id="1_hs2l2"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_vnmrx"]
 
 [node name="GameOptions" type="ScrollContainer" unique_id=807257538]

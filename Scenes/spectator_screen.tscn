@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c5r6ek20sooxv"]
+
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_ccguy"]
+[ext_resource type="Script" uid="uid://dmagg21fayucs" path="res://Scripts/Screens/Multiplayer/SpectatorScreen.gd" id="2_8orqd"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="3_433jj"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_cvu8d"]
+[ext_resource type="PackedScene" uid="uid://dy8q7wis4ne1e" path="res://Scenes/spectator_screen_player.tscn" id="5_cvu8d"]
+[ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="6_ee1b4"]
+
+[sub_resource type="Resource" id="Resource_ee1b4"]
+script = ExtResource("4_cvu8d")
+
+[sub_resource type="Resource" id="Resource_7mmk8"]
+script = ExtResource("4_cvu8d")
+
+[node name="SpectatorScreen" type="Control" unique_id=1861401914]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ccguy")
+script = ExtResource("2_8orqd")
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="." unique_id=2065511245]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.178
+anchor_right = 0.95000005
+anchor_bottom = 0.88900006
+offset_top = -0.16000366
+offset_bottom = -0.08001709
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_433jj")
+wheel_scroll_damper = SubResource("Resource_ee1b4")
+dragging_scroll_damper = SubResource("Resource_7mmk8")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+
+[node name="PlayerContainer" type="GridContainer" parent="SmoothScrollContainer" unique_id=581194861]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen" parent="SmoothScrollContainer/PlayerContainer" unique_id=1424654582 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen2" parent="SmoothScrollContainer/PlayerContainer" unique_id=1264227193 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen3" parent="SmoothScrollContainer/PlayerContainer" unique_id=603292745 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen4" parent="SmoothScrollContainer/PlayerContainer" unique_id=1275788689 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen5" parent="SmoothScrollContainer/PlayerContainer" unique_id=1684274563 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="PlayerSpectatorScreen6" parent="SmoothScrollContainer/PlayerContainer" unique_id=1903156427 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="Timer" parent="." unique_id=1884644969 instance=ExtResource("6_ee1b4")]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.089
+anchor_right = 0.5
+anchor_bottom = 0.089
+offset_left = -64.0
+offset_top = -32.08
+offset_right = 64.0
+offset_bottom = 31.919998
+grow_vertical = 1

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3iqx1hgg3d6t"]
 
-[ext_resource type="Script" uid="uid://dm51qewwvsqhj" path="res://Scripts/Screens/WordQuestionScreen.gd" id="1_u0qxv"]
+[ext_resource type="Script" uid="uid://dm51qewwvsqhj" path="res://Scripts/Screens/Common/QuestionScreens/WordQuestionScreen.gd" id="1_u0qxv"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="2_vkcbi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vkcbi"]

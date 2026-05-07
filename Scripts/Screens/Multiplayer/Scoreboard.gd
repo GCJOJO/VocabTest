@@ -82,6 +82,9 @@ func refreshScoreboard() -> void:
 		positionTween.set_parallel(true)
 		positionTween.tween_property(scoreboardPlayer, "position", calculatedPosition, 0.5)
 
+# Returns a dictionnary PlayerId => PlayerScore
+func get_scoreboard() -> Dictionary[String, float]:
+	return PLAYER_SCORES
 
 func onReceivedPlayerData(userData : UserResource):
 	var scoreboardPlayer : ScoreboardPlayer = get_node("./%s" % userData.USER_ID) as ScoreboardPlayer

@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://do24ilobdftng"]
 
-[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/Screens/MultiplayerScreen.gd" id="1_7661t"]
+[ext_resource type="Script" uid="uid://ch4c1gpavxrrm" path="res://Scripts/Screens/Multiplayer/MultiplayerScreen.gd" id="1_7661t"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yw3hq"]
 [ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="2_gp6xo"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="3_3qimo"]
 [ext_resource type="PackedScene" uid="uid://blkeilidoubh2" path="res://Scenes/game_options.tscn" id="3_ahrwp"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_nnxl5"]
 [ext_resource type="PackedScene" uid="uid://d0077t4pbxw86" path="res://Prefabs/game_menu.tscn" id="7_12yhm"]
+[ext_resource type="PackedScene" uid="uid://c5r6ek20sooxv" path="res://Scenes/spectator_screen.tscn" id="8_3qimo"]
 
 [sub_resource type="Resource" id="Resource_sj15e"]
 script = ExtResource("4_nnxl5")
@@ -223,7 +224,12 @@ offset_top = -0.080005646
 offset_right = -0.32006836
 offset_bottom = -0.08001709
 
+[node name="SpectatorScreen" parent="." unique_id=1861401914 instance=ExtResource("8_3qimo")]
+visible = false
+layout_mode = 1
+
 [node name="ResultsScreen" type="Control" parent="." unique_id=1713447722]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

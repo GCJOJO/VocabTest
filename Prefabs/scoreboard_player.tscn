@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck1vtllbrroip"]
 
-[ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/Screens/ScoreboardPlayer.gd" id="1_k7vaj"]
+[ext_resource type="Script" uid="uid://5a8dvf73vych" path="res://Scripts/Screens/Multiplayer/ScoreboardPlayer.gd" id="1_k7vaj"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_yne0d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmjsm"]

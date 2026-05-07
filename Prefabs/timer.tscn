@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0n7dqwh2kk0f"]
 
-[ext_resource type="Script" uid="uid://b1xvm6ay4275g" path="res://Scripts/Screens/Timer.gd" id="1_pvhx5"]
+[ext_resource type="Script" uid="uid://b1xvm6ay4275g" path="res://Scripts/Screens/Common/Timer.gd" id="1_pvhx5"]
 [ext_resource type="Curve" uid="uid://b3doegbhtwawn" path="res://Resources/Curves/TimerCurve.tres" id="2_ycw00"]
 
 [node name="Timer" type="Control" unique_id=1884644969]

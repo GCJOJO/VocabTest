@@ -4,6 +4,9 @@ extends Control
 
 var lobbyId : String = ""
 var hasAlreadyLoaded : bool = false
+var is_spectating : bool = false
+var winner_id : String = ""
+var eliminated_players : Array[String] = []
 
 signal word_changed()
 
@@ -202,7 +205,18 @@ func updateLobbyOptions(key : String, value) :
 	var json : String = JSON.stringify({"action" : "update-lobby-options", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "options": LobbyOptions})
 	socket.send_text(json)
 
+func continueGame() -> void:
+	$ResultsScreen.visible = false
+	$LobbyScreen.visible = true
+	socket.send_text(JSON.stringify({"action" : "continue-game", "lobby_id" : lobbyId}))
+
 func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
+	if is_spectating:
+		for player in %Scoreboard.get_scoreboard().keys():
+			if eliminated_players.has(player): continue
+			$SpectatorScreen.update_player_state(player, SpectatorScreenPlayer.PlayerState.TypingAnswer)
+		return
+	
 	match questionType:
 		GameManager.WORD_CATEGORY:
 			var context : String = newQuestion["contexte"] if newQuestion["contexte"] != null else ""
@@ -253,9 +267,13 @@ func _doJoinLobby(newLobbyId : String, currentLobbyPlayers : Array) -> void:
 	%LobbyScoreboard.refreshScoreboard()
 
 func _doStartLobby() -> void:
+	is_spectating = false
+	eliminated_players.clear()
+	
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = true
 	%GameMenu.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"], LobbyOptions["round_timer"], false)
+	$SpectatorScreen/Timer.setMaxRoundTimer(LobbyOptions["round_timer"])
 
 func _doQuitLobby() -> void:
 	lobbyId = ""
@@ -267,22 +285,28 @@ func _doQuitLobby() -> void:
 	getLobbyList()
 	#get_tree().reload_current_scene()
 
-func _doEndGame(winner_id : String) -> void:
+func _doEndGame(new_winner_id : String) -> void:
 	%WinnerName.hide()
+	winner_id = new_winner_id
 	var winner_info : UserResource = GameManager.getPlayerData(winner_id)
 	if winner_info == null:
-		GameManager.onUserGet(func(user_id : String):
-			if user_id == winner_id:
-				%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
-				%WinnerName.show())
+		GameManager.userInfoChanged.connect(update_winner)
 	else:
 		%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
 		%WinnerName.show()
 	
 	#Maybe show end results screen
 	$InGameScreen.visible = false
+	$SpectatorScreen.visible = false
 	$ResultsScreen.visible = true
+	
 	queryIsLobbyOwner(lobbyId)
+
+func update_winner(user_id : String, winner_info : UserResource):
+	if user_id == winner_id:
+		%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
+		%WinnerName.show()
+		GameManager.userInfoChanged.disconnect(update_winner)
 
 func _doPlayerJoined(joiningPlayerId : String):
 	%InGameScoreboard.setScore(joiningPlayerId, 0)
@@ -291,27 +315,37 @@ func _doPlayerJoined(joiningPlayerId : String):
 	%LobbyScoreboard.refreshScoreboard()
 
 func _doUpdateScores(updatedScores : Array) -> void:
-	for i in range(0, len(updatedScores)):
+	for i in range(0, updatedScores.size()):
 		var newScore = updatedScores[i]
 		var scorePlayerId = newScore["player_id"]
 		var newPlayerScore = newScore["new_score"]
 		%InGameScoreboard.setScore(scorePlayerId, newPlayerScore)
 		%LobbyScoreboard.setScore(scorePlayerId, newPlayerScore)
 		%Scoreboard.setScore(scorePlayerId, newPlayerScore)
+		$SpectatorScreen.update_player_score(scorePlayerId, newPlayerScore)
 		
 	%InGameScoreboard.refreshScoreboard()
 	%LobbyScoreboard.refreshScoreboard()
 	%Scoreboard.refreshScoreboard()
 
-func _doEliminate() -> void:
-	pass
-
-func _doEliminateOtherPlayer(other_id : String) -> void:
-	pass
-
-func continueGame() -> void:
-	$ResultsScreen.visible = false
-	$LobbyScreen.visible = true
+func _do_spectate() -> void:
+	is_spectating = true
+	$InGameScreen.visible = false
+	$SpectatorScreen.visible = true
+	
+	var players = %Scoreboard.get_scoreboard()
+	$SpectatorScreen.load_players(players)
+	
+	$SpectatorScreen.update_player_state(GameManager.PlayerUUID, SpectatorScreenPlayer.PlayerState.Eliminated)
+	eliminated_players.push_back(GameManager.PlayerUUID)
+	
+func _do_eliminate_player(other_id : String) -> void:
+	$SpectatorScreen.update_player_state(other_id, SpectatorScreenPlayer.PlayerState.Eliminated)
+	eliminated_players.push_back(other_id)
+	
+func _do_player_answer(other_id : String) -> void:
+	if eliminated_players.has(other_id): return
+	$SpectatorScreen.update_player_state(other_id, SpectatorScreenPlayer.PlayerState.Answered)
 
 func handle_packet(packet_str : String) -> void:
 	var json : JSON = JSON.new()
@@ -353,12 +387,12 @@ func handle_packet(packet_str : String) -> void:
 			%GameOptions.updateOptions(data["options"])
 		"show-results":
 			_doShowResult(data["word_similarity"], data["similarity_threshold"])
-		"elimination":
-			_doEliminate()
+		"spectate":
+			_do_spectate()
 		"player-eliminated": #player_id
-			_doEliminateOtherPlayer(data["player_id"])
+			_do_eliminate_player(data["player_id"])
 		"player-answered": #player_id / Used when a player is spectating to know who has already answered
-			pass
+			_do_player_answer(data["player_id"])
 		"end-game": #winner_id
 			_doEndGame(data["winner_id"])
 		"new-owner":
@@ -366,6 +400,7 @@ func handle_packet(packet_str : String) -> void:
 		"timer-update":
 			var currentTime = LobbyOptions["round_timer"] - data["current_round_timer"]
 			%GameMenu.setTimer(currentTime)
+			$SpectatorScreen/Timer.setRoundTimer(currentTime)
 		"player-left":
 			%LobbyScoreboard.removePlayer(data["player_id"])
 			%InGameScoreboard.removePlayer(data["player_id"])
@@ -389,7 +424,6 @@ func _process(_delta):
 			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 		returnToMainMenu()
 		
-	
 func returnToMainMenu() -> void:
 	set_process(false)
 	pass

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0077t4pbxw86"]
 
 [ext_resource type="PackedScene" uid="uid://b3iqx1hgg3d6t" path="res://Prefabs/word_question.tscn" id="1_sdkr4"]
-[ext_resource type="Script" uid="uid://b20q3n4vuywtx" path="res://Scripts/Screens/GameMenu.gd" id="1_ukmr1"]
+[ext_resource type="Script" uid="uid://b20q3n4vuywtx" path="res://Scripts/Screens/Common/GameMenu.gd" id="1_ukmr1"]
 [ext_resource type="PackedScene" uid="uid://cs51nyp5fi3h" path="res://Prefabs/verb_question.tscn" id="2_ukmr1"]
 [ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="3_cch0a"]
 [ext_resource type="AudioStream" uid="uid://cyf1rm5i0wwxk" path="res://Resources/SFX/snd_badexplosion.wav" id="5_4w0g2"]

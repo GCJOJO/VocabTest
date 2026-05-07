@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c5a4yboia4xxs"]
 
-[ext_resource type="Script" uid="uid://b2ueeljbpcmq8" path="res://Scripts/Screens/VersionScreen.gd" id="1_rujsr"]
+[ext_resource type="Script" uid="uid://b2ueeljbpcmq8" path="res://Scripts/Screens/Common/VersionScreen.gd" id="1_rujsr"]
 
 [node name="VersionScreen" type="Control" unique_id=173934041]
 layout_mode = 3
