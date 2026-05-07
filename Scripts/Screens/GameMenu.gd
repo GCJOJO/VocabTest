@@ -6,6 +6,7 @@ var showInstantResults : bool = false
 var currentQuestionNumber : int = 0
 var maxQuestionNumber : int = 0
 var roundTimer : int = 0
+var total_response_time : int = 0
 var maxRoundTimer : int = 0
 var questionSimilarityThreshold : float = -1.0
 
@@ -39,6 +40,7 @@ func onAnswerEntered(questionType : int, answer):
 	answerEntered.emit(questionType, answer)
 	if useLocalTimer:
 		$Timer.paused = true
+		total_response_time += maxRoundTimer - roundTimer
 	if(showInstantResults):
 		showResults(answer)
 
@@ -50,6 +52,7 @@ func setup(show_instant_results : bool, max_question_number : int, question_simi
 	questionSimilarityThreshold = question_similarity_threshold
 	maxRoundTimer = round_timer
 	roundTimer = round_timer
+	total_response_time = 0
 	useLocalTimer = use_local_timer
 	
 	$TimerScreen.setMaxRoundTimer(maxRoundTimer)
@@ -107,8 +110,9 @@ func showResultsSimilarity(answerSimilarity : float, similarityThreshold : float
 			errorAmount = %WordQuestion.showResult(answerSimilarity, similarityThreshold, false)
 		GameManager.GRAMMAR_CATEGORY:
 			errorAmount = %WordQuestion.showResult(answerSimilarity, similarityThreshold, false)
-		
-	print("Error amount : %s" % errorAmount)
+	
+	if GameManager.DEBUG_MODE:
+		print("Error amount : %s" % errorAmount)
 	
 	mistakes += errorAmount
 	if errorAmount >= 1.0:
@@ -144,7 +148,8 @@ func showResults(answer) -> void:
 			print("Similarity %s" % similarity)
 			errorAmount = %WordQuestion.showResult(similarity, questionSimilarityThreshold, showInstantResults)
 		
-	print("Error amount : %s" % errorAmount)
+	if GameManager.DEBUG_MODE:
+		print("Error amount : %s" % errorAmount)
 	
 	mistakes += errorAmount
 	if errorAmount >= 1.0:

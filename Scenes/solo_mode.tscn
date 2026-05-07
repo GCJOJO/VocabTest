@@ -66,7 +66,6 @@ visible = false
 layout_mode = 1
 
 [node name="Results" type="Control" parent="." unique_id=1671799819]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,9 +108,8 @@ size_flags_vertical = 3
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="Panel" type="Panel" parent="Results/ScrollContainer/Control" unique_id=1224078768]
+[node name="CorrectWordControl" type="Control" parent="Results/ScrollContainer/Control" unique_id=1030960344]
 layout_mode = 1
-anchors_preset = -1
 anchor_left = 0.020000001
 anchor_top = 0.10700001
 anchor_right = 0.93000007
@@ -120,20 +118,29 @@ offset_top = 0.03199768
 offset_right = -6.1035156e-05
 offset_bottom = 0.09600067
 mouse_filter = 1
-theme_override_styles/panel = ExtResource("6_bbn6k")
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Results/ScrollContainer/Control" unique_id=1966926265]
+[node name="Panel" type="Panel" parent="Results/ScrollContainer/Control/CorrectWordControl" unique_id=1224078768]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("6_bbn6k")
+metadata/_smooth_scroll_default_mouse_filter_set = true
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Results/ScrollContainer/Control/CorrectWordControl" unique_id=1966926265]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.16000001
-anchor_top = 0.21400002
-anchor_right = 0.16000001
-anchor_bottom = 0.21400002
-offset_left = -104.000015
-offset_top = -23.936005
-offset_right = 103.99994
-offset_bottom = 24.064026
+anchor_left = 0.011000001
+anchor_right = 0.29700002
+anchor_bottom = 1.0
+offset_left = -0.008000374
+offset_right = -0.21606445
+offset_bottom = 3.0517578e-05
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -144,18 +151,81 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="CorrectWords" type="RichTextLabel" parent="Results/ScrollContainer/Control" unique_id=1733927886]
+[node name="CorrectWords" type="RichTextLabel" parent="Results/ScrollContainer/Control/CorrectWordControl" unique_id=1733927886]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.83000004
-anchor_top = 0.21400002
-anchor_right = 0.83000004
-anchor_bottom = 0.21400002
-offset_left = -104.00006
-offset_top = -23.936005
-offset_right = 103.99994
-offset_bottom = 24.064026
+anchor_left = 0.74700004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.18395996
+offset_bottom = 3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "0 / 0 = la tête à toto"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="AverageTimeControl" type="Control" parent="Results/ScrollContainer/Control" unique_id=2059699113]
+layout_mode = 1
+anchor_left = 0.020000001
+anchor_top = 0.33900002
+anchor_right = 0.93000007
+anchor_bottom = 0.558
+offset_top = 1.0639954
+offset_right = -6.1035156e-05
+offset_bottom = 0.0079956055
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="Panel" type="Panel" parent="Results/ScrollContainer/Control/AverageTimeControl" unique_id=487720540]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("6_bbn6k")
+metadata/_smooth_scroll_default_mouse_filter_set = true
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Results/ScrollContainer/Control/AverageTimeControl" unique_id=559005352]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011000001
+anchor_top = 0.062000003
+anchor_right = 0.34100002
+anchor_bottom = 1.0
+offset_left = -0.008000374
+offset_top = -2.976
+offset_right = -0.24801636
+offset_bottom = 3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "Temps de réponse moyenne :"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="AverageTime" type="RichTextLabel" parent="Results/ScrollContainer/Control/AverageTimeControl" unique_id=598099561]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.74700004
+anchor_top = 0.062000003
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.18395996
+offset_top = -2.976
+offset_bottom = 3.0517578e-05
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1

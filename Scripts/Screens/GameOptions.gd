@@ -13,10 +13,14 @@ func _ready() -> void:
 func setup():
 	var max_word_number : int = WordManager.WORDS.size()
 	var max_verb_number : int = WordManager.VERBS.size()
+	var max_country_number : int = WordManager.COUNTRIES.size()
+	var max_grammar_number : int = WordManager.GRAMMAR.size()
+	
+	var max_question_number : int = max_word_number + max_verb_number + max_country_number + max_grammar_number
 	
 	%WordsSpinBox.min_value = 1
-	%WordsSpinBox.max_value = max_word_number + max_verb_number
-	%WordsSpinBox.value = min(10, max_word_number + max_verb_number)
+	%WordsSpinBox.max_value = max_question_number
+	%WordsSpinBox.value = min(10, max_question_number)
 
 func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled

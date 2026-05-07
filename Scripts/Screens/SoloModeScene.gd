@@ -21,8 +21,6 @@ var LobbyOptions = {
 	"similarity_threshold": 0.8
 }
 
-var roundTimer : int = 0
-
 signal word_changed()
 
 # Called when the node enters the scene tree for the first time.
@@ -65,7 +63,8 @@ func startGame() -> void:
 	var questionTypes : PackedByteArray = []
 	var maxAvailableQuestions : int = 0
 	
-	print(LobbyOptions["categories"])
+	if GameManager.DEBUG_MODE:
+		print("Chosen Categories : %s" % LobbyOptions["categories"])
 	
 	if LobbyOptions["categories"] & GameManager.WORD_CATEGORY:
 		CURRENT_WORD_INDEX = 0
@@ -130,10 +129,14 @@ func startGame() -> void:
 
 func update_word() -> void:
 	CURRENT_QUESTION_INDEX += 1
-	print(CURRENT_QUESTION_INDEX)
 	if(CURRENT_QUESTION_INDEX >= QUESTION_TYPE_ORDER.size()):
 		var correct_words : int = LobbyOptions["max_words"] - %GameMenu.mistakes
 		%CorrectWords.text = "%s / %s" % [correct_words, LobbyOptions["max_words"]]
+		
+		print("Total Response Time : %ss, Current Question Index : %s" % [$GameMenu.total_response_time, CURRENT_QUESTION_INDEX])
+		var average_response_time : float = $GameMenu.total_response_time / CURRENT_QUESTION_INDEX
+		%AverageTime.text = "%ss" % average_response_time
+		
 		$Results.show()
 		$GameMenu.hide()
 		return
