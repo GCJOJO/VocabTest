@@ -30,7 +30,7 @@ func onHttpRequestCompleted(_result: int, _response_code: int, _headers: PackedS
 	if response == null:
 		if GameManager.DEBUG_MODE:
 			push_error("Null response !")
-		ErrorManager.show_error("Impossible d'atteindre le serveur.", "Veuillez vérifier que vos pouvez atteindre le serveur en cliquant sur ce [url={%s/version}]lien[/url].\nSi votre navigateur vous indique qu'il s'agit d'un lien dangereux c'est parce que le serveur n'a pas de certificat SSL valide et la connexion ne peut donc pas être sécurisée.\nVous devez ignorer ce message si vous souhaitez jouer." % GameManager.SERVER_ADRESS)
+		ErrorManager.show_error("Impossible d'atteindre le serveur.", "Veuillez vérifier que vos pouvez atteindre le serveur en cliquant sur ce [color=#91b8f1][url={%s/version}]lien[/url][/color].\nSi votre navigateur vous indique qu'il s'agit d'un lien dangereux c'est parce que le serveur n'a pas de certificat SSL valide et la connexion ne peut donc pas être sécurisée.\nVous devez ignorer ce message et rafraichir cette page si vous souhaitez jouer." % GameManager.SERVER_ADRESS)
 		return
 	if GameManager.DEBUG_MODE:
 		print("Got response : %s" % response)
