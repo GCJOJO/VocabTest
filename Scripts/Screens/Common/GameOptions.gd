@@ -7,6 +7,7 @@ signal wordsThresholdChanged(newValue : float)
 signal timerChanged(newValue : int)
 signal categoriesChanged(newValue : int)
 signal gamemode_changed(new_game_mode : int)
+signal is_spectator_changed(is_spectator : bool)
 
 var useTimer : bool = false
 
@@ -24,6 +25,8 @@ func setup():
 	%WordsSpinBox.min_value = 1
 	%WordsSpinBox.max_value = max_question_number
 	%WordsSpinBox.value = min(10, max_question_number)
+	
+	%IsSpectator.visible = is_multiplayer_game
 
 func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled
@@ -107,3 +110,7 @@ func onCategoriesChanged() -> void:
 func _on_mode_changed(index: int) -> void:
 	if not is_multiplayer_game: return
 	gamemode_changed.emit(index)
+
+
+func update_is_spectator(toggled_on: bool) -> void:
+	is_spectator_changed.emit(toggled_on)

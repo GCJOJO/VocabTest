@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 WordManager="*uid://cbj6545unpqg6"
 GameManager="*uid://dypjhihkldj5u"
 RequestQueue="*uid://bvmyk0spm66yy"
+ErrorManager="*uid://cfqnu5ab625w7"
 
 [display]
 

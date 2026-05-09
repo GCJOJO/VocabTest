@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_cvu8d"]
 [ext_resource type="PackedScene" uid="uid://dy8q7wis4ne1e" path="res://Scenes/spectator_screen_player.tscn" id="5_cvu8d"]
 [ext_resource type="PackedScene" uid="uid://0n7dqwh2kk0f" path="res://Prefabs/timer.tscn" id="6_ee1b4"]
+[ext_resource type="StyleBox" uid="uid://dk2berdsm4ouo" path="res://Resources/Theme/panel_container/panel_border.tres" id="7_7mmk8"]
 
 [sub_resource type="Resource" id="Resource_ee1b4"]
 script = ExtResource("4_cvu8d")
@@ -27,10 +28,10 @@ script = ExtResource("2_8orqd")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
-anchor_top = 0.178
+anchor_top = 0.344
 anchor_right = 0.95000005
 anchor_bottom = 0.88900006
-offset_top = -0.16000366
+offset_top = 0.31999207
 offset_bottom = -0.08001709
 grow_horizontal = 2
 grow_vertical = 2
@@ -88,3 +89,63 @@ offset_top = -32.08
 offset_right = 64.0
 offset_bottom = 31.919998
 grow_vertical = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=1535199014]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.094000004
+anchor_top = 0.133
+anchor_right = 0.906
+anchor_bottom = 0.27800003
+offset_left = -0.32000732
+offset_top = 0.23999786
+offset_right = 0.3199463
+offset_bottom = -0.16001892
+grow_horizontal = 2
+theme = ExtResource("1_ccguy")
+theme_override_styles/panel = ExtResource("7_7mmk8")
+
+[node name="QuestionCategory" type="RichTextLabel" parent="Panel" unique_id=1721925122]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = 0.059000004
+anchor_right = 0.99200004
+anchor_bottom = 0.52900004
+offset_left = -0.32000065
+offset_top = 1.8639994
+offset_right = 0.3199463
+offset_bottom = -0.42400742
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+bbcode_enabled = true
+text = "Catégorie de question"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Question" type="RichTextLabel" parent="Panel" unique_id=1574056925]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.008
+anchor_top = 0.52500004
+anchor_right = 0.99200004
+anchor_bottom = 0.92300004
+offset_left = -0.32000065
+offset_top = 0.3999977
+offset_right = 0.3199463
+offset_bottom = 0.0079956055
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "Question"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

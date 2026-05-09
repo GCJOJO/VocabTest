@@ -4,6 +4,8 @@ extends Control
 @export var header_noise_speed : float = 10.0
 
 func _ready() -> void:
+	GameManager.check_server_version()
+	
 	GameManager.tryLoadPlayerData()
 	$LoginScreen.onUserLoggedIn.connect(onUserLoggedIn)
 	

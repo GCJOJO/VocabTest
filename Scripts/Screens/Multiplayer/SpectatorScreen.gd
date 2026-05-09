@@ -19,6 +19,22 @@ func load_players(players : Dictionary[String, float]) -> void:
 		%PlayerContainer.add_child(player_screen)
 		
 	
+func set_word(new_word : WordResource) -> void:
+	%QuestionCategory.text = "[b][i]Mots[/i][/b]"
+	%Question.text = new_word.FRENCH
+	
+func set_verb(new_verb : VerbResource) -> void:
+	%QuestionCategory.text = "[b][i]Verbes[/i][/b]"
+	%Question.text = new_verb.FRENCH
+	
+func set_country(new_country : WordResource) -> void:
+	%QuestionCategory.text = "[b][i]Pays[/i][/b]"
+	%Question.text = new_country.FRENCH
+	
+func set_grammar(new_grammar : WordResource) -> void:
+	%QuestionCategory.text = "[b][i]Grammaire[/i][/b]"
+	%Question.text = new_grammar.FRENCH
+	
 func update_player_state(player_id : String, new_state : SpectatorScreenPlayer.PlayerState):
 	var player_screen : SpectatorScreenPlayer = %PlayerContainer.get_node_or_null(player_id) as SpectatorScreenPlayer
 	if player_screen == null: return

@@ -46,6 +46,7 @@ func loadMultiplayerScreen() -> void:
 	%GameOptions.wordsThresholdChanged.connect(func(value: float): updateLobbyOptions("similarity_threshold", value))
 	%GameOptions.timerChanged.connect(func(value: int): updateLobbyOptions("round_timer", value))
 	%GameOptions.gamemode_changed.connect(func(value: int): updateLobbyOptions("lobby_mode", value))
+	%GameOptions.is_spectator_changed.connect(update_is_spectator)
 	
 	%GameOptions.setIsDisabled(true)
 	%GameOptions.setup()
@@ -198,7 +199,20 @@ func updateLobbyOptions(key : String, value) :
 	if socket.get_ready_state() != socket.STATE_OPEN:
 		return
 	LobbyOptions[key] = value
-	var json : String = JSON.stringify({"action" : "update-lobby-options", "player_id": GameManager.PlayerUUID, "lobby_id": lobbyId, "options": LobbyOptions})
+	var json : String = JSON.stringify({
+		"action" : "update-lobby-options", 
+		"player_id": GameManager.PlayerUUID, 
+		"lobby_id": lobbyId, 
+		"options": LobbyOptions
+	})
+	socket.send_text(json)
+
+func update_is_spectator(new_spectator : bool) -> void:
+	var json : String = JSON.stringify({
+		"action" : "update-is-spectator", 
+		"player_id": GameManager.PlayerUUID, 
+		"lobby_id": lobbyId, "is_spectator": new_spectator
+	})
 	socket.send_text(json)
 
 func continueGame() -> void:
@@ -219,6 +233,7 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 			var englishWords : PackedStringArray = newQuestion["anglais"].split("/")
 			var newWord : = WordResource.new(newQuestion["identifiant"], newQuestion["français"], context, englishWords)
 			%GameMenu.setWord(newWord)
+			$SpectatorScreen.set_word(newWord)
 		GameManager.VERB_CATEGORY:
 			var context : String = newQuestion["context"] if newQuestion["context"] != null else ""
 			var inf : String = newQuestion["infinitive"]
@@ -226,16 +241,19 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 			var pp : String = newQuestion["past_participle"]
 			var newVerb : = VerbResource.new(newQuestion["id"], newQuestion["french"], context, inf.split("/"), pre.split("/"), pp.split("/"))
 			%GameMenu.setVerb(newVerb)
+			$SpectatorScreen.set_verb(newVerb)
 		GameManager.COUNTRY_CATEGORY:
 			var context : String = ""
 			var englishWords : PackedStringArray = newQuestion["english"].split("/")
 			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
 			%GameMenu.setCountry(newWord)
+			$SpectatorScreen.set_country(newWord)
 		GameManager.GRAMMAR_CATEGORY:
 			var context : String = newQuestion["category"] if newQuestion["category"] != null else ""
 			var englishWords : PackedStringArray = newQuestion["english"].split("/")
 			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
 			%GameMenu.setGrammar(newWord)
+			$SpectatorScreen.set_grammar(newWord)
 	
 	word_changed.emit()
 

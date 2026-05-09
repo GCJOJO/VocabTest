@@ -19,7 +19,7 @@ var tween_handle: Tween
 
 var last_mouse_pos: Vector2
 var mouse_velocity: Vector2
-var following_mouse: bool = false
+var locked: bool = false
 var last_pos: Vector2
 var velocity: Vector2
 
@@ -33,7 +33,7 @@ func _ready() -> void:
 	angle_y_max = deg_to_rad(angle_y_max)
 	%SoloMode.word_changed.connect(spin)
 	%MultiplayerMode.word_changed.connect(spin)
-
+	add_to_group("3d_card_effect")
 
 func _process(_delta: float) -> void:
 	card_texture.material.set_shader_parameter("rect_size", get_tree().root.size)
@@ -52,7 +52,7 @@ func _gui_input(event) -> void:
 		return
 	
 	# Don't compute rotation when moving the card
-	if following_mouse: return
+	if locked: return
 	if not event is InputEventMouseMotion: 
 		$SubViewport.push_input(event)
 		return
@@ -75,6 +75,12 @@ func _gui_input(event) -> void:
 	
 	card_texture.material.set_shader_parameter("x_rot", rot_y)
 	card_texture.material.set_shader_parameter("y_rot", rot_x)
+
+func set_is_locked(is_locked : bool) -> void:
+	locked = is_locked
+	
+func set_ignore_mouse(ignore : bool) -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE if ignore else Control.MOUSE_FILTER_STOP
 
 func _on_mouse_entered() -> void:
 	if tween_hover and tween_hover.is_running():
@@ -100,7 +106,7 @@ func set_card_y_rot(rot_y : float):
 		card_texture.material.set_shader_parameter("y_rot", rot_y)
 
 func spin() -> void:
-	following_mouse = true
+	locked = true
 	
 	var position_tween : = create_tween()
 	var rotation_tween : = create_tween()
@@ -115,7 +121,7 @@ func spin() -> void:
 	rotation_tween.tween_method(set_card_y_rot, 0, 90, 0.125)
 	rotation_tween.tween_method(set_card_y_rot, -90, 0, 0.125)
 	rotation_tween.tween_callback(func() : 
-		following_mouse = false
+		locked = false
 		set_card_y_rot(0)
 		)
 	

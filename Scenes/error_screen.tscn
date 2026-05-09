@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://c0wgwvdh8vkcr"]
+
+[ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_3blr6"]
+[ext_resource type="Script" uid="uid://cwkcrked8ci4t" path="res://Scripts/Screens/error_screen.gd" id="2_q3ik3"]
+
+[node name="ErrorScreen" type="Control" unique_id=1239442429]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3blr6")
+script = ExtResource("2_q3ik3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1836965801]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Panel" type="Panel" parent="." unique_id=532631537]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.094000004
+anchor_top = 0.178
+anchor_right = 0.90000004
+anchor_bottom = 0.822
+offset_left = 7.6799927
+offset_top = -0.16000366
+offset_bottom = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="RichTextLabel" parent="Panel" unique_id=1406959458]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062000003
+anchor_top = 0.052
+anchor_right = 0.93700004
+anchor_bottom = 0.13800001
+offset_left = 0.5119972
+offset_top = -0.12800026
+offset_right = 0.5119629
+offset_bottom = -0.03200531
+grow_horizontal = 2
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+bbcode_enabled = true
+text = "Titre"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="RichTextLabel" parent="Panel" unique_id=1639886129]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.062000003
+anchor_top = 0.172
+anchor_right = 0.93700004
+anchor_bottom = 0.79300004
+offset_left = 0.5119972
+offset_top = 0.19199371
+offset_right = 0.5119629
+offset_bottom = 0.047973633
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+bbcode_enabled = true
+text = "Message"
+scroll_active = false
+
+[node name="OkButton" type="Button" parent="Panel" unique_id=1142869405]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39800003
+anchor_top = 0.82800007
+anchor_right = 0.60200006
+anchor_bottom = 0.961
+offset_left = 0.44796753
+offset_top = -0.1920166
+offset_right = -0.44805908
+offset_bottom = 0.09597778
+grow_horizontal = 2
+grow_vertical = 0
+text = "D'accord"
+
+[connection signal="meta_clicked" from="Panel/Content" to="." method="_on_content_meta_clicked"]
+[connection signal="pressed" from="Panel/OkButton" to="." method="hide_screen"]
