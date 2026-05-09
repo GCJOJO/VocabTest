@@ -45,35 +45,187 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 6
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen" parent="SmoothScrollContainer/PlayerContainer" unique_id=1424654582 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer" parent="SmoothScrollContainer/PlayerContainer" unique_id=1424654582 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen2" parent="SmoothScrollContainer/PlayerContainer" unique_id=1264227193 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer2" parent="SmoothScrollContainer/PlayerContainer" unique_id=1945271482 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen3" parent="SmoothScrollContainer/PlayerContainer" unique_id=603292745 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer3" parent="SmoothScrollContainer/PlayerContainer" unique_id=165088206 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen4" parent="SmoothScrollContainer/PlayerContainer" unique_id=1275788689 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer4" parent="SmoothScrollContainer/PlayerContainer" unique_id=433075873 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen5" parent="SmoothScrollContainer/PlayerContainer" unique_id=1684274563 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer5" parent="SmoothScrollContainer/PlayerContainer" unique_id=191059600 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
-[node name="PlayerSpectatorScreen6" parent="SmoothScrollContainer/PlayerContainer" unique_id=1903156427 instance=ExtResource("5_cvu8d")]
+[node name="SpectatorScreenPlayer6" parent="SmoothScrollContainer/PlayerContainer" unique_id=662734094 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer7" parent="SmoothScrollContainer/PlayerContainer" unique_id=1943192199 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer8" parent="SmoothScrollContainer/PlayerContainer" unique_id=2062209349 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer9" parent="SmoothScrollContainer/PlayerContainer" unique_id=791700087 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer10" parent="SmoothScrollContainer/PlayerContainer" unique_id=1686110805 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer11" parent="SmoothScrollContainer/PlayerContainer" unique_id=1675857012 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer12" parent="SmoothScrollContainer/PlayerContainer" unique_id=1205559594 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer13" parent="SmoothScrollContainer/PlayerContainer" unique_id=1382042374 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer14" parent="SmoothScrollContainer/PlayerContainer" unique_id=915911907 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer15" parent="SmoothScrollContainer/PlayerContainer" unique_id=1342714691 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer16" parent="SmoothScrollContainer/PlayerContainer" unique_id=975248233 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer17" parent="SmoothScrollContainer/PlayerContainer" unique_id=798304411 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer18" parent="SmoothScrollContainer/PlayerContainer" unique_id=1502088413 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer19" parent="SmoothScrollContainer/PlayerContainer" unique_id=1001920773 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer20" parent="SmoothScrollContainer/PlayerContainer" unique_id=975906689 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer21" parent="SmoothScrollContainer/PlayerContainer" unique_id=1688380616 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer22" parent="SmoothScrollContainer/PlayerContainer" unique_id=1051892763 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer23" parent="SmoothScrollContainer/PlayerContainer" unique_id=1896691754 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer24" parent="SmoothScrollContainer/PlayerContainer" unique_id=1380850956 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer25" parent="SmoothScrollContainer/PlayerContainer" unique_id=1538633561 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer26" parent="SmoothScrollContainer/PlayerContainer" unique_id=243979308 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer27" parent="SmoothScrollContainer/PlayerContainer" unique_id=1861340796 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer28" parent="SmoothScrollContainer/PlayerContainer" unique_id=1709835500 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer29" parent="SmoothScrollContainer/PlayerContainer" unique_id=143378172 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer30" parent="SmoothScrollContainer/PlayerContainer" unique_id=570734413 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer31" parent="SmoothScrollContainer/PlayerContainer" unique_id=630242047 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer32" parent="SmoothScrollContainer/PlayerContainer" unique_id=1837738414 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer33" parent="SmoothScrollContainer/PlayerContainer" unique_id=1793470480 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer34" parent="SmoothScrollContainer/PlayerContainer" unique_id=1932060801 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer35" parent="SmoothScrollContainer/PlayerContainer" unique_id=748594256 instance=ExtResource("5_cvu8d")]
+layout_mode = 2
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="SpectatorScreenPlayer36" parent="SmoothScrollContainer/PlayerContainer" unique_id=1582871013 instance=ExtResource("5_cvu8d")]
 layout_mode = 2
 mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true

@@ -2,6 +2,30 @@ extends Control
 
 @export var player_spectator_screen : PackedScene = preload("uid://dy8q7wis4ne1e")
 
+func _ready() -> void:
+	get_tree().root.size_changed.connect(on_viewport_size_changed)
+	
+	on_viewport_size_changed()
+
+func on_viewport_size_changed() -> void:
+	var container_width : float = $SmoothScrollContainer.size.x
+	print("Container width : %s" % container_width)
+	
+	var instance = player_spectator_screen.instantiate()
+	
+	if instance is not Control:
+		instance.queue_free()
+		return
+	
+	var min_instance_width : float = (instance as Control).get_combined_minimum_size().x
+	var columns : int = floor(container_width / min_instance_width)
+	var separation_percentage : float = (container_width / min_instance_width) - columns
+	@warning_ignore("narrowing_conversion")
+	var separation : int = (separation_percentage * container_width) / (8 * columns)
+	%PlayerContainer.columns = max(columns, 1)
+	%PlayerContainer.add_theme_constant_override("h_separation", separation)
+	instance.queue_free()
+
 # Dictionnary of player IDs => score
 func load_players(players : Dictionary[String, float]) -> void:
 	for child in %PlayerContainer.get_children():
