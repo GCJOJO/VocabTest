@@ -62,6 +62,8 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i3xj7"]
+
 [resource]
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 0
@@ -94,6 +96,7 @@ OptionButton/styles/pressed = ExtResource("12_1cpra")
 Panel/styles/panel = SubResource("StyleBoxFlat_2ratw")
 PanelContainer/styles/panel = ExtResource("5_wytm8")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+VSeparator/styles/separator = SubResource("StyleBoxEmpty_i3xj7")
 spectator_player_answered/base_type = &"Panel"
 spectator_player_answered/styles/panel = ExtResource("11_pbjdw")
 spectator_player_eliminated/base_type = &"Panel"

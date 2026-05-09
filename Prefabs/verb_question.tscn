@@ -59,8 +59,8 @@ anchor_left = 0.15
 anchor_top = 0.156
 anchor_right = 0.85
 anchor_bottom = 0.84400004
-offset_top = -56.32
-offset_bottom = -7.6800537
+offset_top = -72.32
+offset_bottom = -23.680054
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -99,18 +99,19 @@ scroll_active = false
 [node name="Prefix" type="RichTextLabel" parent="." unique_id=1806868888]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.21200001
+anchor_left = 0.23700002
 anchor_top = 0.31100002
-anchor_right = 0.287
-anchor_bottom = 0.38900003
+anchor_right = 0.294
+anchor_bottom = 0.37800002
 offset_left = 0.63998413
 offset_top = 0.07998657
-offset_right = 0.64001465
-offset_bottom = -0.08001709
+offset_right = -0.32000732
+offset_bottom = -0.16000366
 bbcode_enabled = true
 text = "[color=#555][font_size=28]to"
 scroll_active = false
 horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Infinitive" type="LineEdit" parent="." unique_id=836851788]
 unique_name_in_owner = true

@@ -29,10 +29,13 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/Control" unique_id=278401409]
-layout_mode = 0
-offset_left = 16.0
-offset_right = 496.0
-offset_bottom = 64.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.032
+anchor_right = 0.9850001
+anchor_bottom = 1.0
+offset_left = -0.12800026
+offset_right = -0.44003296
 alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/Control/HBoxContainer" unique_id=1304524416]
@@ -57,10 +60,14 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Control" unique_id=1960060308]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 504.0
-offset_bottom = 64.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.06400013
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/Control/HBoxContainer" unique_id=1496646785]
@@ -94,33 +101,32 @@ value = 80.0
 
 [node name="PanelContainer3" type="FoldableContainer" parent="VBoxContainer" unique_id=1624642931]
 layout_mode = 2
-folded = true
 title = "Temps Limite"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3" unique_id=581232558]
-visible = false
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=13843886]
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=2073458998]
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "Limite de temps"
-scroll_active = false
-vertical_alignment = 1
 
 [node name="UseTimerCheckbob" type="CheckButton" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=557342493]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_vertical = 4
+button_pressed = true
+text = "  Activée ?"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=1220693643]
 layout_mode = 2
 size_flags_horizontal = 3
-button_pressed = true
-text = "Activée ?"
 
 [node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=120937605]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 alignment = 1
 
 [node name="TimerText" type="RichTextLabel" parent="VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer" unique_id=428326087]
@@ -140,6 +146,10 @@ min_value = 15.0
 max_value = 120.0
 step = 15.0
 value = 30.0
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=1479386686]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 
 [node name="Categories" type="FoldableContainer" parent="VBoxContainer" unique_id=1474791587]
 layout_mode = 2
