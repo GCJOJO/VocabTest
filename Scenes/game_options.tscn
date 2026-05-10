@@ -2,13 +2,22 @@
 
 [ext_resource type="Script" uid="uid://bvb3gn8wq5bwd" path="res://Scripts/Screens/Common/GameOptions.gd" id="1_hs2l2"]
 [ext_resource type="Theme" uid="uid://hbsnbvvj64y7" path="res://Resources/Theme.tres" id="1_vnmrx"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="3_nctbx"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="4_lcqj2"]
+[ext_resource type="PackedScene" uid="uid://dxnxxv0ce1w6w" path="res://Scenes/scoreboard.tscn" id="5_62xmq"]
+
+[sub_resource type="Resource" id="Resource_34e38"]
+script = ExtResource("4_lcqj2")
+
+[sub_resource type="Resource" id="Resource_scbdc"]
+script = ExtResource("4_lcqj2")
 
 [node name="GameOptions" type="ScrollContainer" unique_id=807257538]
 custom_minimum_size = Vector2(512, 256)
 anchors_preset = -1
 anchor_right = 0.4
-anchor_bottom = 1.0
-offset_bottom = -464.0
+anchor_bottom = 0.356
+offset_bottom = -0.32000732
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -118,7 +127,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_vertical = 4
 button_pressed = true
-text = "  Activée ?"
+text = "  Activé ?"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=1220693643]
 layout_mode = 2
@@ -204,16 +213,51 @@ theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Grammaire"
 
-[node name="Mode" type="FoldableContainer" parent="VBoxContainer" unique_id=2071147489]
+[node name="SoloMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2127898620]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 title = "Mode de jeu"
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Mode" unique_id=1640439161]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/SoloMode" unique_id=1618799120]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="ModeOptionButton" type="OptionButton" parent="VBoxContainer/Mode/CenterContainer" unique_id=1222464526]
+[node name="SoloModeOptionButton" type="OptionButton" parent="VBoxContainer/SoloMode/CenterContainer" unique_id=1371193845]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Classique"
+popup/item_0/id = 0
+popup/item_1/text = "Compétition"
+popup/item_1/id = 1
+
+[node name="LeaderboardScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=259907410]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+script = ExtResource("3_nctbx")
+wheel_scroll_damper = SubResource("Resource_34e38")
+dragging_scroll_damper = SubResource("Resource_scbdc")
+metadata/_custom_type_script = "uid://bgqglerkcylxx"
+
+[node name="Leaderboard" parent="VBoxContainer/LeaderboardScrollContainer" unique_id=1732405484 instance=ExtResource("5_62xmq")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+metadata/_smooth_scroll_default_mouse_filter_set = true
+
+[node name="MultiplayerMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2071147489]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+title = "Mode de jeu"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MultiplayerMode" unique_id=1640439161]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MultiplayerModeOptionButton" type="OptionButton" parent="VBoxContainer/MultiplayerMode/CenterContainer" unique_id=1222464526]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
@@ -239,5 +283,6 @@ text = "  Spectateur ?"
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/VerbsCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/CountryCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/GrammarCategory" to="." method="onCategoriesChanged"]
-[connection signal="item_selected" from="VBoxContainer/Mode/CenterContainer/ModeOptionButton" to="." method="_on_mode_changed"]
+[connection signal="item_selected" from="VBoxContainer/SoloMode/CenterContainer/SoloModeOptionButton" to="." method="_on_solo_mode_changed"]
+[connection signal="item_selected" from="VBoxContainer/MultiplayerMode/CenterContainer/MultiplayerModeOptionButton" to="." method="_on_multiplayer_mode_changed"]
 [connection signal="toggled" from="VBoxContainer/IsSpectator" to="." method="update_is_spectator"]

@@ -4,13 +4,10 @@ extends Control
 
 func _ready() -> void:
 	get_tree().root.size_changed.connect(on_viewport_size_changed)
-	
 	on_viewport_size_changed()
 
 func on_viewport_size_changed() -> void:
 	var container_width : float = $SmoothScrollContainer.size.x
-	print("Container width : %s" % container_width)
-	
 	var instance = player_spectator_screen.instantiate()
 	
 	if instance is not Control:
@@ -30,10 +27,7 @@ func on_viewport_size_changed() -> void:
 func load_players(players : Dictionary[String, float]) -> void:
 	for child in %PlayerContainer.get_children():
 		child.queue_free()
-	
-	print(players.keys())
-	print(players.values())
-	
+			
 	for player in players.keys():
 		var player_screen : SpectatorScreenPlayer = player_spectator_screen.instantiate() as SpectatorScreenPlayer
 		if player_screen == null: continue

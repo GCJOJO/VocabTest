@@ -14,6 +14,7 @@ var useLocalTimer : bool = false
 var currentQuestionCategory : int = 0
 
 signal answerEntered(questionType : int, answer)
+signal on_mistake()
 signal readyNextQuestion()
 
 func _ready() -> void:	
@@ -156,6 +157,7 @@ func showResults(answer) -> void:
 		%ExplosionSprite.show()
 		%ExplosionSprite.play(&"default")
 		$ExplosionSound.play()
+		on_mistake.emit()
 	updateStatus()
 
 func onTimerTick() -> void:

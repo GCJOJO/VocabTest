@@ -161,3 +161,6 @@ func levenshteinDistance(wordA : String, wordB : String) -> float:
 
 	# The last value of the matrix is ​​the Levenshtein distance between the two strings
 	return matrix[len(wordA)][len(wordB)] / maxLength
+
+func get_total_question_amount() -> int:
+	return WORDS.size() + VERBS.size() + COUNTRIES.size() + GRAMMAR.size()

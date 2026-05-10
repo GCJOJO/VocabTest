@@ -12,7 +12,13 @@ signal is_spectator_changed(is_spectator : bool)
 var useTimer : bool = false
 
 func _ready() -> void:
-	$VBoxContainer/Mode.visible = is_multiplayer_game
+	$VBoxContainer/SoloMode.visible = not is_multiplayer_game
+	$VBoxContainer/MultiplayerMode.visible = is_multiplayer_game
+	$VBoxContainer/LeaderboardScrollContainer.visible = false
+	%IsSpectator.visible = is_multiplayer_game
+	
+	get_tree().root.size_changed.connect(on_viewport_size_changed)
+	on_viewport_size_changed()
 	
 func setup():
 	var max_word_number : int = WordManager.WORDS.size()
@@ -25,8 +31,14 @@ func setup():
 	%WordsSpinBox.min_value = 1
 	%WordsSpinBox.max_value = max_question_number
 	%WordsSpinBox.value = min(10, max_question_number)
-	
-	%IsSpectator.visible = is_multiplayer_game
+
+
+func set_competition_mode(is_competition_mode : bool) -> void:
+	$VBoxContainer/PanelContainer.visible = not is_competition_mode
+	$VBoxContainer/PanelContainer2.visible = not is_competition_mode
+	$VBoxContainer/PanelContainer3.visible = not is_competition_mode
+	$VBoxContainer/Categories.visible = not is_competition_mode
+	$VBoxContainer/LeaderboardScrollContainer.visible = is_competition_mode
 
 func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled
@@ -36,7 +48,7 @@ func setIsDisabled(disabled : bool) -> void:
 	%VerbsCategory.disabled = disabled
 	%CountryCategory.disabled = disabled
 	%GrammarCategory.disabled = disabled
-	%ModeOptionButton.disabled = disabled
+	%MultiplayerModeOptionButton.disabled = disabled
 
 func updateOptions(data) -> void:
 	if data.has("max_words"):
@@ -64,7 +76,7 @@ func updateOptions(data) -> void:
 		%GrammarCategory.button_pressed = grammar_category
 		
 	if data.has("lobby_mode"):
-		%ModeOptionButton.select(data["lobby_mode"])
+		%MultiplayerModeOptionButton.select(data["lobby_mode"])
 
 func onWordsCountChanged(value : float) -> void:
 	wordsCountChanged.emit(floor(value))
@@ -106,11 +118,34 @@ func onCategoriesChanged() -> void:
 		
 	categoriesChanged.emit(categories)
 
+func _on_solo_mode_changed(index : int) -> void:
+	if is_multiplayer_game: return
+	gamemode_changed.emit(index)
+	set_competition_mode(index == 1)
+	
+	match index:
+		1:
+			%Leaderboard.clear_scores()
+			RequestQueue.requestGet("%s/leaderboard" % GameManager.SERVER_ADRESS, on_leaderboard_update, "")
 
-func _on_mode_changed(index: int) -> void:
+func on_leaderboard_update(data : Dictionary) -> void:
+	if not data.has("action") or data["action"] != "leaderboard" or not data.has("leaderboard"):
+		return
+		
+	var leaderboard : Array = data["leaderboard"]
+	for player in leaderboard:
+		%Leaderboard.setScore(player["uuid"], player["score"])
+		
+	%Leaderboard.refreshScoreboard()
+
+func _on_multiplayer_mode_changed(index: int) -> void:
 	if not is_multiplayer_game: return
 	gamemode_changed.emit(index)
 
-
 func update_is_spectator(toggled_on: bool) -> void:
 	is_spectator_changed.emit(toggled_on)
+
+func on_viewport_size_changed() -> void:
+	%Leaderboard.size.x = $VBoxContainer.size.x
+	for child in %Leaderboard.get_children():
+		child.size.x = $VBoxContainer.size.x

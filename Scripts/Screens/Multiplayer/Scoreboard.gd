@@ -82,6 +82,13 @@ func refreshScoreboard() -> void:
 		positionTween.set_parallel(true)
 		positionTween.tween_property(scoreboardPlayer, "position", calculatedPosition, 0.5)
 
+func clear_scores() -> void:
+	PLAYER_SCORES.clear()
+	PLAYERS_DATA_TO_UPDATE.clear()
+	
+	for child in get_children():
+		child.queue_free()
+
 # Returns a dictionnary PlayerId => PlayerScore
 func get_scoreboard() -> Dictionary[String, float]:
 	return PLAYER_SCORES

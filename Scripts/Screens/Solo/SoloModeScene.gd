@@ -14,6 +14,14 @@ var CURRENT_VERB_INDEX : int = -1
 var CURRENT_COUNTRY_INDEX : int = -1
 var CURRENT_GRAMMAR_INDEX : int = -1
 
+enum SoloGamemode
+{
+	CLASSIC = 0,
+	ONE_SHOT = 1
+}
+
+var current_gamemode : SoloGamemode = SoloGamemode.CLASSIC
+
 var LobbyOptions = {
 	"max_words" : 10,
 	"categories": GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY | GameManager.COUNTRY_CATEGORY | GameManager.GRAMMAR_CATEGORY,
@@ -34,6 +42,9 @@ func _ready() -> void:
 	%GameOptions.categoriesChanged.connect(func(value : int): LobbyOptions["categories"] = value)
 	%GameOptions.timerChanged.connect(func(value : int): LobbyOptions["round_timer"] = value)
 	%GameOptions.wordsThresholdChanged.connect(func(value : float): LobbyOptions["similarity_threshold"] = value)
+	%GameOptions.gamemode_changed.connect(on_gamemode_changed)
+	
+	%GameMenu.on_mistake.connect(on_mistake)
 	
 	await get_tree().create_timer(0.5).timeout
 	loadSoloMode()
@@ -53,6 +64,12 @@ func startGame() -> void:
 	$OptionScreen.hide()
 	$Results.hide()
 	$GameMenu.show()
+	
+	if current_gamemode == SoloGamemode.ONE_SHOT:
+		LobbyOptions["max_words"] = WordManager.get_total_question_amount()
+		LobbyOptions["categories"] = GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY | GameManager.COUNTRY_CATEGORY | GameManager.GRAMMAR_CATEGORY
+		LobbyOptions["round_timer"] = 30
+		LobbyOptions["similarity_threshold"] = 1
 	
 	CURRENT_QUESTION_INDEX = -1
 	CURRENT_VERB_INDEX = -1
@@ -134,7 +151,7 @@ func update_word() -> void:
 		%CorrectWords.text = "%s / %s" % [correct_words, LobbyOptions["max_words"]]
 		
 		print("Total Response Time : %ss, Current Question Index : %s" % [$GameMenu.total_response_time, CURRENT_QUESTION_INDEX])
-		var average_response_time : float = $GameMenu.total_response_time / CURRENT_QUESTION_INDEX
+		var average_response_time : float = $GameMenu.total_response_time / max(CURRENT_QUESTION_INDEX, 1)
 		%AverageTime.text = "%ss" % average_response_time
 		
 		$Results.show()
@@ -165,3 +182,28 @@ func update_word() -> void:
 func returnToOptionScreen() -> void:
 	$Results.hide()
 	$OptionScreen.show()
+
+func on_mistake() -> void:
+	if current_gamemode == SoloGamemode.ONE_SHOT:
+		var score : int = CURRENT_QUESTION_INDEX
+		%GameMenu.mistakes += WordManager.get_total_question_amount() - (CURRENT_QUESTION_INDEX + 1)
+		CURRENT_QUESTION_INDEX = QUESTION_TYPE_ORDER.size() + 1
+		
+		if not GameManager.PlayerUUID.is_empty():
+			var json : String = JSON.stringify({
+				"player_id" : GameManager.PlayerUUID, 
+				"new_score" : score
+			})
+			RequestQueue.requestPost("%s/update-score" % GameManager.SERVER_ADRESS, on_post_new_score, json)
+
+func on_post_new_score(data : Dictionary) -> void:
+	if data.has("action"):
+		match data["action"]:
+			"score-updated":
+				print("Score updated for player %s, new score %s" % [data["player_id"], data["new_score"]])
+			"score-update-failed":
+				push_error("Unable to update player score")
+
+func on_gamemode_changed(new_gamemode : int) -> void:
+	current_gamemode = new_gamemode as SoloGamemode
+	
