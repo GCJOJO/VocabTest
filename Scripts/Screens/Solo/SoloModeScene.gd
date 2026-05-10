@@ -150,9 +150,10 @@ func update_word() -> void:
 		var correct_words : int = LobbyOptions["max_words"] - %GameMenu.mistakes
 		%CorrectWords.text = "%s / %s" % [correct_words, LobbyOptions["max_words"]]
 		
-		print("Total Response Time : %ss, Current Question Index : %s" % [$GameMenu.total_response_time, CURRENT_QUESTION_INDEX])
-		var average_response_time : float = $GameMenu.total_response_time / max(CURRENT_QUESTION_INDEX, 1)
-		%AverageTime.text = "%ss" % average_response_time
+		if current_gamemode != SoloGamemode.ONE_SHOT:
+			#print("Total Response Time : %ss, Current Question Index : %s" % [$GameMenu.total_response_time, CURRENT_QUESTION_INDEX])
+			var average_response_time : float = $GameMenu.total_response_time / max(CURRENT_QUESTION_INDEX, 1)
+			%AverageTime.text = "%ss" % average_response_time
 		
 		$Results.show()
 		$GameMenu.hide()
@@ -189,12 +190,19 @@ func on_mistake() -> void:
 		%GameMenu.mistakes += WordManager.get_total_question_amount() - (CURRENT_QUESTION_INDEX + 1)
 		CURRENT_QUESTION_INDEX = QUESTION_TYPE_ORDER.size() + 1
 		
+		var update_average_time_lambda : Callable = func():
+			var average_response_time : float = $GameMenu.total_response_time / max(score, 1)
+			%AverageTime.text = "%ss" % average_response_time
+			
+		update_average_time_lambda.call_deferred()
+		
 		if not GameManager.PlayerUUID.is_empty():
 			var json : String = JSON.stringify({
 				"player_id" : GameManager.PlayerUUID, 
 				"new_score" : score
 			})
 			RequestQueue.requestPost("%s/update-score" % GameManager.SERVER_ADRESS, on_post_new_score, json)
+			
 
 func on_post_new_score(data : Dictionary) -> void:
 	if data.has("action"):
