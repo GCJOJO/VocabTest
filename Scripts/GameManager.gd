@@ -5,11 +5,9 @@ const IS_LOCAL_SERVER : bool = true
 
 @onready var SERVER_ADRESS : String =  "https://localhost:5762" if IS_LOCAL_SERVER and DEBUG_MODE else "https://88.190.53.5:33362"
 @onready var WEBSOCKET_ADRESS : String = "wss://localhost:5763" if IS_LOCAL_SERVER and DEBUG_MODE else "wss://88.190.53.5:33363"
-#const SERVER_ADRESS : String = "https://localhost:5762"
-#const WEBSOCKET_ADRESS : String = "wss://localhost:5763"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
-const VERSION_STRING = "0.0.9"
+const VERSION_STRING = "0.0.9b"
 
 const WORD_CATEGORY : int    = 1 << 0
 const VERB_CATEGORY : int    = 1 << 1

@@ -125,8 +125,11 @@ func _on_solo_mode_changed(index : int) -> void:
 	
 	match index:
 		1:
-			%Leaderboard.clear_scores()
-			RequestQueue.requestGet("%s/leaderboard" % GameManager.SERVER_ADRESS, on_leaderboard_update, "")
+			update_leaderboard()
+
+func update_leaderboard() -> void:
+	%Leaderboard.clear_scores()
+	RequestQueue.requestGet("%s/leaderboard" % GameManager.SERVER_ADRESS, on_leaderboard_update, "")
 
 func on_leaderboard_update(data : Dictionary) -> void:
 	if not data.has("action") or data["action"] != "leaderboard" or not data.has("leaderboard"):

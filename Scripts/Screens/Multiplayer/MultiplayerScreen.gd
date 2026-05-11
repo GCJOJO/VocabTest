@@ -301,13 +301,16 @@ func _doQuitLobby() -> void:
 
 func _doEndGame(new_winner_id : String) -> void:
 	%WinnerName.hide()
-	winner_id = new_winner_id
-	var winner_info : UserResource = GameManager.getPlayerData(winner_id)
-	if winner_info == null:
-		GameManager.userInfoChanged.connect(update_winner)
+	if winner_id == null:
+		%WinnerName.text = "[tornado radius=3 freq=2]Égalité ![/tornado]"
 	else:
-		%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
-		%WinnerName.show()
+		winner_id = new_winner_id
+		var winner_info : UserResource = GameManager.getPlayerData(winner_id)
+		if winner_info == null:
+			GameManager.userInfoChanged.connect(update_winner)
+		else:
+			%WinnerName.text = "[tornado radius=3 freq=2]%s[/tornado] est le grand vainqueur !" % winner_info.USERNAME
+			%WinnerName.show()
 	
 	#Maybe show end results screen
 	$InGameScreen.visible = false

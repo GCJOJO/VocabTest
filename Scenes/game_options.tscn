@@ -16,8 +16,8 @@ script = ExtResource("4_lcqj2")
 custom_minimum_size = Vector2(512, 256)
 anchors_preset = -1
 anchor_right = 0.4
-anchor_bottom = 0.356
-offset_bottom = -0.32000732
+anchor_bottom = 0.514
+offset_bottom = -0.07998657
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -214,11 +214,11 @@ button_pressed = true
 text = "Grammaire"
 
 [node name="SoloMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2127898620]
-custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 title = "Mode de jeu"
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/SoloMode" unique_id=1618799120]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -230,7 +230,7 @@ selected = 0
 item_count = 2
 popup/item_0/text = "Classique"
 popup/item_0/id = 0
-popup/item_1/text = "Compétition"
+popup/item_1/text = "Championat Universel"
 popup/item_1/id = 1
 
 [node name="LeaderboardScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=259907410]
@@ -249,11 +249,11 @@ mouse_filter = 1
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
 [node name="MultiplayerMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2071147489]
-custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 title = "Mode de jeu"
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MultiplayerMode" unique_id=1640439161]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_horizontal = 4
 

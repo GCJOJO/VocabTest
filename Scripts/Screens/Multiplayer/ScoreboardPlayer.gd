@@ -7,7 +7,7 @@ var playerScore : float
 
 func _ready() -> void:
 	var width = max(320, get_parent().size.x)
-	size = Vector2(width, 64)
+	set_deferred("size", Vector2(width, 64))
 
 func setId(newId : String) -> void:
 	playerId = newId

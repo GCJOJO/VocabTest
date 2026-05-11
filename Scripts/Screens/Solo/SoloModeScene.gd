@@ -209,6 +209,7 @@ func on_post_new_score(data : Dictionary) -> void:
 		match data["action"]:
 			"score-updated":
 				print("Score updated for player %s, new score %s" % [data["player_id"], data["new_score"]])
+				%GameOptions.update_leaderboard()
 			"score-update-failed":
 				push_error("Unable to update player score")
 
