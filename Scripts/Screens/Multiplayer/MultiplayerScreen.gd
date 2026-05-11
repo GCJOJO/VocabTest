@@ -284,6 +284,8 @@ func _doStartLobby() -> void:
 	is_spectating = false
 	eliminated_players.clear()
 	
+	$SpectatorScreen.visible = false
+	$ResultsScreen.visible = false
 	$LobbyScreen.visible = false
 	$InGameScreen.visible = true
 	%GameMenu.setup(false, LobbyOptions["max_words"], LobbyOptions["similarity_threshold"], LobbyOptions["round_timer"], false)
@@ -299,9 +301,9 @@ func _doQuitLobby() -> void:
 	getLobbyList()
 	#get_tree().reload_current_scene()
 
-func _doEndGame(new_winner_id : String) -> void:
+func _doEndGame(new_winner_id) -> void:
 	%WinnerName.hide()
-	if winner_id == null:
+	if new_winner_id == null:
 		%WinnerName.text = "[tornado radius=3 freq=2]Égalité ![/tornado]"
 	else:
 		winner_id = new_winner_id
