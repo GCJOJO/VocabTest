@@ -118,6 +118,7 @@ grow_vertical = 2
 placeholder_text = "Entrez un mot"
 context_menu_enabled = false
 emoji_menu_enabled = false
+caret_blink = true
 
 [node name="SendButton" type="Button" parent="." unique_id=1068437836]
 unique_name_in_owner = true

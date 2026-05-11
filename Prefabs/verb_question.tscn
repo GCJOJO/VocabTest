@@ -130,6 +130,7 @@ grow_vertical = 2
 placeholder_text = "Infinitif"
 context_menu_enabled = false
 emoji_menu_enabled = false
+caret_blink = true
 
 [node name="Preterit" type="LineEdit" parent="." unique_id=1665144031]
 unique_name_in_owner = true
@@ -148,6 +149,7 @@ grow_vertical = 2
 placeholder_text = "Prétérit"
 context_menu_enabled = false
 emoji_menu_enabled = false
+caret_blink = true
 
 [node name="PP" type="LineEdit" parent="." unique_id=936702499]
 unique_name_in_owner = true
@@ -166,6 +168,7 @@ grow_vertical = 2
 placeholder_text = "Participe Passé"
 context_menu_enabled = false
 emoji_menu_enabled = false
+caret_blink = true
 
 [node name="SendButton" type="Button" parent="." unique_id=515087537]
 unique_name_in_owner = true
