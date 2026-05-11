@@ -246,6 +246,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+is_leaderboard = true
 metadata/_smooth_scroll_default_mouse_filter_set = true
 
 [node name="MultiplayerMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2071147489]

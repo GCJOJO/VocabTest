@@ -5,6 +5,7 @@ class_name Scoreboard
 var PLAYER_SCORES : Dictionary[String, float] = {}
 
 var PLAYERS_DATA_TO_UPDATE : Dictionary[String, Callable]
+@export var is_leaderboard : bool = false
 
 func _ready() -> void:
 	GameManager.userInfoChanged.connect(onUserInfoChanged)
@@ -52,6 +53,7 @@ func refreshScoreboard() -> void:
 			var player : UserResource = GameManager.getPlayerData(playerId)
 			scoreboardPlayer.name = playerId
 			scoreboardPlayer.setId(playerId)
+			scoreboardPlayer.set_is_leaderboard(is_leaderboard)
 			if player != null:
 				scoreboardPlayer.setName(player.USERNAME)
 			else:
