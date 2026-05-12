@@ -9,7 +9,7 @@ signal categoriesChanged(newValue : int)
 signal gamemode_changed(new_game_mode : int)
 signal is_spectator_changed(is_spectator : bool)
 
-var useTimer : bool = false
+var useTimer : bool = true
 
 func _ready() -> void:
 	$VBoxContainer/SoloMode.visible = not is_multiplayer_game
@@ -32,7 +32,6 @@ func setup():
 	%WordsSpinBox.max_value = max_question_number
 	%WordsSpinBox.value = min(10, max_question_number)
 
-
 func set_competition_mode(is_competition_mode : bool) -> void:
 	$VBoxContainer/PanelContainer.visible = not is_competition_mode
 	$VBoxContainer/PanelContainer2.visible = not is_competition_mode
@@ -43,6 +42,7 @@ func set_competition_mode(is_competition_mode : bool) -> void:
 func setIsDisabled(disabled : bool) -> void:
 	%WordsSpinBox.editable = not disabled
 	%WordThresholdSlider.editable = not disabled
+	%UseTimerCheckbob.disabled = disabled
 	%TimerSlider.editable = not disabled
 	%WordsCategory.disabled = disabled
 	%VerbsCategory.disabled = disabled

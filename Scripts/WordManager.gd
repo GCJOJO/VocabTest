@@ -31,12 +31,12 @@ func onWordsGet(response):
 	WORDS.clear()
 	var new_words = response["words"]
 	for wordJson in new_words:
-		var id : int = wordJson["identifiant"]
-		var fr : String = wordJson["français"]
-		var con : String = wordJson["contexte"] if wordJson["contexte"] != null else ""
+		var id : int = wordJson["id"]
+		var fr : String = wordJson["french"]
+		var con : String = wordJson["context"] if wordJson["context"] != null else ""
 		var pre : String = wordJson["prefix"] if (wordJson.has("prefix") and wordJson["prefix"] != null) else ""
 		
-		var unsplittedEn : String = wordJson["anglais"]
+		var unsplittedEn : String = wordJson["english"]
 		var en : PackedStringArray = unsplittedEn.split("/")
 		WORDS.append(WordResource.new(id, fr, con, en, pre))
 				
@@ -106,7 +106,7 @@ func onGrammarGet(response):
 		var id : int = wordJson["id"]
 		var fr : String = wordJson["french"]
 		var con : String = wordJson["category"] if wordJson["category"] != null else ""
-		var pre : String = ""
+		var pre : String = wordJson["prefix"] if wordJson["prefix"] != null else ""
 		
 		var unsplittedEn : String = wordJson["english"]
 		var en : PackedStringArray = unsplittedEn.split("/")

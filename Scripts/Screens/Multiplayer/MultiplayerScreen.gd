@@ -1,5 +1,6 @@
 extends Control
 
+const WEBSOCKET_TIMEOUT : int = 100
 @export var LOBBY_BUTTON_SCENE : PackedScene = preload("res://Prefabs/LobbyButton.tscn")
 
 var lobbyId : String = ""
@@ -7,12 +8,7 @@ var hasAlreadyLoaded : bool = false
 var is_spectating : bool = false
 var winner_id : String = ""
 var eliminated_players : Array[String] = []
-
-signal word_changed()
-
 var socket : WebSocketPeer = WebSocketPeer.new()
-
-const WEBSOCKET_TIMEOUT : int = 100
 
 var LobbyOptions = {
 	"max_words" : 10,
@@ -21,13 +17,15 @@ var LobbyOptions = {
 	"similarity_threshold": 0.8,
 	"lobby_mode" : int(GameManager.LobbyMode.Classic)
 }
+
+signal word_changed()
 	
 func _ready() -> void:
 	set_process(false)
 
 func loadMultiplayerScreen() -> void:
 	$SpectatorScreen.hide()
-	if hasAlreadyLoaded and (socket.get_ready_state() == WebSocketPeer.STATE_CLOSING or socket.get_ready_state() == WebSocketPeer.STATE_CLOSING):
+	if hasAlreadyLoaded and (socket.get_ready_state() == WebSocketPeer.STATE_CLOSING or socket.get_ready_state() == WebSocketPeer.STATE_CLOSED):
 		connectToWebsocket()
 		return
 	
@@ -229,9 +227,9 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 	
 	match questionType:
 		GameManager.WORD_CATEGORY:
-			var context : String = newQuestion["contexte"] if newQuestion["contexte"] != null else ""
-			var englishWords : PackedStringArray = newQuestion["anglais"].split("/")
-			var newWord : = WordResource.new(newQuestion["identifiant"], newQuestion["français"], context, englishWords)
+			var context : String = newQuestion["context"] if newQuestion["context"] != null else ""
+			var englishWords : PackedStringArray = newQuestion["english"].split("/")
+			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
 			%GameMenu.setWord(newWord)
 			$SpectatorScreen.set_word(newWord)
 		GameManager.VERB_CATEGORY:
@@ -250,8 +248,9 @@ func _doNewQuestion(questionType : int, newQuestion : Dictionary) -> void:
 			$SpectatorScreen.set_country(newWord)
 		GameManager.GRAMMAR_CATEGORY:
 			var context : String = newQuestion["category"] if newQuestion["category"] != null else ""
+			var prefix : String = newQuestion["prefix"] if newQuestion["prefix"] != null else ""
 			var englishWords : PackedStringArray = newQuestion["english"].split("/")
-			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords)
+			var newWord : = WordResource.new(newQuestion["id"], newQuestion["french"], context, englishWords, prefix)
 			%GameMenu.setGrammar(newWord)
 			$SpectatorScreen.set_grammar(newWord)
 	
@@ -387,13 +386,10 @@ func handle_packet(packet_str : String) -> void:
 		"lobby-started":
 			_doStartLobby()
 		"lobby-created":
-			#_doJoinLobby(data["lobby_id"], [])
 			joinLobby(data["lobby_id"])
 		"lobby-joined":
 			_doJoinLobby(data["lobby_id"], data["current_lobby_players"])
 		"lobby-left":
-			if GameManager.DEBUG_MODE:
-				print("Lobby Left")
 			_doQuitLobby()
 		"lobby-disbanded":
 			_doQuitLobby()
