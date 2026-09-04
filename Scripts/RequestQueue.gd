@@ -9,7 +9,9 @@ var isProcessing : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	httpRequest.set_tls_options(TLSOptions.client_unsafe())
+	var tls_options : TLSOptions = TLSOptions.client_unsafe() if GameManager.IS_LOCAL_SERVER and GameManager.DEBUG_MODE else TLSOptions.client()
+	
+	httpRequest.set_tls_options(tls_options)
 	httpRequest.request_completed.connect(self.onHttpRequestCompleted)
 	add_child(httpRequest)
 

@@ -1,10 +1,10 @@
 extends Node
 
 @onready var DEBUG_MODE : bool = OS.is_debug_build() or Engine.is_editor_hint()
-const IS_LOCAL_SERVER : bool = true
+const IS_LOCAL_SERVER : bool = false
 
-@onready var SERVER_ADRESS : String =  "https://localhost:5762" if IS_LOCAL_SERVER and DEBUG_MODE else "https://88.190.53.5:33362"
-@onready var WEBSOCKET_ADRESS : String = "wss://localhost:5763" if IS_LOCAL_SERVER and DEBUG_MODE else "wss://88.190.53.5:33363"
+@onready var SERVER_ADRESS : String =  "https://localhost:5762" if IS_LOCAL_SERVER and DEBUG_MODE else "https://jeandoute-server.tailbd0645.ts.net:62"
+@onready var WEBSOCKET_ADRESS : String = "wss://localhost:5763" if IS_LOCAL_SERVER and DEBUG_MODE else "wss://jeandoute-server.tailbd0645.ts.net:63"
 const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
 const VERSION_STRING = "0.0.11"

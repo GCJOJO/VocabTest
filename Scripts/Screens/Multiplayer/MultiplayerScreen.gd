@@ -57,7 +57,10 @@ func connectToWebsocket():
 	
 	set_process(true)
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	var error = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, TLSOptions.client_unsafe())
+	
+	var tls_options : TLSOptions = TLSOptions.client_unsafe() if GameManager.IS_LOCAL_SERVER and GameManager.DEBUG_MODE else TLSOptions.client()
+	
+	var error: int = socket.connect_to_url(GameManager.WEBSOCKET_ADRESS, tls_options)
 	if error == OK:
 		if GameManager.DEBUG_MODE:
 			print("Connecting to websocket")
@@ -108,7 +111,7 @@ func createLobby() -> void:
 func getLobbyList() -> void:
 	%Refresh.disabled = true
 	
-	var children = %Lobbies.get_children()
+	var children : Array[Node] = %Lobbies.get_children()
 	for child in children:
 		child.queue_free()
 	
@@ -130,7 +133,7 @@ func onLobbiesGet(response):
 			if lobby["status"] == "started":
 				continue
 			
-			var node = LOBBY_BUTTON_SCENE.instantiate()
+			var node: Node = LOBBY_BUTTON_SCENE.instantiate()
 			if node is not LobbyButton:
 				node.queue_free()
 				continue
@@ -424,17 +427,17 @@ func handle_packet(packet_str : String) -> void:
 
 func _process(_delta):
 	socket.poll()
-	var state = socket.get_ready_state()
+	var state: int = socket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
-			var packetStr = socket.get_packet().get_string_from_utf8()
+			var packetStr: String = socket.get_packet().get_string_from_utf8()
 			handle_packet(packetStr)
 	elif state == WebSocketPeer.STATE_CLOSING:
 		# Keep polling to achieve proper close.
 		pass
 	elif state == WebSocketPeer.STATE_CLOSED:
-		var code = socket.get_close_code()
-		var reason = socket.get_close_reason()
+		var code: int = socket.get_close_code()
+		var reason: String = socket.get_close_reason()
 		if GameManager.DEBUG_MODE:
 			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
 		returnToMainMenu()
