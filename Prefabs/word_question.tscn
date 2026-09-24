@@ -65,9 +65,12 @@ offset_left = -400.0
 offset_top = -34.72
 offset_right = 400.0
 offset_bottom = 38.28
+theme_override_font_sizes/normal_font_size = 46
 bbcode_enabled = true
-text = "[font_size=46][center]Effondrement démographique"
+text = "Effondrement démographique"
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Context" type="RichTextLabel" parent="." unique_id=1316125103]
 unique_name_in_owner = true
@@ -81,9 +84,12 @@ offset_left = -416.0
 offset_top = -28.160004
 offset_right = 416.0
 offset_bottom = 27.839996
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
-text = "[color=#555][font_size=32][center]aaaaa "
+text = "[color=#555]aaaaa "
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Prefix" type="RichTextLabel" parent="." unique_id=1539108084]
 unique_name_in_owner = true
@@ -97,10 +103,12 @@ offset_left = -0.32000732
 offset_top = -0.23999023
 offset_right = -0.3199768
 offset_bottom = 0.16000366
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
-text = "[color=#555][font_size=28]to"
+text = "[color=#555]to"
 scroll_active = false
 horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="EnglishBox" type="LineEdit" parent="." unique_id=2062064674]
 unique_name_in_owner = true

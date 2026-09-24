@@ -31,9 +31,8 @@ func loginUser() -> void:
 		
 	var username : String = %UsernameLogin.text
 	var password : String = %PasswordLogin.text
-	var password_hash = (password+GameManager.SALT).sha256_text()
 	
-	var jsonString : String = JSON.stringify({"username" : username, "password_hash" : password_hash})
+	var jsonString : String = JSON.stringify({"username" : username, "password" : password})
 	
 	#httpRequest.request("%s/login" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
 	RequestQueue.requestPost("%s/login" % GameManager.SERVER_ADRESS, onLoginCallback, jsonString)
@@ -58,11 +57,10 @@ func registerUser() -> void:
 	
 	var username : String = %UsernameRegister.text
 	var password : String = %PasswordRegister.text
-	var password_hash = (password+GameManager.SALT).sha256_text()
 	var first_name : String = %FirstName.text
 	var last_name : String = %LastName.text
 	
-	var jsonString : String = JSON.stringify({"username" : username, "first_name" : first_name, "last_name" : last_name, "password_hash" : password_hash})
+	var jsonString : String = JSON.stringify({"username" : username, "first_name" : first_name, "last_name" : last_name, "password" : password})
 	
 	#httpRequest.request("%s/register" % GameManager.SERVER_ADRESS, ["Content-Type: application/json"], HTTPClient.METHOD_POST, jsonString)
 	RequestQueue.requestPost("%s/register" % GameManager.SERVER_ADRESS, onLoginCallback, jsonString)

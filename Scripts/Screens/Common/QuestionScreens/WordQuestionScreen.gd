@@ -49,10 +49,10 @@ func showResult(wordSimilarity: float, similarityThreshold : float, _showingInst
 
 func changeWord(newWord: WordResource) -> void:
 	currentWord = newWord
-	
-	%FrenchWord.text = "[font_size=46][center]%s" % currentWord.FRENCH
-	%Context.text = "[color=dark_gray][font_size=32][center]%s" % currentWord.CONTEXT
-	%Prefix.text = "[color=#555][font_size=28]%s" % currentWord.PREFIX
+
+	%FrenchWord.text = "%s" % currentWord.FRENCH
+	%Context.text = "[color=dark_gray]%s" % currentWord.CONTEXT
+	%Prefix.text = "[color=#555]%s" % currentWord.PREFIX
 	
 	%SendButton.text = "Envoyer"
 	%EnglishBox.editable = true

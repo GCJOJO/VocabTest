@@ -62,8 +62,8 @@ func showResult(verbSimilarity: float, similarityThreshold : float, _showingInst
 func changeVerb(newVerb: VerbResource) -> void:
 	currentVerb = newVerb
 	
-	%FrenchWord.text = "[font_size=46][center]%s" % newVerb.FRENCH
-	%Context.text = "[color=dark_gray][font_size=32][center]%s" % newVerb.CONTEXT
+	%FrenchWord.text = newVerb.FRENCH
+	%Context.text = "[color=dark_gray]%s[/color]" % newVerb.CONTEXT
 	
 	%SendButton.text = "Envoyer"
 	

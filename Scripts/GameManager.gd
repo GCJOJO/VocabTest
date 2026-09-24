@@ -1,18 +1,20 @@
 extends Node
 
 @onready var DEBUG_MODE : bool = OS.is_debug_build() or Engine.is_editor_hint()
-const IS_LOCAL_SERVER : bool = false
+const IS_LOCAL_SERVER : bool = true
 
-@onready var SERVER_ADRESS : String =  "https://localhost:5762" if IS_LOCAL_SERVER and DEBUG_MODE else "https://jeandoute-server.tailbd0645.ts.net:62"
-@onready var WEBSOCKET_ADRESS : String = "wss://localhost:5763" if IS_LOCAL_SERVER and DEBUG_MODE else "wss://jeandoute-server.tailbd0645.ts.net:63"
-const SALT : String = "IOHA64594HGIU@@^ùy_ièLKHJ652746"
+@onready var BASE_ADRESS : String = "localhost:5762" if IS_LOCAL_SERVER and DEBUG_MODE else "jeandoute-server.tailbd0645.ts.net:62"
+@onready var SERVER_ADRESS : String =  "http://%s" % BASE_ADRESS if IS_LOCAL_SERVER and DEBUG_MODE else "https://%s" % BASE_ADRESS 
+@onready var WEBSOCKET_ADRESS : String = "ws://%s/ws" % BASE_ADRESS if IS_LOCAL_SERVER and DEBUG_MODE else "wss://%s/ws" % BASE_ADRESS
+#@onready var WEBSOCKET_ADRESS : String = "wss://localhost:5763" if IS_LOCAL_SERVER and DEBUG_MODE else "wss://jeandoute-server.tailbd0645.ts.net:63"
 const PLAYER_DATA_SAVE_FILE : String = "user://player.data"
-const VERSION_STRING = "0.0.11"
+const VERSION_STRING = "0.0.12"
 
 const WORD_CATEGORY : int    = 1 << 0
 const VERB_CATEGORY : int    = 1 << 1
 const COUNTRY_CATEGORY : int = 1 << 2
 const GRAMMAR_CATEGORY : int = 1 << 3
+const GAMING_CATEGORY : int  = 1 << 4
 
 enum LobbyMode
 {

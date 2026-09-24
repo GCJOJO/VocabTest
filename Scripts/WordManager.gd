@@ -11,23 +11,19 @@ signal countries_loaded()
 signal grammar_loaded()
 
 func load_words() -> void:
-	RequestQueue.requestGet("%s/words-list" % GameManager.SERVER_ADRESS, onWordsGet)
-	RequestQueue.requestGet("%s/verbs-list" % GameManager.SERVER_ADRESS, onVerbsGet)
-	RequestQueue.requestGet("%s/countries-list" % GameManager.SERVER_ADRESS, onCountriesGet)
-	RequestQueue.requestGet("%s/grammar-list" % GameManager.SERVER_ADRESS, onGrammarGet)
+	RequestQueue.requestGet("%s/words" % GameManager.SERVER_ADRESS, onWordsGet)
+	RequestQueue.requestGet("%s/verbs" % GameManager.SERVER_ADRESS, onVerbsGet)
+	RequestQueue.requestGet("%s/countries" % GameManager.SERVER_ADRESS, onCountriesGet)
+	RequestQueue.requestGet("%s/grammar" % GameManager.SERVER_ADRESS, onGrammarGet)
 
 func onWordsGet(response):
 	if response == null:
 		push_error("Respons is null")
 		return
 	
-	if GameManager.DEBUG_MODE:
-		print(response["action"])
-	
-	var action = response["action"]
-	if action != "words-list":
+	if not response.has("words"):
 		return
-	
+		
 	WORDS.clear()
 	var new_words = response["words"]
 	for wordJson in new_words:
@@ -46,8 +42,7 @@ func onVerbsGet(response) -> void:
 	if response == null:
 		return
 		
-	var action = response["action"]
-	if action != "verbs-list":
+	if not response.has("verbs"):
 		return
 		
 	VERBS.clear()
@@ -68,11 +63,7 @@ func onCountriesGet(response) -> void:
 		push_error("Respons is null")
 		return
 	
-	if GameManager.DEBUG_MODE:
-		print(response["action"])
-	
-	var action = response["action"]
-	if action != "countries-list":
+	if not response.has("contries"):
 		return
 	
 	COUNTRIES.clear()
@@ -93,11 +84,7 @@ func onGrammarGet(response):
 		push_error("Respons is null")
 		return
 	
-	if GameManager.DEBUG_MODE:
-		print(response["action"])
-	
-	var action = response["action"]
-	if action != "grammar-list":
+	if not response.has("grammar"):
 		return
 	
 	GRAMMAR.clear()
