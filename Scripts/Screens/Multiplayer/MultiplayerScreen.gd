@@ -156,7 +156,7 @@ func joinLobby(joinedLobbyId : String) -> void:
 	socket.send_text(json)
 
 func leaveLobby() -> void:
-	if socket.get_ready_state() != socket.STATE_OPEN:
+	if socket.get_ready_state() != socket.STATE_OPEN or lobbyId.is_empty():
 		return
 	var json : String = JSON.stringify({"action" : "leave-lobby", "player_id" : GameManager.PlayerUUID, "lobby_id" : lobbyId})
 	socket.send_text(json)
@@ -184,11 +184,10 @@ func isInLobby() -> bool:
 	
 func queryIsLobbyOwner(id : String) -> void:
 	RequestQueue.requestGet("%s/owner/%s?player_id=%s" % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID], func(response):
-		if response == null or response["action"] == null:
+		if response == null or response["result"] == null:
 			return
-		if response["action"] == "test-ownership":
-			var result : bool = response["result"]
-			setIsLobbyOwner(result))
+		var result : bool = response["result"]
+		setIsLobbyOwner(result))
 	#httpRequest.request('%s/owner/%s?player_id=%s' % [GameManager.SERVER_ADRESS, id, GameManager.PlayerUUID])
 
 func setIsLobbyOwner(isOwner : bool):

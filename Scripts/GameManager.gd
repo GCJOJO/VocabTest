@@ -23,6 +23,7 @@ enum LobbyMode
 }
 
 var PlayerUUID : String = ""
+var player_cookie : String = ""
 
 var cachedPlayers : Dictionary = {}
 
@@ -39,10 +40,7 @@ func onUserGet(response) -> void:
 	if response == null:
 		return
 	
-	if not response.has("action"):
-		return
-	var action = response["action"]
-	if action != "user-info":
+	if not response.has("user_info"):
 		return
 		
 	var user = response["user_info"]

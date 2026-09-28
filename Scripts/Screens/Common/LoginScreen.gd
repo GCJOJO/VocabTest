@@ -9,19 +9,14 @@ func _ready() -> void:
 	$Register/Control/Login.pressed.connect($Register.hide)
 	
 func onLoginCallback(response):
-	var action : String = response["action"]
-	if action == null or action.is_empty():
-		print("action is null or empty")
+	var success : bool = response["success"]
+	if success:
+		var newUUID : String = response["uuid"]
+		onUserLoggedIn.emit(newUUID)
+		$ReturnButton.disabled = false
+		print("User Logged In")
 		return
-	
-	match action:
-		"login-success":
-			var newUUID : String = response["user_uuid"]
-			onUserLoggedIn.emit(newUUID)
-			$ReturnButton.disabled = false
-			print("User Logged In")
-		"login-failed":
-			$ReturnButton.disabled = false
+	$ReturnButton.disabled = false
 
 func loginUser() -> void:
 	if %UsernameLogin.text.is_empty():

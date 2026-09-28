@@ -13,9 +13,10 @@ func _ready() -> void:
 		$Header/VBoxContainer/MultiplayerPlayButton.disabled = true
 	else:
 		onUserLoggedIn(GameManager.PlayerUUID)
-		
-	WordManager.load_words()
+	
+	print("Fetching Words")
 	WordManager.words_loaded.connect(%SoloMode.loadSoloMode)
+	WordManager.load_words()
 	
 
 func _process(delta: float) -> void:

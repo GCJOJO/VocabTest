@@ -7,6 +7,13 @@ const HEADERS : = ["Content-Type: application/json"]
 var requestQueue : Array[Dictionary]
 var isProcessing : bool = false
 
+func build_headers() -> Array[String]:
+	var built_headers = HEADERS.duplicate()
+	if not GameManager.player_cookie.is_empty():
+		built_headers.append("Cookie: session=%s" % GameManager.player_cookie)
+	return built_headers
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var tls_options : TLSOptions = TLSOptions.client_unsafe() if GameManager.IS_LOCAL_SERVER and GameManager.DEBUG_MODE else TLSOptions.client()
@@ -29,7 +36,7 @@ func onHttpRequestCompleted(_result: int, _response_code: int, _headers: PackedS
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
 	
-	if response == null:
+	if response == null or len(response) == 0:
 		if GameManager.DEBUG_MODE:
 			push_error("Null response ! Request : %s" % request["path"])
 		ErrorManager.show_error("Impossible d'atteindre le serveur.", "Veuillez vérifier que vos pouvez atteindre le serveur en cliquant sur ce [color=#91b8f1][url={%s/version}]lien[/url][/color].\nSi votre navigateur vous indique qu'il s'agit d'un lien dangereux c'est parce que le serveur n'a pas de certificat SSL valide et la connexion ne peut donc pas être sécurisée.\nVous devez ignorer ce message et rafraichir cette page si vous souhaitez jouer." % GameManager.SERVER_ADRESS)
