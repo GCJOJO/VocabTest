@@ -10,9 +10,9 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.3
-  EXPORT_NAME: test-project
-  PROJECT_PATH: test-project
+  GODOT_VERSION: 4.7
+  EXPORT_NAME: VocabTest
+  PROJECT_PATH: VocabTest
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
