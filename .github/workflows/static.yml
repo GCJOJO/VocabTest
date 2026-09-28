@@ -5,6 +5,8 @@ on:
   # Runs on pushes targeting the default branch
   workflow_run:
     branches: [ "dev", "release" ]
+    types:
+      - requested
   push:
     branches: ["release"]
 
