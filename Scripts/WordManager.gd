@@ -4,17 +4,20 @@ var WORDS : Array[WordResource]
 var VERBS : Array[VerbResource]
 var COUNTRIES : Array[WordResource]
 var GRAMMAR : Array[WordResource]
+var GAMING : Array[WordResource]
 
 signal words_loaded()
 signal verbs_loaded()
 signal countries_loaded()
 signal grammar_loaded()
+signal gaming_loaded()
 
 func load_words() -> void:
 	RequestQueue.requestGet("%s/words" % GameManager.SERVER_ADRESS, onWordsGet)
 	RequestQueue.requestGet("%s/verbs" % GameManager.SERVER_ADRESS, onVerbsGet)
-	RequestQueue.requestGet("%s/countries" % GameManager.SERVER_ADRESS, onCountriesGet)
+	RequestQueue.requestGet("%s/country" % GameManager.SERVER_ADRESS, onCountriesGet)
 	RequestQueue.requestGet("%s/grammar" % GameManager.SERVER_ADRESS, onGrammarGet)
+	RequestQueue.requestGet("%s/gaming" % GameManager.SERVER_ADRESS, onGamingGet)
 
 func onWordsGet(response):
 	if response == null:
@@ -63,11 +66,11 @@ func onCountriesGet(response) -> void:
 		push_error("Respons is null")
 		return
 	
-	if not response.has("contries"):
+	if not response.has("country"):
 		return
 	
 	COUNTRIES.clear()
-	var new_words = response["countries"]
+	var new_words = response["country"]
 	for wordJson in new_words:
 		var id : int = wordJson["id"]
 		var fr : String = wordJson["french"]
@@ -100,6 +103,28 @@ func onGrammarGet(response):
 		GRAMMAR.append(WordResource.new(id, fr, con, en, pre))
 		
 	grammar_loaded.emit()
+
+func onGamingGet(response) -> void:
+	if response == null:
+		push_error("Respons is null")
+		return
+	
+	if not response.has("gaming"):
+		return
+		
+	GAMING.clear()
+	var new_words = response["gaming"]
+	for wordJson in new_words:
+		var id : int = wordJson["id"]
+		var fr : String = wordJson["french"]
+		var con : String = wordJson["context"] if wordJson["context"] != null else ""
+		var pre : String = wordJson["prefix"] if (wordJson.has("prefix") and wordJson["prefix"] != null) else ""
+		
+		var unsplittedEn : String = wordJson["english"]
+		var en : PackedStringArray = unsplittedEn.split("/")
+		GAMING.append(WordResource.new(id, fr, con, en, pre))
+				
+	gaming_loaded.emit()
 
 func checkEnteredWord(wordResource : WordResource, enteredWord : String) -> float:
 	var min_distance : float = 1.0

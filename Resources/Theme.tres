@@ -24,6 +24,24 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="ImageTexture" id="ImageTexture_nctbx"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_lcqj2"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_62xmq"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_34e38"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_scbdc"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_sxsum"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_rekpd"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_xjptm"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_vf25p"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3www"]
 bg_color = Color(0.5680806, 0.28730476, 0.6, 1)
 
@@ -73,6 +91,15 @@ Button/styles/hover = ExtResource("1_f6qpy")
 Button/styles/hover_pressed = ExtResource("2_wytm8")
 Button/styles/normal = ExtResource("3_2ratw")
 Button/styles/pressed = ExtResource("4_eltnc")
+CheckButton/icons/checked = SubResource("ImageTexture_nctbx")
+CheckButton/icons/checked_disabled = SubResource("ImageTexture_lcqj2")
+CheckButton/icons/checked_disabled_mirrored = SubResource("ImageTexture_62xmq")
+CheckButton/icons/checked_mirrored = SubResource("ImageTexture_34e38")
+CheckButton/icons/icon = SubResource("ImageTexture_scbdc")
+CheckButton/icons/unchecked = SubResource("ImageTexture_sxsum")
+CheckButton/icons/unchecked_disabled = SubResource("ImageTexture_rekpd")
+CheckButton/icons/unchecked_disabled_mirrored = SubResource("ImageTexture_xjptm")
+CheckButton/icons/unchecked_mirrored = SubResource("ImageTexture_vf25p")
 FoldableContainer/colors/collapsed_font_color = Color(0, 0, 0, 1)
 FoldableContainer/styles/panel = ExtResource("5_2ratw")
 FoldableContainer/styles/title_collapsed_hover_panel = ExtResource("5_w50ow")

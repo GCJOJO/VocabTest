@@ -175,43 +175,64 @@ alignment = 1
 
 [node name="WordsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1242538954]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Mots"
+alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=371817584]
-custom_minimum_size = Vector2(16, 0)
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 
 [node name="VerbsCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=80007882]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Verbes"
+alignment = 1
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1175044529]
-custom_minimum_size = Vector2(16, 0)
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 
 [node name="CountryCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1770050466]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Pays"
+alignment = 1
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=968432656]
-custom_minimum_size = Vector2(16, 0)
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 
 [node name="GrammarCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=15747833]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 button_pressed = true
 text = "Grammaire"
+alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1724677743]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+
+[node name="GamingCategory" type="CheckButton" parent="VBoxContainer/Categories/CenterContainer/HBoxContainer" unique_id=1073103271]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+button_pressed = true
+text = "Jeux Vidéos"
+alignment = 1
 
 [node name="SoloMode" type="FoldableContainer" parent="VBoxContainer" unique_id=2127898620]
 layout_mode = 2
@@ -284,6 +305,7 @@ text = "  Spectateur ?"
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/VerbsCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/CountryCategory" to="." method="onCategoriesChanged"]
 [connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/GrammarCategory" to="." method="onCategoriesChanged"]
+[connection signal="pressed" from="VBoxContainer/Categories/CenterContainer/HBoxContainer/GamingCategory" to="." method="onCategoriesChanged"]
 [connection signal="item_selected" from="VBoxContainer/SoloMode/CenterContainer/SoloModeOptionButton" to="." method="_on_solo_mode_changed"]
 [connection signal="item_selected" from="VBoxContainer/MultiplayerMode/CenterContainer/MultiplayerModeOptionButton" to="." method="_on_multiplayer_mode_changed"]
 [connection signal="toggled" from="VBoxContainer/IsSpectator" to="." method="update_is_spectator"]

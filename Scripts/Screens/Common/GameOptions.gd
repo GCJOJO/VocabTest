@@ -25,8 +25,9 @@ func setup():
 	var max_verb_number : int = WordManager.VERBS.size()
 	var max_country_number : int = WordManager.COUNTRIES.size()
 	var max_grammar_number : int = WordManager.GRAMMAR.size()
+	var max_gaming_number : int = WordManager.GAMING.size()
 	
-	var max_question_number : int = max_word_number + max_verb_number + max_country_number + max_grammar_number
+	var max_question_number : int = max_word_number + max_verb_number + max_country_number + max_grammar_number + max_gaming_number
 	
 	%WordsSpinBox.min_value = 1
 	%WordsSpinBox.max_value = max_question_number
@@ -48,6 +49,7 @@ func setIsDisabled(disabled : bool) -> void:
 	%VerbsCategory.disabled = disabled
 	%CountryCategory.disabled = disabled
 	%GrammarCategory.disabled = disabled
+	%GamingCategory.disabled = disabled
 	%MultiplayerModeOptionButton.disabled = disabled
 
 func updateOptions(data) -> void:
@@ -69,11 +71,13 @@ func updateOptions(data) -> void:
 		var verbs_category : bool = categories & GameManager.VERB_CATEGORY
 		var countries_category : bool = categories & GameManager.COUNTRY_CATEGORY
 		var grammar_category : bool = categories & GameManager.GRAMMAR_CATEGORY
+		var gaming_category : bool = categories & GameManager.GAMING_CATEGORY
 		
 		%WordsCategory.button_pressed = words_category
 		%VerbsCategory.button_pressed = verbs_category
 		%CountryCategory.button_pressed = countries_category
 		%GrammarCategory.button_pressed = grammar_category
+		%GamingCategory.button_pressed = gaming_category
 		
 	if data.has("lobby_mode"):
 		%MultiplayerModeOptionButton.select(data["lobby_mode"])
@@ -112,6 +116,8 @@ func onCategoriesChanged() -> void:
 		categories |= GameManager.COUNTRY_CATEGORY
 	if %GrammarCategory.button_pressed:
 		categories |= GameManager.GRAMMAR_CATEGORY
+	if %GamingCategory.button_pressed:
+		categories |= GameManager.GAMING_CATEGORY
 		
 	if categories == 0:
 		categories |= GameManager.WORD_CATEGORY
@@ -132,7 +138,7 @@ func update_leaderboard() -> void:
 	RequestQueue.requestGet("%s/leaderboard" % GameManager.SERVER_ADRESS, on_leaderboard_update, "")
 
 func on_leaderboard_update(data : Dictionary) -> void:
-	if not data.has("action") or data["action"] != "leaderboard" or not data.has("leaderboard"):
+	if not data.has("success") or not data["success"] or not data.has("leaderboard"):
 		return
 		
 	var leaderboard : Array = data["leaderboard"]

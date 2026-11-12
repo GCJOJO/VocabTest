@@ -7,12 +7,14 @@ var RANDOMIZED_WORDS : Array[WordResource]
 var RANDOMIZED_VERBS : Array[VerbResource]
 var RANDOMIZED_COUNTRIES : Array[WordResource]
 var RANDOMIZED_GRAMMAR : Array[WordResource]
+var RANDOMIZED_GAMING : Array[WordResource]
 
 var CURRENT_QUESTION_INDEX : int = -1
 var CURRENT_WORD_INDEX : int = -1
 var CURRENT_VERB_INDEX : int = -1
 var CURRENT_COUNTRY_INDEX : int = -1
 var CURRENT_GRAMMAR_INDEX : int = -1
+var CURRENT_GAMING_INDEX : int = -1
 
 enum SoloGamemode
 {
@@ -67,7 +69,7 @@ func startGame() -> void:
 	
 	if current_gamemode == SoloGamemode.ONE_SHOT:
 		LobbyOptions["max_words"] = WordManager.get_total_question_amount()
-		LobbyOptions["categories"] = GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY | GameManager.COUNTRY_CATEGORY | GameManager.GRAMMAR_CATEGORY
+		LobbyOptions["categories"] = GameManager.WORD_CATEGORY | GameManager.VERB_CATEGORY | GameManager.COUNTRY_CATEGORY | GameManager.GRAMMAR_CATEGORY | GameManager.GAMING_CATEGORY
 		LobbyOptions["round_timer"] = 30
 		LobbyOptions["similarity_threshold"] = 1
 	
@@ -76,6 +78,7 @@ func startGame() -> void:
 	CURRENT_WORD_INDEX = -1
 	CURRENT_COUNTRY_INDEX = -1
 	CURRENT_GRAMMAR_INDEX = -1
+	CURRENT_GAMING_INDEX = -1
 	
 	var questionTypes : PackedByteArray = []
 	var maxAvailableQuestions : int = 0
@@ -110,6 +113,13 @@ func startGame() -> void:
 		RANDOMIZED_GRAMMAR.shuffle()
 		questionTypes.push_back(GameManager.GRAMMAR_CATEGORY)
 		maxAvailableQuestions += RANDOMIZED_GRAMMAR.size()
+		
+	if LobbyOptions["categories"] & GameManager.GAMING_CATEGORY:
+		CURRENT_GAMING_INDEX = 0
+		RANDOMIZED_GAMING = WordManager.GAMING
+		RANDOMIZED_GAMING.shuffle()
+		questionTypes.push_back(GameManager.GAMING_CATEGORY)
+		maxAvailableQuestions += RANDOMIZED_GAMING.size()
 	
 	LobbyOptions["max_words"] = min(LobbyOptions["max_words"], maxAvailableQuestions)
 	
@@ -118,6 +128,7 @@ func startGame() -> void:
 	questionTypeMaxAmounts[GameManager.VERB_CATEGORY] = RANDOMIZED_VERBS.size()
 	questionTypeMaxAmounts[GameManager.COUNTRY_CATEGORY] = RANDOMIZED_COUNTRIES.size()
 	questionTypeMaxAmounts[GameManager.GRAMMAR_CATEGORY] = RANDOMIZED_GRAMMAR.size()
+	questionTypeMaxAmounts[GameManager.GAMING_CATEGORY] = RANDOMIZED_GAMING.size()
 		
 	# make question type order
 	var questionTypeAmounts : Dictionary[int, int]
@@ -177,6 +188,9 @@ func update_word() -> void:
 		GameManager.GRAMMAR_CATEGORY:
 			%GameMenu.setWord(RANDOMIZED_GRAMMAR[CURRENT_GRAMMAR_INDEX])
 			CURRENT_GRAMMAR_INDEX += 1
+		GameManager.GAMING_CATEGORY:
+			%GameMenu.setWord(RANDOMIZED_GAMING[CURRENT_GAMING_INDEX])
+			CURRENT_GAMING_INDEX += 1
 			
 	word_changed.emit()
 
